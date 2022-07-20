@@ -27,45 +27,60 @@
     }
 </script>
 
-
-<h1 class="font-bold text-3xl text-center">Order #{order_id}</h1>
-
 {#if !loading}
-    {#if order_details.status === 0}
-        <div class="badge justify-self-end text-xl">Waiting for confirmation</div>
-    {:else if order_details.status === 1}
-        <div class="badge badge-primary text-xl">Confirmed</div>
-    {:else if order_details.status === 2}
-        <div class="badge badge-secondary text-xl">Shipped to address</div>
-    {:else if order_details.status === 3}
-        <div class="badge badge-accent text-xl p-4 outline outline-black outline-1">Collected</div>
-    {/if}
-    <div class="grid justify-start">
-        <p>Date Ordered: {convertDate(order_details.created_at)}</p>
-        <br>
-        <p class="text-xl font-bold">Payment Details:</p>
-        <p>ID: #{order_details.Payment_Details[0].id}</p>
-        <p>Provider: {order_details.Payment_Details[0].provider}</p>
-        <br>
-        <p class="text-xl font-bold">Items:</p>
-            {#each items as item}
-            <Link to="/product/{item.Product.id}">
-                <div class="grid grid-cols-3 bg-primary-content my-3 rounded-xl shadow-xl outline outline-1 outline-line outline-black gap-2 place-items-center p-2">
-                    <img src="/product_images/image.jpg" alt="{item.Product.name} - image" width="100" height="100" class="rounded-md pr-3">
-                    <p class="text-">{item.Product.name}</p>
-                    <p>R {item.Product.price}</p>
-                </div>
-            </Link>
-            {/each}
-        <p class="text-lg">Subtotal: R{order_details.subtotal}</p>
-        <p class="text-lg">Shipping: R{order_details.shipping_price}</p>
-        <p class="font-bold text-lg">Total: R{order_details.total}</p> 
-        <br>
-        <p class="text-xl font-bold">Shipped to:</p>
-        <p>{order_details.shipping_address}</p>
-
-        <button class="btn btn-warning rounded-md" on:click={()=>window.location.href = "/customer"}>Back</button>
+<h1 class="font-bold text-3xl text-center pb-3">Order #{order_id} | {convertDate(order_details.created_at)}</h1>
+<div class="grid gap-4 grid-cols-1">
+    <div>
+        <table class="table w-full mx-auto tablet:w-9/12 outline outline-1 outline-black rounded-md">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#each items as item}
+                    <tr>
+                        <td>{item.Product.name}</td>
+                        <td>{item.Product.price}</td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
     </div>
+
+    <div class="col-start-1 mx-auto">
+        <div class="grid gap-2">
+            <p class="font-bold text-xl">Details:</p>
+            <div class="grid p-3 outline outline-1 outline-black">
+                <p>Status: 
+                    <span>
+                        {#if order_details.status === 0}
+                            <div class="badge">Waiting for confirmation</div>
+                        {:else if order_details.status === 1}
+                            <div class="badge badge-primary">Confirmed</div>
+                        {:else if order_details.status === 2}
+                            <div class="badge badge-secondary">Shipped to address</div>
+                        {:else if order_details.status === 3}
+                            <div class="badge badge-accent outline outline-black outline-1">Collected</div>
+                        {/if}
+                    </span>
+                </p>
+                <p>Payment Service: {order_details.Payment_Details[0].provider}</p>
+                <p>Shipped to: {order_details.shipping_address}</p>
+
+                <div class="grid pt-3">
+                    <p class="text-lg">Subtotal: R{order_details.subtotal}</p>
+                    <p class="text-lg">Shipping: R{order_details.shipping_price}</p>
+                    <p class="font-bold text-lg">Total: R{order_details.total}</p> 
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="btn btn-warning rounded-md col-span-2 w-4/12 justify-self-center" on:click={()=>window.location.href = "/customer"}>Back</button>
+</div>
+    
 {:else}
     <p>Loading ....</p>
 {/if}
