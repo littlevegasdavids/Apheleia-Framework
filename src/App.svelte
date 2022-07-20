@@ -21,9 +21,8 @@
     import ChangeCustomerPassword from './Components/Customer/ChangePassword.svelte'
 </script>
 <Router>
-<div class="max-w-6xl mx-auto">
-<NavBar />
-<div class="pt-5 pb-20">
+<div class="max-w-7xl mx-auto bg-base-200 min-h-screen">
+    <NavBar />
     <div class="mt-5 mx-3 tablet:mx-6">
         <Route path="/">
             <Transition url={'/'}>
@@ -41,7 +40,7 @@
                 <ProductsPage />
             </Transition>
         </Route>
-    
+
         <Route path="/cart">
             <Transition url={"/cart"}>
                 <CartPage />
@@ -139,7 +138,6 @@
         </Route>
 
     </div>
-</div>
 </div>
 
 </Router>

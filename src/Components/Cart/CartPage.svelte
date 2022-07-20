@@ -22,7 +22,7 @@
 
 </script>
 
-<p class="text-2xl font-bold text-center pb-5 underline underline-offset-8 tablet:text-4xl">Shopping Cart</p>
+<p class="text-2xl font-bold text-center pb-5 underline underline-offset-8 tablet:text-4xl">Shopping Cart<i class="fa-solid fa-cart-shopping pl-2"></i></p>
     
 {#if items != null}
     {#if items.length != 0}

@@ -30,7 +30,7 @@
 
 {#if !loading}
     <div class="grid grid-cols-1">
-        <p class="font-bold text-center text-3xl tablet:text-4xl">Hello {name}</p>
+        <p class="font-bold text-center underline underline-offset-8 text-3xl tablet:text-4xl">Hello {name}<i class="fa-solid fa-user pl-3"></i></p>
 
         <div class="grid gap-4 tablet:gap-10 tablet:w-10/12 tablet:mx-auto browser:w-9/12">
             <div class="grid gap-4">

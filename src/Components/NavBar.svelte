@@ -17,7 +17,7 @@
     
 </script>
 
-<div class="navbar bg-base-200">
+<div class="navbar bg-base-300 shadow-2xl rounded-xl tablet:w-11/12 tablet:mx-auto">
     <div class="flex-1">
         <Link to="/">
             <img src="/favicon.png" alt="App Logo" width="60" heigh="60"/>
