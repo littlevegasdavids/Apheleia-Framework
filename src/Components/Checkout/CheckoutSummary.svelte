@@ -37,8 +37,8 @@
 {#if address === null || items === null || session === null}
     <p>Loading ...</p>
 {:else}
-<h1 class="font-bold text-2xl text-center pb-5 tablet:text-4xl">Checkout Summary</h1>
-    <div class="grid gap-4 browser:grid-cols-2">
+<h1 class="font-bold text-2xl text-center pb-5 underline underline-offset-8 tablet:text-4xl">Checkout Summary</h1>
+    <div class="grid gap-4 bg-primary-content p-5 outline outline-1 outline-black rounded-lg tablet:w-9/12 tablet:mx-auto">
         <div class="tablet:hidden grid justify-items-center">
             <CartItemsMobile items={items} />
         </div>
@@ -46,20 +46,20 @@
         <div class="hidden tablet:grid tablet:justify-items-center">
             <CartItems items={items} />
         </div>
-
-        <div class="grid gap-4">
-            <p class="font-bold text-center">Deliver to: <br>{addressToString(address)}</p>
-            <div class="py-3 text-xl text-center">
+        
+        <div class="grid">
+            <p class="font-bold text-center tablet:text-xl">Shipping Address: {addressToString(address)}</p>
+            <div class="py-3 text-xl text-center tablet:text-2xl">
                 <p>Shipping fee: R100</p>
                 <p>Subtotal: R{session.total}</p>
                 <p class="font-bold">Total: R{total}</p>
             </div>
-            <Yoco total={total * 100} items={items} subtotal={session.total} shipping_price={100} shipping_address={addressToString(address)}/>
-            <button class="btn btn-primary rounded-md" on:click={()=>window.location.href = "/checkout"}>Select different address<i class="fa-solid fa-pen-to-square fa-lg pl-2"></i></button>
-            <button class="btn btn-secondary rounded-md" on:click={()=>window.location.href = "/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
-        </div>
-        
-        
-        
+            <div class="grid gap-4 tablet:w-8/12 tablet:mx-auto">
+                <Yoco total={total * 100} items={items} subtotal={session.total} shipping_price={100} shipping_address={addressToString(address)}/>
+                <button class="btn btn-primary rounded-md" on:click={()=>window.location.href = "/checkout"}>Select different address<i class="fa-solid fa-pen-to-square fa-lg pl-2"></i></button>
+                <button class="btn btn-secondary rounded-md" on:click={()=>window.location.href = "/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
+            </div>
+            
+        </div>  
     </div>
 {/if}

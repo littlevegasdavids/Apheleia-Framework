@@ -42,7 +42,7 @@
 {#if loading}
     <p>Loading Product</p>
 {:else}
-    <div class="grid bg-primary-content p-4 rounded-3xl shadow-2xl gap-4 text-center browser:grid-cols-2">
+    <div class="grid bg-primary-content p-4 rounded-3xl shadow-2xl gap-4 text-center outline outline-1 outline-black browser:grid-cols-2">
         <div class="grid justify-items-center browser:">
             <a href="/product_images/image.jpg" target="__blank" class="">
                 <img src="/product_images/image.jpg" alt="{product.name} - image" class="rounded-xl"/>

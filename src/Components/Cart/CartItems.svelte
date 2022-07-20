@@ -6,7 +6,7 @@
     }
 </script>
 
-<table class="table outline outline-black outline-1 w-11/12 col-span-2 tablet:text-xl">
+<table class="table outline outline-black outline-1 min-w-fit tablet:text-xl">
     <thead>
         <tr>
             <th></th>

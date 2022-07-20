@@ -4,7 +4,7 @@
 </script>
 
 <div class="grid gap-10">
-    <h1 class="font-bold text-3xl text-center">Welcome to App Heading</h1>
+    <h1 class="font-bold text-3xl text-center underline underline-offset-4 tablet:text-4xl browser:text-6xl">Welcome to App Heading</h1>
     <div class="grid justify-items-center">
         <img src="/main_banner.jpg" alt="banner"/>
     </div>
