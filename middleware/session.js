@@ -1,0 +1,96 @@
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
+const prisma = require('../prisma/client')
+const { v4: uuidv4 } = require('uuid')
+const logger = require('../helpers/logger')
+const secrete = process.env.TOKEN_SECRETE
+
+// Used to generate JWT token and cookie if not found
+// Generates a new shopping session as well
+async function checkSession(req, res, next){
+    try{
+        const authCookie = req.cookies.authCookie
+        // First time visiting
+        if(authCookie === undefined){
+            const session = await prisma.shopping_Session.create({data:{id: uuidv4()}})
+            const token = createGuestToken(session.id)
+            res.cookie('authCookie', token)
+            req.session_id = session.id
+            req.registered = false
+            req.customer_id = null
+            next()
+        }
+        else{
+            jwt.verify(authCookie, secrete, async (err, data)=>{
+                if(err){
+                    logger.error(`Error encountered verifying JWT token: ${err.message}`)
+                    return res.status(500).send("Please contact website admin about token verification")
+                }
+                
+                const session_id = data.session_id
+                const registered = data.registered
+                const customer_id = data.customer_id
+
+                const shopping_session = await prisma.shopping_Session.findUnique({
+                    where:{
+                        id: session_id
+                    }
+                })
+
+                // Session no longer available and must create new one for user
+                if(shopping_session === null){
+                    // Guest User
+                    if(!registered){
+                        const new_session = await prisma.shopping_Session.create({data:{
+                            id: uuidv4()
+                        }})
+                        const token = createGuestToken(new_session.id)
+                        res.cookie('authCookie', token)
+                        req.session_id = new_session.id
+                        req.registered = false
+                        req.customer_id = null
+                        next()
+                    }
+                    // Registered user
+                    else{
+                        const new_session = await prisma.shopping_Session.create({
+                            data:{
+                                id: uuidv4(),
+                                customer_id: customer_id
+                            }
+                        })
+                        const token = createRegisteredToken(new_session.id, customer_id)
+                        res.cookie('authCookie', token)
+                        req.session_id = new_session.id
+                        req.registered = true
+                        req.customer_id = customer_id
+                        next()
+                    }   
+                }
+                // Session is still alive
+                else{
+                    req.session_id = session_id
+                    req.registered = registered
+                    req.customer_id = customer_id
+                    next()
+                }
+                
+            })
+            
+        }
+    }
+    catch(err){
+        logger.error(`Error creating session: ${err.message}`)
+        return res.status(500).send('Something went wrong creating a session')
+    }
+}
+
+function createGuestToken(session_id){
+    return jwt.sign({session_id: session_id, registered: false, customer_id: null}, secrete)
+}
+
+function createRegisteredToken(session_id, customer_id){
+    return jwt.sign({session_id: session_id, registered: true, customer_id: customer_id}, secrete)
+}
+
+module.exports = {checkSession, createRegisteredToken}

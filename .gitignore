@@ -1,0 +1,9 @@
+node_modules
+public
+.DS_Store
+prisma/migrations
+prisma/schema.prisma
+.env
+.env.test
+*.txt
+logs

@@ -1,0 +1,48 @@
+{
+  "name": "apheleia-framework",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "docker:up": "sudo docker-compose up -d",
+    "migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "test": "dotenv -e .env.test -- jest -i",
+    "docker:down": "sudo docker-compose down",
+    "migrate:generate": "dotenv -e .env.test -- npx prisma migrate dev --create-only",
+    "build": "concurrently \"npx tailwindcss -i ./src/input.css -o ./public/global.css\" \"rollup -c\" ",
+    "dev": "concurrently \"rollup -c -w \" \"npx tailwindcss -i ./src/input.css -o ./public/global.css --watch\"",
+    "server:start": "nodemon server.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0",
+    "tailwindcss": "^3.1.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.0.0",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "concurrently": "^7.2.2",
+    "cookie-parser": "^1.4.6",
+    "daisyui": "^2.17.0",
+    "dotenv": "^16.0.1",
+    "dotenv-cli": "^5.1.0",
+    "email-validator": "^2.0.4",
+    "express": "^4.18.1",
+    "googleapis": "^105.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.7.7",
+    "nodemon": "^2.0.18",
+    "password-checker": "^0.2.4",
+    "prisma": "^4.0.0",
+    "sirv-cli": "^2.0.0",
+    "svelte-routing": "^1.6.0",
+    "uuid": "^8.3.2",
+    "winston": "^3.8.0"
+  }
+}
