@@ -24,23 +24,22 @@
     })
 </script>
 
-<h1 class="font-bold text-xl text-center">Check out page</h1>
+<h1 class="font-bold text-2xl text-center pb-3 tablet:text-4xl">Select your shipping address</h1>
 
 {#if login === null}
     <p>Loading ....</p>
 {:else if login}
-    {#if addresses.length != 0}
-    <div class="grid grid-cols-2 gap-4">
-        <p>Select Address to Deliver to</p>
-        <button class="btn btn-secondary rounded-md" on:click={()=>window.location.href = "/addAddressCheckout"}>Add new Address</button>
+
+    <div class="grid gap-4">
+        {#each addresses as address}
+            <AddressBlock address = {address} />
+        {:else}
+            <AddAddress />
+        {/each}
+        {#if addresses.length != 0}
+            <button class="btn btn-secondary rounded-md justify-self-center" on:click={()=>window.location.href = "/addAddressCheckout"}>Add new Address</button>
+        {/if}
     </div>
-        
-    {/if}
-    {#each addresses as address}
-        <AddressBlock address = {address} />
-    {:else}
-        <AddAddress />
-    {/each}
 {:else if !login}
     <LoginForm />
 {/if}

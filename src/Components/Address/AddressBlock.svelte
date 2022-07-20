@@ -14,8 +14,7 @@
 </script>
 
 <div class="bg-primary-content outline outline-black outline-1 grid grid-rows-2 p-3 rounded-lg">
-    <p>{address.street_address}</p>
-    <p>{address.suburb}, {address.city}, {address.postal_code}</p>
+    <p class="font-bold">{address.street_address}, {address.suburb}, {address.city}, {address.postal_code}</p>
     {#if windowLocation === "/checkout"}
         <div class="grid grid-cols-3 gap-4 mt-2">
             <button class="btn btn-primary rounded-md btn-sm" on:click={()=>window.location.href=`/checkoutSummary/${address.id}`}>Select<i class="fa-solid fa-check pl-2"></i></button>

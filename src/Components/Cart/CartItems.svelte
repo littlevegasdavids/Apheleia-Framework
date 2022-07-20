@@ -6,7 +6,7 @@
     }
 </script>
 
-<table class="table outline outline-black outline-1 w-11/12 col-span-2 tablet:text-xl browser:text-2xl">
+<table class="table outline outline-black outline-1 w-11/12 col-span-2 tablet:text-xl">
     <thead>
         <tr>
             <th></th>
@@ -19,7 +19,7 @@
         {#each items as item}
         <tr>
             <td on:click={goToProductPage(item.Product.id)}>
-                <img src="/product_images/image.jpg" alt="{item.name} - image" height="125" width="125"/>
+                <img src="/product_images/image.jpg" alt="{item.name} - image" height="100" width="100"/>
             </td>
             <td on:click={goToProductPage(item.Product.id)}>
                 {item.Product.name}
