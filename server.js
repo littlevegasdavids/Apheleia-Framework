@@ -77,6 +77,42 @@ app.get('/customer', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
+app.get('/customer/changeName/:id', (req, res)=>{
+    const id = parseInt(req.params['id'])
+
+    if(isNaN(id)){
+        return res.status(400).send('Invalid ID')
+    }
+
+    if(!req.registered){
+        return res.redirect('/login')
+    }
+
+    if(req.customer_id != id){
+        return res.status(401).send('Not allowed')
+    }
+
+    return res.sendFile(__dirname + "/public/index.html")
+})
+
+app.get('/customer/changePassword/:id', (req, res)=>{
+    const id = parseInt(req.params['id'])
+
+    if(isNaN(id)){
+        return res.status(400).send('Invalid ID')
+    }
+
+    if(!req.registered){
+        return res.redirect('/login')
+    }
+
+    if(req.customer_id != id){
+        return res.status(401).send('Not allowed')
+    }
+
+    return res.sendFile(__dirname + "/public/index.html")
+})
+
 app.get('/editAddress/:id', async (req, res)=>{
     const address_id = parseInt(req.params['id'])
     if(isNaN(address_id)){
@@ -226,14 +262,12 @@ app.get('/reset-password/:id/:token', async (req, res)=>{
     }
 
     const secrete = process.env.TOKEN_PASSWORD_SECRETE + customer.password
-    try{
-        const payload = jwt.verify(token, secrete)
+    jwt.verify(token, secrete, (err, data)=>{
+        if(err){
+            return res.status(401).send('Link has timed out')
+        }
         return res.sendFile(__dirname + "/public/index.html")  
-    }
-    catch(err){
-        logger.error(err.message)
-        return res.status(500).send('Server error')
-    }
+    })
 })
 
 setInterval(async()=>{

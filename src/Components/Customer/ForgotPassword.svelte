@@ -16,6 +16,9 @@
         const result = await res.json()
         if(result.success){
             showSuccess = true
+            setTimeout(() => {
+                window.location.href = "/login"
+            }, 5000);
         }
         else{
             errorMessage = result.message

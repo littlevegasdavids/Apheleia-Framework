@@ -17,6 +17,8 @@
     import CheckoutSummary from "./Components/Checkout/CheckoutSummary.svelte"; 
     import ForgotPassword from './Components/Customer/ForgotPassword.svelte'
     import ResetPassword from './Components/Customer/ResetPassword.svelte' 
+    import ChangeCustomerName from './Components/Customer/ChangeName.svelte'
+    import ChangeCustomerPassword from './Components/Customer/ChangePassword.svelte'
 </script>
 <Router>
 <div class="max-w-6xl mx-auto">
@@ -61,6 +63,18 @@
         <Route path="/customer">
             <Transition url={"/customer"}>
                 <CustomerPage />
+            </Transition>
+        </Route>
+
+        <Route path="/customer/changeName/:id" let:params>
+            <Transition url={`/customer/changeName/${params.id}`}>
+                <ChangeCustomerName customer_id={params.id} />
+            </Transition>
+        </Route>
+
+        <Route path="/customer/changePassword/:id" let:params>
+            <Transition url={`/customer/changeName/${params.id}`}>
+                <ChangeCustomerPassword customer_id={params.id} />
             </Transition>
         </Route>
 
@@ -123,7 +137,7 @@
                 <ResetPassword customer_id={params.id} />
             </Transition>
         </Route>
-        
+
     </div>
 </div>
 </div>

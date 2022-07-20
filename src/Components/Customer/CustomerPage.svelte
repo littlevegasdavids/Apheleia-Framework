@@ -5,6 +5,7 @@
     let loading = true
     let name
     let addresses
+    let customer_id
 
     let orders
 
@@ -13,6 +14,7 @@
         const result = await res.json()
         if(result.success){
             name = result.message.customer.name
+            customer_id = result.message.customer.id
             addresses = result.message.customer.Customer_Address
             orders = result.message.customer.Order_Details
             
@@ -54,7 +56,9 @@
             
         </div>
         
-        <div class="grid grid-cols-1 justify-center">
+        <div class="grid grid-cols-1 justify-center gap-4">
+            <button class="btn btn-secondary rounded-md" on:click={()=>window.location.href = `/customer/changePassword/${customer_id}`}>Change Password</button> 
+            <button class="btn rounded-md" on:click={()=>window.location.href = `/customer/changeName/${customer_id}`}>Change Name</button>
             <button class="btn btn-error rounded-md" on:click={()=>window.location.href = "/api/customer/logout"}>Logout</button> 
         </div>
     </div>

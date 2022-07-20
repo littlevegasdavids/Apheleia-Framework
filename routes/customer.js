@@ -139,17 +139,11 @@ router.patch('/name/:id', async(req, res)=>{
 // Change Customer Password
 router.patch('/password/:id', async (req, res)=>{
     const id = parseInt(req.params['id'])
-    const password = req.body.password
+    const newPassword = req.body.newPassword
+    const oldPassword = req.body.oldPassword
 
     if(isNaN(id)){
         return res.status(400).json({success: false, message:"Invalid id"})
-    }
-    
-    if(password === undefined){
-        return res.status(400).json({success: false, message: 'Missing password in req body'})
-    }
-    if(!checkPassword(password)){
-        return res.status(401).json({success: false, message: 'Password does not pass requirements (Must be length of 8, have numbers and letters)'})
     }
 
     const temp = await prisma.customer.findUnique({
@@ -161,8 +155,22 @@ router.patch('/password/:id', async (req, res)=>{
     if(temp === null){
         return res.status(404).json({success: false, message: `Customer does not exist with id: ${temp.id}`})
     }
+    
+    const passRes = await comparePassword(oldPassword, temp.password)
 
-    const hash = await generateHash(password)
+    if(!passRes){
+        return res.status(400).json({success: false, message: "Old password is incorrect"})
+    }
+
+    if(newPassword === undefined){
+        return res.status(400).json({success: false, message: 'Missing password in req body'})
+    }
+    if(!checkPassword(newPassword)){
+        return res.status(400).json({success: false, message: 'Password does not pass requirements (Must be length of 8, have numbers and letters)'})
+    }
+
+
+    const hash = await generateHash(newPassword)
 
     await prisma.customer.update({
         where:{
@@ -178,7 +186,51 @@ router.patch('/password/:id', async (req, res)=>{
     return res.status(200).json({success: true, message: `Successfully update customer password id: ${id}`})
 
 })
- 
+
+// Change Customer Password when using forgot-password
+router.patch('/reset-password/:id', async(req, res)=>{
+    const id = parseInt(req.params['id'])
+    const password = req.body.password
+
+    if(isNaN(id)){
+        return res.status(400).json({success: false, message:"Invalid id"})
+    }
+
+    const temp = await prisma.customer.findUnique({
+        where:{
+            id: id
+        }
+    })
+
+    if(temp === null){
+        return res.status(404).json({success: false, message: `Customer does not exist with id: ${temp.id}`})
+    }
+
+    if(password === undefined){
+        return res.status(400).json({success: false, message: 'Missing password in req body'})
+    }
+
+    if(!checkPassword(password)){
+        return res.status(400).json({success: false, message: 'Password does not pass requirements (Must be length of 8, have numbers and letters)'})
+    }
+
+    const hash = await generateHash(password)
+
+    await prisma.customer.update({
+        where:{
+            id: id
+        },
+        data:{
+            password: hash
+        }
+    })
+
+    logger.info(`Customer API -- Changed Password Reset: ${id}`)
+
+    return res.status(200).json({success: true, message: `Successfully update customer password id: ${id}`})
+})
+
+
 // *** Delete ***
 // Delete Customer
 router.delete('/:id', async (req, res)=>{
@@ -305,12 +357,11 @@ router.post('/forgot-password', async (req, res)=>{
             email: email
         }
     })
-    // User exists and now creating one time link for 15 mins
+    // User exists and now creating one time link for 5 mins
     if(customer != null){
         const secrete = process.env.TOKEN_PASSWORD_SECRETE + customer.password
-        const pass_token = jwt.sign({email: customer.email, id: customer.id}, secrete, {expiresIn: '15m'})
+        const pass_token = jwt.sign({email: customer.email, id: customer.id}, secrete, {expiresIn: '5m'})
         const link = `http://localhost:9000/reset-password/${customer.id}/${pass_token}`
-        logger.info(`Customer API -- Sent forgot password email id: ${req.customer_id}`)
         // Send email to user
         sendForgotPassword(email, link)
     }

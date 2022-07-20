@@ -1,19 +1,33 @@
 <script>
     export let customer_id
-    let password
-    let confirmPassword
+    let password = ""
+    let confirmPassword = ""
     let showError = false
     let errorMessage = ""
     let showSuccess = false
 
     async function resetPassword(){
+        errorMessage = ""
+        showError = false
+        if(password === "" || password.match(/^ *$/)){
+            errorMessage = "Password input field cannot be empty"
+            showError = true
+            return
+        }
+
+        if(confirmPassword === "" || confirmPassword.match(/^ *$/)){
+            errorMessage = "Confirm password input field cannot be empty"
+            showError = true
+            return
+        }
+
         if(password != confirmPassword){
             errorMessage = "Passwords do not match"
             showError = true
             return
         }
         else{
-            const res = await fetch(`/api/customer/password/${customer_id}`, {
+            const res = await fetch(`/api/customer/reset-password/${customer_id}`, {
                 method: 'PATCH', 
                 headers: {
                     'Accept': 'application/json', 
