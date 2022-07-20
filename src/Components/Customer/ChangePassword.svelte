@@ -41,33 +41,35 @@
             disbaleBtn = false
             return
         }
-
-        const res = await fetch(`/api/customer/password/${customer_id}`, {
-            method: 'PATCH', 
-            headers: {
-                'Accept': 'application/json', 
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                newPassword: newPassword, 
-                oldPassword: oldPassword
+        if(confirm('Are you sure you want to save the changes ?')){
+            const res = await fetch(`/api/customer/password/${customer_id}`, {
+                method: 'PATCH', 
+                headers: {
+                    'Accept': 'application/json', 
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    newPassword: newPassword, 
+                    oldPassword: oldPassword
+                })
             })
-        })
 
-        const result = await res.json()
+            const result = await res.json()
 
-        if(result.success){
-            showSuccess = true
-            setTimeout(() => {
-                window.location.href = "/customer"
-            }, 5000);
+            if(result.success){
+                showSuccess = true
+                setTimeout(() => {
+                    window.location.href = "/customer"
+                }, 5000);
+            }
+            else{
+                errorMessage = result.message
+                showError = true
+                disbaleBtn = false
+                return
+            }
         }
-        else{
-            errorMessage = result.message
-            showError = true
-            disbaleBtn = false
-            return
-        }
+        
 
     }
 </script>

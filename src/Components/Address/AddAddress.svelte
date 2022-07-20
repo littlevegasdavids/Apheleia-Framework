@@ -13,6 +13,7 @@
     let country = ""
 
     async function addAddress(){
+        showError = false
         if(street_address === "" || street_address.match(/^ *$/)){
             errorMessage = "Street Address cannot be empty"
             showError = true

@@ -5,6 +5,7 @@
     let errorMessage = ""
 
     async function changeName(){
+        showError = false
         if(newName === "" || newName.match(/^ *$/)){
             errorMessage = "Name cannot be empty"
             showError = true
@@ -17,7 +18,8 @@
             return
         }
         
-        const res = await fetch(`/api/customer/name/${customer_id}`, {
+        if(confirm('Are you sure you want to save changes ?')){
+            const res = await fetch(`/api/customer/name/${customer_id}`, {
             method: 'PATCH', 
             headers: {
                 'Accept': 'application/json', 
@@ -28,15 +30,18 @@
             })
         })
 
-        const result = await res.json()
+            const result = await res.json()
 
-        if(result.success){
-            window.location.href = "/customer"
+            if(result.success){
+                window.location.href = "/customer"
+            }
+            else{
+                errorMessage = "Something went wrong. Please contact the admin of the website"
+                showError = true
+            }
         }
-        else{
-            errorMessage = "Something went wrong. Please contact the admin of the website"
-            showError = true
-        }
+
+        
     }
 </script>
 

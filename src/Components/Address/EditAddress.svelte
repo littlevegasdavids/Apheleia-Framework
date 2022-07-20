@@ -20,6 +20,7 @@
     })
 
     async function saveAddress(){
+        showError = false
         let street_address = document.getElementById('street_address').value
         if(street_address === "" || street_address.match(/^ *$/)){
             errorMessage = "Street Address cannot be empty"
