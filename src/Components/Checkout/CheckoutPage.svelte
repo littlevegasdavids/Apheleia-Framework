@@ -24,13 +24,16 @@
     })
 </script>
 
-<h1 class="font-bold text-2xl text-center pb-6 underline underline-offset-8 tablet:text-4xl">Select your shipping address</h1>
 
 {#if login === null}
     <p>Loading ....</p>
 {:else if login}
+    <div class="divide-y divide-solid pb-5">
+        <h1 class="font-bold text-2xl text-center pb-6 underline underline-offset-8 tablet:text-4xl">Select your shipping address</h1>
+        <p></p>
+    </div>
 
-<div class="grid gap-4 tablet:gap-6 tablet:w-9/12 tablet:mx-auto">
+    <div class="grid gap-4 tablet:gap-6 tablet:w-9/12 tablet:mx-auto">
     {#each addresses as address}
         <AddressBlock address = {address} />
     {:else}
@@ -41,7 +44,6 @@
     {/if}
 </div>
 
-    
 {:else if !login}
     <LoginForm />
 {/if}

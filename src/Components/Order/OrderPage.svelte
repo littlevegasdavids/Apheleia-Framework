@@ -28,12 +28,17 @@
 </script>
 
 {#if !loading}
-<h1 class="font-bold text-3xl text-center pb-3">Order #{order_id} | {convertDate(order_details.created_at)}</h1>
+<div class="divide-y divide-solid">
+    <h1 class="font-bold text-3xl text-center pb-5">Order #{order_id} | {convertDate(order_details.created_at)}</h1>
+    <p class="pb-5"></p>
+</div>
+
 <div class="grid gap-4 grid-cols-1">
-    <div>
-        <table class="table w-full mx-auto tablet:w-9/12 outline outline-1 outline-black rounded-md">
+    <div class="divide-y divide-solid">
+        <table class="table w-full text-lg mx-auto tablet:w-9/12 outline outline-1 outline-black rounded-md">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>Price</th>
                 </tr>
@@ -41,12 +46,16 @@
             <tbody>
                 {#each items as item}
                     <tr>
+                        <td>
+                            <img src="/product_images/image.jpg" alt="{item.Product.name} - image" height="90" width="90"/>
+                        </td>
                         <td>{item.Product.name}</td>
                         <td>{item.Product.price}</td>
                     </tr>
                 {/each}
             </tbody>
         </table>
+        <p class="mt-5"></p>
     </div>
 
     <div class="col-start-1 mx-auto">
