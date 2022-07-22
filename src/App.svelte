@@ -22,8 +22,11 @@
 </script>
 <Router>
 <div class = "bg-base-200">
-    <div class="max-w-7xl bg-base-100 shadow-xl mx-auto min-h-screen">
-        <NavBar />
+    <div class="max-w-7xl bg-base-100 shadow-2xl mx-auto min-h-screen">
+        <div class="pt-3 sticky top-0">
+            <NavBar />
+        </div>
+        
         <div class="mt-5 mx-3 tablet:mx-6">
             <Route path="/">
                 <Transition url={'/'}>
