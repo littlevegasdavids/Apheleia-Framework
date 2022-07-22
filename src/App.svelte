@@ -22,7 +22,7 @@
 </script>
 <Router>
 <div class = "bg-base-200">
-    <div class="max-w-7xl bg-base-100 mx-auto min-h-screen">
+    <div class="max-w-7xl bg-base-100 shadow-xl mx-auto min-h-screen">
         <NavBar />
         <div class="mt-5 mx-3 tablet:mx-6">
             <Route path="/">
