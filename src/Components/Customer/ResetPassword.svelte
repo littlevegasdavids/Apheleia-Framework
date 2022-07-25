@@ -57,19 +57,24 @@
     
     <div>
         <p class="pb-1 tablet:text-xl">New Password</p>
-        <input class="input outline outline-1 outline-black" type="password" bind:value={password}/>
+        <input class="input outline outline-1 outline-black tablet:input-lg" type="password" bind:value={password}/>
     </div>
 
     <div>
         <p class="pb-1 tablet:text-xl">Confirm Password</p>
-        <input class="input outline outline-1 outline-black" type="password" bind:value={confirmPassword}/>
+        <input class="input outline outline-1 outline-black tablet:input-lg" type="password" bind:value={confirmPassword}/>
     </div>
     
     
     {#if showError}
         <p class="text-red-600 font-bold">{errorMessage}</p>
     {/if}
-    <button class="btn btn-primary rounded-md" on:click={resetPassword}>Reset Password</button>
+    <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
+        <button class="btn btn-primary rounded-md" on:click={resetPassword}>Reset Password</button>
+        <button class="btn btn-warning rounded-md" on:click={()=>window.location.href = "/login"}>Cancel</button>
+    </div>
+    
+    
     {#if showSuccess}
         <p>Password Successfully changed. Redirecting in 5s</p>
     {/if}
