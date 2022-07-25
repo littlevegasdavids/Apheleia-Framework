@@ -86,32 +86,36 @@
 {#if loading}
     <p class="font-bold text-center">Loading ...</p>
 {:else}
-    <div class="grid grid-cols-1 justify-items-center">
-        <p class="font-bold text-3xl">Edit Address</p>
-        <div class="outline outline-1 outline-black p-6 grid grid-cols-1 gap-4">
+    <div class="grid grid-cols-1 justify-items-center max-w-screen-tablet mx-auto">
+        <div class="divide-y divide-solid w-full">
+            <p class="font-bold text-3xl text-center pb-5 underline underline-offset-8 tablet:text-4xl">Edit Address</p>
+            <p></p>
+        </div>
+        
+        <div class="p-6 grid grid-cols-1 gap-4 min-w-full justify-items-center">
             <div>
                 <p>Street Address</p>
-                <input id="street_address" type="text" class="input input-bordered" value={address.street_address}/>
+                <input id="street_address" type="text" class="input input-bordered tablet:input-lg" value={address.street_address}/>
             </div>
             
             <div>
                 <p>Suburb</p>
-                <input id="suburb" type="text" class="input input-bordered" value={address.suburb}/>
+                <input id="suburb" type="text" class="input input-bordered tablet:input-lg" value={address.suburb}/>
             </div>
 
             <div>
                 <p>City/Town</p>
-                <input id="city" type="text" class="input input-bordered" value={address.city}/>
+                <input id="city" type="text" class="input input-bordered tablet:input-lg" value={address.city}/>
             </div>
 
             <div>
                 <p>Postal Code</p>
-                <input id="postal_code" type="number" class="input input-bordered" value={address.postal_code}/>
+                <input id="postal_code" type="number" class="input input-bordered tablet:input-lg" value={address.postal_code}/>
             </div>
 
             <div>
                 <p>Country</p>
-                <select id="country" class="select select-bordered">
+                <select id="country" class="select select-bordered tablet:select-lg">
                     {#each $countries as country}
                         {#if address.country === country}
                             <option selected>{country}</option>
@@ -124,8 +128,11 @@
             {#if showError}
                 <p class="text-center text-red-600">{errorMessage}</p>
             {/if}
-            <button class="btn btn-success rounded-md" on:click={saveAddress}>Save</button>
-            <button class="btn btn-warning rounded-md" on:click={()=>window.location.href="/customer"}>Cancel</button>
+            <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
+                <button class="btn btn-success rounded-md" on:click={saveAddress}>Save</button>
+                <button class="btn btn-warning rounded-md" on:click={()=>window.location.href="/customer"}>Cancel</button>
+            </div>
+            
 
         </div>
     </div>
