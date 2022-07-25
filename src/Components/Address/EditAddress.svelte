@@ -94,27 +94,27 @@
         
         <div class="p-6 grid grid-cols-1 gap-4 min-w-full justify-items-center">
             <div>
-                <p>Street Address</p>
+                <p class="tablet:text-xl">Street Address</p>
                 <input id="street_address" type="text" class="input input-bordered tablet:input-lg" value={address.street_address}/>
             </div>
             
             <div>
-                <p>Suburb</p>
+                <p class="tablet:text-xl">Suburb</p>
                 <input id="suburb" type="text" class="input input-bordered tablet:input-lg" value={address.suburb}/>
             </div>
 
             <div>
-                <p>City/Town</p>
+                <p class="tablet:text-xl">City/Town</p>
                 <input id="city" type="text" class="input input-bordered tablet:input-lg" value={address.city}/>
             </div>
 
             <div>
-                <p>Postal Code</p>
+                <p class="tablet:text-xl">Postal Code</p>
                 <input id="postal_code" type="number" class="input input-bordered tablet:input-lg" value={address.postal_code}/>
             </div>
 
             <div>
-                <p>Country</p>
+                <p class="tablet:text-xl">Country</p>
                 <select id="country" class="select select-bordered tablet:select-lg">
                     {#each $countries as country}
                         {#if address.country === country}
