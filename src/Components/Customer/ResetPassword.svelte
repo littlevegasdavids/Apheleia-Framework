@@ -49,12 +49,23 @@
         }
     }
 </script>
+<div class="grid grid-cols-1 gap-4 justify-items-center max-w-screen-tablet mx-auto">
+    <div class="divide-y divide-solid w-full">
+        <h1 class="text-center font-bold text-3xl pb-3 tablet:text-4xl">Reset Password</h1>
+        <p></p>
+    </div>
+    
+    <div>
+        <p class="pb-1 tablet:text-xl">New Password</p>
+        <input class="input outline outline-1 outline-black" type="password" bind:value={password}/>
+    </div>
 
-<h1>Reset Password</h1>
-
-<div class="grid justify-items-center gap-4">
-    <input class="input input-bordered" placeholder="New Password" type="password" bind:value={password}/>
-    <input class="input input-bordered" placeholder="Confirm New Password" type="password" bind:value={confirmPassword}/>
+    <div>
+        <p class="pb-1 tablet:text-xl">Confirm Password</p>
+        <input class="input outline outline-1 outline-black" type="password" bind:value={confirmPassword}/>
+    </div>
+    
+    
     {#if showError}
         <p class="text-red-600 font-bold">{errorMessage}</p>
     {/if}
