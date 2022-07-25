@@ -27,23 +27,24 @@
 
 {#if login === null}
     <p>Loading ....</p>
-{:else if login}
+{/if}
+
+{#if login}
     <div class="divide-y divide-solid pb-5">
         <h1 class="font-bold text-2xl text-center pb-6 underline underline-offset-8 tablet:text-4xl">Select your shipping address</h1>
         <p></p>
     </div>
 
     <div class="grid gap-4 tablet:gap-6 tablet:w-9/12 tablet:mx-auto">
-    {#each addresses as address}
-        <AddressBlock address = {address} />
-    {:else}
-        <AddAddress />
-    {/each}
-    {#if addresses.length != 0}
-        <button class="btn btn-secondary rounded-md justify-self-center" on:click={()=>window.location.href = "/addAddressCheckout"}>Add new Address<i class="fa-solid fa-plus pl-2"></i></button>
-    {/if}
-</div>
-
-{:else if !login}
+        {#each addresses as address}
+            <AddressBlock address = {address} />
+        {:else}
+            <AddAddress />
+        {/each}
+        {#if addresses.length != 0}
+            <button class="btn btn-success rounded-md justify-self-center" on:click={()=>window.location.href = "/addAddressCheckout"}>Add new Address<i class="fa-solid fa-plus pl-2"></i></button>
+        {/if}
+    </div>
+{:else}
     <LoginForm />
 {/if}
