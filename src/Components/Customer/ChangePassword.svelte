@@ -82,17 +82,17 @@
 
     <div class="grid justify-items-center gap-4 mt-5">
         <div>
-            <p class="tablet:text-xl">Old Password</p>
+            <p class="pb-1 tablet:text-xl">Old Password</p>
             <input class="input input-bordered tablet:input-lg" bind:value={oldPassword} placeholder="Enter Old Password" type="password"/>
         </div>
         
         <div>
-            <p class="tablet:text-xl">New Password</p>
+            <p class="pb-1 tablet:text-xl">New Password</p>
             <input class="input input-bordered tablet:input-lg" bind:value={newPassword} placeholder="Enter New Password" type="password"/>
         </div>
     
         <div>
-            <p class="tablet:text-xl">Confirm Password</p>
+            <p class="pb-1 tablet:text-xl">Confirm Password</p>
             <input class="input input-bordered tablet:input-lg" bind:value={confirmPassword} placeholder="Confirm Password" type="password"/>
         </div>
     
