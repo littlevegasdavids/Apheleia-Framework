@@ -357,10 +357,10 @@ router.post('/forgot-password', async (req, res)=>{
             email: email
         }
     })
-    // User exists and now creating one time link for 5 mins
+    // User exists and now creating one time link for 15 mins
     if(customer != null){
         const secrete = process.env.TOKEN_PASSWORD_SECRETE + customer.password
-        const pass_token = jwt.sign({email: customer.email, id: customer.id}, secrete, {expiresIn: '5m'})
+        const pass_token = jwt.sign({email: customer.email, id: customer.id}, secrete, {expiresIn: '15m'})
         const link = `http://localhost:9000/reset-password/${customer.id}/${pass_token}`
         // Send email to user
         sendForgotPassword(email, link)
