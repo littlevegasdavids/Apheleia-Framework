@@ -59,24 +59,35 @@
 
 </script>
 
-<div class="grid justify-items-center gap-4">
-    <h1 class="font-bold text-3xl">Register</h1>
-    <div>
-        <p class="">Full Name</p>
-        <input class="input input-bordered" type="text" placeholder="Enter Name" id="name"/>
+<div class="grid justify-items-center gap-4 max-w-screen-tablet mx-auto">
+    <div class="divide-y divide-solid w-full">
+        <h1 class="font-bold text-3xl text-center underline underline-offset-8 pb-5 tablet:text-4xl">Register</h1>
+        <p></p>
     </div>
 
-    <div>
-        <p>Email</p>
-        <input class="input input-bordered" type="email" placeholder="Enter Email" id="email"/>
+    <div class="grid grid-cols-1 gap-4 p-3 min-w-full justify-items-center">
+        <div>
+            <p class="pb-1 tablet:text-xl">Full Name</p>
+            <input class="input tablet:input-lg outline outline-1 outline-black" type="text" id="name"/>
+        </div>
+    
+        <div>
+            <p class="pb-1 tablet:text-xl">Email</p>
+            <input class="input tablet:input-lg outline outline-1 outline-black" type="email" id="email"/>
+        </div>
+    
+        <div>
+            <p class="pb-1 tablet:text-xl">Password</p>
+            <input class="input tablet:input-lg outline outline-1 outline-black" type="password" id="password"/>
+        </div>
+        {#if showError}
+            <p class="text-center font-bold text-red-600">{erorrMessage}</p>
+        {/if}
+        <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
+            <button class="btn btn-success rounded-md" on:click={createCustomer}>Create Account</button>
+            <button class="btn btn-warning rounded-md" on:click={()=>window.location.href = "/login"}>Cancel</button>
+        </div>
+        
     </div>
-
-    <div>
-        <p>Password</p>
-        <input class="input input-bordered" type="password" placeholder="Enter Password" id="password"/>
-    </div>
-    {#if showError}
-        <p class="text-center font-bold text-red-600">{erorrMessage}</p>
-    {/if}
-    <button class="btn btn-success rounded-md" on:click={createCustomer}>Create Account</button>
+    
 </div>
