@@ -45,7 +45,7 @@
     {:else}
         <p class="text-center text-2xl py-5">Your Cart Is Empty</p>
         <div class="grid justify-items-center pt-3">
-            <button class="btn btn-secondary rounded-md shadow-xl" on:click={()=>window.location.href="/products"}>Cotinue Shopping</button>
+            <button class="btn btn-primary rounded-md shadow-xl" on:click={()=>window.location.href="/products"}>Cotinue Shopping</button>
         </div>
     {/if}
 {:else}
