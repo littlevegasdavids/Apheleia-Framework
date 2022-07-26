@@ -35,7 +35,9 @@
 </script>
 
 {#if address === null || items === null || session === null}
-    <p>Loading ...</p>
+    <div class="font-bold text-center text-4xl pt-5">
+        <p>Loading ... <i class="fas fa-spinner fa-spin"></i></p>
+    </div>  
 {:else}
 <div class="divide-y divide-solid">
     <h1 class="font-bold text-2xl text-center underline underline-offset-8 tablet:text-4xl">Checkout Summary</h1>

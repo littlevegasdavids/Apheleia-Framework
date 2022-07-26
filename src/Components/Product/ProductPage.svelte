@@ -63,7 +63,9 @@
 </script>
 
 {#if loading}
-    <p>Loading Product</p>
+    <div class="font-bold text-center text-4xl pt-5">
+        <p>Loading ... <i class="fas fa-spinner fa-spin"></i></p>
+    </div>  
 {:else}
     <div class="grid bg-primary-content p-4 rounded-3xl shadow-2xl gap-4 text-center outline outline-1 outline-black browser:grid-cols-2">
         <div class="grid justify-items-center">

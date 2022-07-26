@@ -84,7 +84,9 @@
 </script>
 
 {#if loading}
-    <p class="font-bold text-center">Loading ...</p>
+    <div class="font-bold text-center text-4xl pt-5">
+        <p>Loading ... <i class="fas fa-spinner fa-spin"></i></p>
+    </div>  
 {:else}
     <div class="grid grid-cols-1 justify-items-center max-w-screen-tablet mx-auto">
         <div class="divide-y divide-solid w-full">
