@@ -22,8 +22,8 @@ async function checkSession(req, res, next){
     else{
         jwt.verify(authCookie, secrete, async (err, data)=>{
             if(err){
-                logger.error(`Error encountered verifying JWT token: ${err.message}`)
-                return res.status(500).send("Please contact website admin about token verification")
+                res.clearCookie('authCookie')
+                return res.redirect('/login')
             }
             
             const session_id = data.session_id
@@ -85,7 +85,7 @@ function createGuestToken(session_id){
 }
 
 function createRegisteredToken(session_id, customer_id){
-    return jwt.sign({session_id: session_id, registered: true, customer_id: customer_id}, secrete)
+    return jwt.sign({session_id: session_id, registered: true, customer_id: customer_id}, secrete, {expiresIn: '7d'})
 }
 
 module.exports = {checkSession, createRegisteredToken}
