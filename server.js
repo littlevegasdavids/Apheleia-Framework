@@ -5,8 +5,11 @@ const app = express()
 const port = process.env.PORT
 const prisma = require('./prisma/client')
 const jwt = require('jsonwebtoken')
+const compression = require('compression')
 
+app.use(compression())
 app.use(express.json())
+
 
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
