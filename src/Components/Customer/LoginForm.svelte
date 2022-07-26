@@ -38,7 +38,7 @@
     }
 </script>
 
-<form on:submit|preventDefault={loginCustomer}>
+
 <div class="grid grid-cols-1 justify-items-center max-w-screen-tablet mx-auto">
     {#if windowLocation === "/login"}
     <div class="divide-y divide-solid w-full">
@@ -69,4 +69,3 @@
         
     </div>
 </div>
-</form>
