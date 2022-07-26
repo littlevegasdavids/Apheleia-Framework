@@ -36,6 +36,13 @@
             window.location.href = "/register"
         }
     }
+
+    document.addEventListener('keypress', function(e){
+        if(e.key === 'Enter'){
+            loginCustomer()
+        }
+    })
+
 </script>
 
 
