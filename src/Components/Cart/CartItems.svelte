@@ -1,6 +1,6 @@
 <script>
     export let items
-import AddToCartBtn from './AddToCartBtn.svelte'
+
     import RemoveItemFromCart from './RemoveFromCartBtn.svelte'
     function goToProductPage(id){
         window.location.href = `/product/${id}`
