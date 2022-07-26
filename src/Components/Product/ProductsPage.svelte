@@ -35,7 +35,7 @@
             products = prod_result.message.products
             list_products = products
             filterProducts()
-            //loading = false
+            loading = false
         }
         else{
             console.error('Did not recieve list of products')
@@ -148,7 +148,7 @@
             <ProductBox product_name={product.name} product_price={product.price} product_id={product.id} />
         {/each}
     </div>
-}
+
 
 {:else}
     <div class="font-bold text-center text-4xl pt-5">
