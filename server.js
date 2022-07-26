@@ -171,7 +171,7 @@ app.get('/checkout', async(req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/checkoutRegister', async(req, res)=>{
+app.get('/registerCheckout', async(req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 

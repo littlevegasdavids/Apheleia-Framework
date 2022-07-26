@@ -105,8 +105,8 @@
                 </Transition>
             </Route>
     
-            <Route path="/regiserCheckout">
-                <Transition url={"/regiserCheckout"}>
+            <Route path="/registerCheckout">
+                <Transition url={"/registerCheckout"}>
                     <RegisterForm />
                 </Transition>
             </Route>

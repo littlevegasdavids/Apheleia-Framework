@@ -58,8 +58,8 @@
             })
             const result = await res.json()
             if(result.success){
-                if(windowLocation === "/addAddressCheckout"){
-                    window.location.href = "/checkout"
+                if(windowLocation === "/checkout"){
+                    window.location.href = `/checkoutSummary/${result.message.address_id}`
                 }
                 else{   
                     window.location.href="/customer"

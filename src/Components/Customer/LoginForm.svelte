@@ -30,7 +30,7 @@
 
     function regiterCustomer(){
         if(windowLocation === "/checkout"){
-            window.location.href = "/checkoutRegister"
+            window.location.href = "/registerCheckout"
         }
         else if(windowLocation === "/login"){
             window.location.href = "/register"

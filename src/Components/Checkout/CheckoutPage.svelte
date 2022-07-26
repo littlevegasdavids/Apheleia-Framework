@@ -30,10 +30,12 @@
 {/if}
 
 {#if login}
-    <div class="divide-y divide-solid pb-5">
-        <h1 class="font-bold text-2xl text-center pb-6 underline underline-offset-8 tablet:text-4xl">Select your shipping address</h1>
-        <p></p>
-    </div>
+    {#if addresses.length != 0}
+        <div class="divide-y divide-solid pb-5">
+            <h1 class="font-bold text-2xl text-center pb-6 underline underline-offset-8 tablet:text-4xl">Select your shipping address</h1>
+            <p></p>
+        </div>
+    {/if}
 
     <div class="grid gap-4 tablet:gap-6 tablet:w-9/12 tablet:mx-auto">
         {#each addresses as address}

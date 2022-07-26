@@ -5,7 +5,7 @@
     let email = ""
     let password = ""
     let windowLocation = window.location.pathname
-    console.log(windowLocation)
+
     async function createCustomer(){
         name = document.getElementById('name').value
         email = document.getElementById('email').value
@@ -46,7 +46,7 @@
             if(windowLocation === "/register"){
                 window.location.href = "/customer"
             }
-            else if(windowLocation === "/checkoutRegister"){
+            else if(windowLocation === "/registerCheckout"){
                 window.location.href = "/checkout"
             }
            

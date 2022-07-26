@@ -160,7 +160,7 @@ router.delete('/address/:id', async(req, res)=>{
         }
     })
 
-    logger.info(`Customer Address API -- Deleted id:${id}`)
+    logger.info(`Customer Address API -- Deleted id: ${id}`)
 
     return res.status(200).json({success: true, message: `Success deleted address id: ${id}`})
 })
