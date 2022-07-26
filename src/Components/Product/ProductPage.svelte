@@ -8,6 +8,11 @@
     let other_products
     let sold
 
+    let mainImageSrc = '1'
+    let image1Css = 'outline outline-3 outline-black'
+    let image2Css = 'outline outline-1 outline-black'
+    let image3Css = 'outline outline-1 outline-black'
+
     onMount(async ()=>{
         const prod_res = await fetch(`/api/product/get/${product_id}`)
         const prod_result = await prod_res.json()
@@ -34,19 +39,42 @@
         else{
             console.log(prod_result.message)
         }
-
         
     })
+
+    function changeMainImage(id){
+        mainImageSrc = id
+        if(id === 1){
+            image1Css = 'outline outline-3 outline-black'
+            image2Css = 'outline outline-1 outline-black'
+            image3Css = 'outline outline-1 outline-black'
+        }
+        else if(id === 2){
+            image1Css = 'outline outline-1 outline-black'
+            image2Css = 'outline outline-2 outline-black'
+            image3Css = 'outline outline-1 outline-black'
+        }
+        else{
+            image1Css = 'outline outline-1 outline-black'
+            image2Css = 'outline outline-1 outline-black'
+            image3Css = 'outline outline-3 outline-black'
+        }
+    }
 </script>
 
 {#if loading}
     <p>Loading Product</p>
 {:else}
     <div class="grid bg-primary-content p-4 rounded-3xl shadow-2xl gap-4 text-center outline outline-1 outline-black browser:grid-cols-2">
-        <div class="grid justify-items-center browser:">
-            <a href="/product_images/image.jpg" target="__blank" class="">
-                <img src="/product_images/{product_id}/1.jpg" alt="{product.name} - image" class="rounded-xl" height="600" width="450" />
+        <div class="grid justify-items-center">
+            <a href="/product_images/{product_id}/{mainImageSrc}.jpg" target="__blank" class="">
+                <img src="/product_images/{product_id}/{mainImageSrc}.jpg" alt="{product.name} - image" class="rounded-xl" height="600" width="450" id="displayImage"/>
             </a>
+            <div class="grid grid-cols-3 gap-3 pt-5">
+                <img src ="/product_images/{product_id}/1.jpg" alt="{product.name} - image 1" height="60" width="45" class={image1Css} on:click={()=>changeMainImage(1)} id="image1"/>
+                <img src ="/product_images/{product_id}/2.jpg" alt="{product.name} - image 1" height="60" width="45" class={image2Css} on:click={()=>changeMainImage(2)} id="image2"/>
+                <img src ="/product_images/{product_id}/3.jpg" alt="{product.name} - image 1" height= "60" width="45" class={image3Css} on:click={()=>changeMainImage(3)} id="image3"/>
+            </div>
         </div>
         <div class="my-auto">
             <div class="pb-3">
