@@ -45,19 +45,19 @@
     function changeMainImage(id){
         mainImageSrc = id
         if(id === 1){
-            image1Css = 'outline outline-3 outline-black'
-            image2Css = 'outline outline-1 outline-black'
-            image3Css = 'outline outline-1 outline-black'
+            image1Css = 'outline outline-3 outline-black cursor-pointer'
+            image2Css = 'outline outline-1 outline-black cursor-pointer'
+            image3Css = 'outline outline-1 outline-black cursor-pointer'
         }
         else if(id === 2){
-            image1Css = 'outline outline-1 outline-black'
-            image2Css = 'outline outline-2 outline-black'
-            image3Css = 'outline outline-1 outline-black'
+            image1Css = 'outline outline-1 outline-black cursor-pointer'
+            image2Css = 'outline outline-2 outline-black cursor-pointer'
+            image3Css = 'outline outline-1 outline-black cursor-pointer'
         }
         else{
-            image1Css = 'outline outline-1 outline-black'
-            image2Css = 'outline outline-1 outline-black'
-            image3Css = 'outline outline-3 outline-black'
+            image1Css = 'outline outline-1 outline-black cursor-pointer'
+            image2Css = 'outline outline-1 outline-black cursor-pointer'
+            image3Css = 'outline outline-3 outline-black cursor-pointer'
         }
     }
 </script>
@@ -78,18 +78,18 @@
         </div>
         <div class="my-auto">
             <div class="pb-3">
-                <p class="font-bold text-3xl pb-3">{product.name}</p>
+                <p class="font-bold text-3xl pb-3 tablet:text-4xl">{product.name}</p>
                 <p class="font-bold text-xl">R{product.price}</p>
             </div>
             <div class="grid gap-4">
                 {#if !sold}
-                <AddToCartBtn product_id={product.id} product_name={product.name} extraCss={""}/>
+                <AddToCartBtn product_id={product.id} product_name={product.name} extraCss={"tablet:w-8/12 mx-auto"}/>
                 {:else}
-                    <button class="btn">Sold</button>
+                    <button class="btn tablet:w-8/12 mx-auto">Sold</button>
                 {/if}
-                <button class="btn btn-secondary rounded-md shadow-lg" on:click={()=>{window.location.href="/products"}}>Back To Product Page</button>
-                <p class="font-bold pt-3">Description</p>
-                <p>{product.description}</p>
+                <button class="btn btn-secondary rounded-md shadow-lg tablet:w-8/12 mx-auto" on:click={()=>{window.location.href="/products"}}>Back To Product Page</button>
+                <p class="font-bold pt-3 tablet:text-2xl">Description</p>
+                <p class="tablet:text-xl">{product.description}</p>
             </div>
         </div>
     </div>
