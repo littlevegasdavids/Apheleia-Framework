@@ -45,7 +45,7 @@
     <div class="grid bg-primary-content p-4 rounded-3xl shadow-2xl gap-4 text-center outline outline-1 outline-black browser:grid-cols-2">
         <div class="grid justify-items-center browser:">
             <a href="/product_images/image.jpg" target="__blank" class="">
-                <img src="/product_images/image.jpg" alt="{product.name} - image" class="rounded-xl"/>
+                <img src="/product_images/{product_id}/1.jpg" alt="{product.name} - image" class="rounded-xl" height="600" width="450" />
             </a>
         </div>
         <div class="my-auto">
@@ -71,7 +71,7 @@
             {#each other_products as other}
                 <div class="grid grid-cols-1 bg-primary-content p-3 rounded-2xl shadow-lg browser:hover:bg-secondary">
                     <Link to="/product/{other.id}">
-                        <img src="/product_images/image.jpg" alt={other.name + " - image"} class="rounded-lg"/>
+                        <img src="/product_images/{other.id}/1.jpg" alt={other.name + " - image"} class="rounded-lg" height="400" width="300"/>
                     </Link>
                     <p class="font-bold pt-1">{other.name}</p>
                     <p class="">R{other.price}</p>

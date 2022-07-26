@@ -1,17 +1,18 @@
 <script>
     export let items
+import AddToCartBtn from './AddToCartBtn.svelte'
     import RemoveItemFromCart from './RemoveFromCartBtn.svelte'
     function goToProductPage(id){
         window.location.href = `/product/${id}`
     }
 </script>
 
-<table class="table outline outline-black outline-1 min-w-fit z-0 tablet:text-xl">
+<table class="table table-zebra outline outline-black outline-1 w-full tablet:text-xl">
     <thead>
         <tr>
             <th></th>
-            <th>Product Name</th>
-            <th>Price</th>
+            <th class="text-lg">Product Name</th>
+            <th class="text-lg">Price</th>
             <th></th>
         </tr>
     </thead>
@@ -19,7 +20,7 @@
         {#each items as item}
         <tr>
             <td on:click={goToProductPage(item.Product.id)}>
-                <img src="/product_images/image.jpg" alt="{item.name} - image" height="100" width="100"/>
+                <img src="/product_images/{item.Product.id}/1.jpg" alt="{item.name} - image" height="175" width="131"/>
             </td>
             <td on:click={goToProductPage(item.Product.id)}>
                 {item.Product.name}

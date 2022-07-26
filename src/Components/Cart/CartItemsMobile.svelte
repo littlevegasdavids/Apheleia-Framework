@@ -7,7 +7,7 @@
 
 </script>
 
-<table class="table table-compact outline outline-black outline-1 z-0">
+<table class="table table-zebra table-compact outline outline-black outline-1 z-0">
     <thead>
         <tr>
             <th>Product Name</th>

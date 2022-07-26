@@ -35,19 +35,19 @@
 
 <div class="grid gap-4 grid-cols-1">
     <div class="divide-y divide-solid">
-        <table class="table w-full text-lg mx-auto tablet:w-9/12 outline outline-1 outline-black rounded-md">
+        <table class="table table-zebra w-full text-lg mx-auto tablet:w-9/12 outline outline-1 outline-black rounded-md z-0">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>Price</th>
+                    <th class="text-lg">Name</th>
+                    <th class="text-lg">Price</th>
                 </tr>
             </thead>
             <tbody>
                 {#each items as item}
                     <tr>
                         <td>
-                            <img src="/product_images/image.jpg" alt="{item.Product.name} - image" height="90" width="90"/>
+                            <img src="/product_images/{item.Product.id}/1.jpg" alt="{item.Product.name} - image" height="175" width="131"/>
                         </td>
                         <td>{item.Product.name}</td>
                         <td>{item.Product.price}</td>

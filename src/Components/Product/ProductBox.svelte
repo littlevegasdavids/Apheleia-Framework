@@ -7,10 +7,16 @@
 </script>
 
 <div class="grid grid-cols-1 p-3 text-center">
-    <Link to="/product/{product_id}">
-        <img src="/product_images/image.jpg" alt={product_name + " - image"} class="rounded-lg"/>
-    </Link>
+    <div class="justify-self-center">
+        <Link to="/product/{product_id}">
+            <img src="/product_images/{product_id}/1.jpg" alt={product_name + " - image"} class="rounded-lg" height="400" width="300" />
+        </Link>
+    </div>
+    
     <p class="font-bold pt-1">{product_name}</p>
-    <p class="">R{product_price}</p>
-    <AddToCartBtn product_id={product_id} product_name={product_name} extraCss={"btn-sm"}/>
+    <p class="py-1">R{product_price}</p>
+    <div>
+        <AddToCartBtn product_id={product_id} product_name={product_name} extraCss={"btn-sm browser:w-8/12"}/>
+    </div>
+    
 </div>
