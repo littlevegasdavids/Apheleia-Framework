@@ -3,6 +3,7 @@
     import RemoveItemFromCart from './RemoveFromCartBtn.svelte'
     import CartItems from './CartItems.svelte'
     import CartItemsMobile from './CartItemsMobile.svelte'
+    import Loading from '../Loading.svelte'
     let items = null
     let total = 0
     onMount(async ()=>{
@@ -49,9 +50,7 @@
         </div>
     {/if}
 {:else}
-    <div class="font-bold text-center text-4xl pt-5">
-        <p>Loading ... <i class="fas fa-spinner fa-spin"></i></p>
-    </div>  
+    <Loading />
 {/if}
 
 </div>

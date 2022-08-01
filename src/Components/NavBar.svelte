@@ -5,6 +5,7 @@
     import SearchBar from './SearchBar.svelte'
     import CartPopUp from "./Cart/CartPopUp.svelte"
     import {num_items, cart_items} from '../Stores/cart'
+    import Loading from '../Components/Loading.svelte'
 
     let loading = true
 
@@ -46,8 +47,6 @@
 {/if}
 
 {:else}
-    <div class="font-bold text-center text-4xl pt-5">
-        <p>Loading ... <i class="fas fa-spinner fa-spin"></i></p>
-    </div>  
+    <Loading />
 {/if}
 

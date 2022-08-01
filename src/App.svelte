@@ -19,7 +19,6 @@
     import ResetPassword from './Components/Customer/ResetPassword.svelte' 
     import ChangeCustomerName from './Components/Customer/ChangeName.svelte'
     import ChangeCustomerPassword from './Components/Customer/ChangePassword.svelte'
-
 </script>
 <Router>
 <div class = "bg-base-200">

@@ -3,6 +3,7 @@
     import Yoco from '../Payment/Yoco.svelte'
     import CartItemsMobile from "../Cart/CartItemsMobile.svelte";
     import CartItems from '../Cart/CartItems.svelte'
+    import Loading from '../Loading.svelte'
     export let address_id
     let address = null
     let session = null
@@ -35,9 +36,7 @@
 </script>
 
 {#if address === null || items === null || session === null}
-    <div class="font-bold text-center text-4xl pt-5">
-        <p>Loading ... <i class="fas fa-spinner fa-spin"></i></p>
-    </div>  
+    <Loading /> 
 {:else}
 <div class="divide-y divide-solid">
     <h1 class="font-bold text-2xl text-center underline underline-offset-8 tablet:text-4xl">Checkout Summary</h1>

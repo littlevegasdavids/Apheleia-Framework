@@ -3,6 +3,7 @@
     import LoginForm from '../Customer/LoginForm.svelte'
     import AddressBlock from '../Address/AddressBlock.svelte'
     import AddAddress from '../Address/AddAddress.svelte'
+    import Loading from '../Loading.svelte'
     let addresses
 
     let login = null
@@ -26,9 +27,7 @@
 
 
 {#if login === null}
-    <div class="font-bold text-center text-4xl pt-5">
-        <p>Loading ... <i class="fas fa-spinner fa-spin"></i></p>
-    </div>  
+    <Loading />  
 {/if}
 
 {#if login}
