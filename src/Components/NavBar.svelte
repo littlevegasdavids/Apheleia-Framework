@@ -3,18 +3,24 @@
     import {onMount} from "svelte"
     import {IsSearchOverlayOpen} from '../Stores/IsSearchOverlayOpen'
     import SearchBar from './SearchBar.svelte'
-    import {num_items} from '../Stores/num_cart_items'
+    import CartPopUp from "./Cart/CartPopUp.svelte"
+    import {num_items, cart_items} from '../Stores/cart'
+
+    let loading = true
 
     onMount(async ()=>{
         const res = await fetch('/api/cart')
         const result = await res.json()
         if(result.success){
-            num_items.update(n=> n = result.message.cart_items.length)
+            $cart_items = result.message.cart_items
+            $num_items = result.message.cart_items.length
+            loading = false
         }
     })
     
 </script>
 
+{#if !loading}
 <div class="navbar bg-base-300 shadow-xl rounded-xl z-50 w-11/12 mx-auto tablet:w-10/12 browser:w-8/12">
     <div class="flex-1">
         <Link to="/">
@@ -25,17 +31,23 @@
         <button class="btn btn-ghost rounded-md" on:click={()=>IsSearchOverlayOpen.update(n=>n=true)}><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
         <button class="btn btn-ghost rounded-md" on:click={()=>window.location.href="/customer"}><i class="fa-solid fa-xl fa-user"></i></button>
 
-        <Link to="/cart">
-            <div class="indicator">
-                <span class="indicator-item badge badge-primary rounded-full mr-3">{$num_items}</span> 
-                <button class="btn btn-ghost btn-sm rounded-md">
-                    <i class="fa-solid fa-xl fa-cart-shopping"></i>
-                </button>
-            </div>
-        </Link>
+        <div class="indicator dropdown dropdown-end dropdown-hover">
+            <span class="indicator-item badge badge-primary rounded-full mr-3">{$num_items}</span> 
+            <button class="btn btn-ghost btn-sm rounded-md">
+                <i class="fa-solid fa-xl fa-cart-shopping"></i>
+            </button>
+            <CartPopUp />
+        </div>
     </div>
 </div>
 
 {#if $IsSearchOverlayOpen}
     <SearchBar />
 {/if}
+
+{:else}
+    <div class="font-bold text-center text-4xl pt-5">
+        <p>Loading ... <i class="fas fa-spinner fa-spin"></i></p>
+    </div>  
+{/if}
+

@@ -93,11 +93,22 @@ router.patch('/:product_id', async(req, res)=>{
                 product_id: product_id
             }
         })
+        
+        const cart_items = await prisma.cart_Item.findMany({
+            where:{
+                session_id: session_id
+            },
+            include:{
+                Product: true
+            }
+        })
+        
+        return res.status(200).json({success: true, message: {cart_items}})
+
     }
     catch(err){
         return res.status(400).json({success: false, message: "Cannot add item to cart if it is already added"})
     }
-    return res.status(200).json({success: true, messagge: `Product ${product_id} has successfully added to cart`})
 })
 
 // *** Delete ***
@@ -130,12 +141,21 @@ router.delete('/:product_id', async(req, res)=>{
                 product_id: product_id
             }
         })
+        const cart_items = await prisma.cart_Item.findMany({
+            where:{
+                session_id: session_id
+            },
+            include:{
+                Product: true
+            }
+        })
+        return res.status(200).json({success: true, message: {cart_items}})
+
     }
     catch(err){
         logger.error(`Error in removing product ${product_id} from cart ${session_id}: ${err.message}`)
         return res.status(500).json({success: false, message: 'Something went wrong removing product from cart'})
     }
-    return res.status(200).json({success: true, message: `Successfully removed product ${product_id} from cart`})
 })
 
 module.exports = router

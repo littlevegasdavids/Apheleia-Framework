@@ -1,10 +1,8 @@
 <script>
     import { onMount } from "svelte";
-    import {recent_item} from '../../Stores/recent_cart_item.js'
-    import {num_items} from '../../Stores/num_cart_items'
+    import {num_items, cart_items} from '../../Stores/cart'
     export let product_id
     export let extraCss
-    export let product_name
 
     let addedToCart = null
 
@@ -14,9 +12,8 @@
         const result = await res.json()
         if(result.success){
             addedToCart = true
-            num_items.update(n=> n+1)
-            recent_item.update(n=>n=product_name)
-            ShowCartNotification.update(n=>n=true)
+            $cart_items = result.message.cart_items
+            $num_items = $num_items + 1
         }
     }
 
@@ -26,8 +23,8 @@
         const result = await res.json()
         if(result.success){
             addedToCart = false
-            num_items.update(n=> n-1)
-            ShowCartNotification.update(n=>n=false)
+            $cart_items = result.message.cart_items
+            $num_items = $num_items - 1
         }
     }
 
