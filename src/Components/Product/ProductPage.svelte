@@ -85,13 +85,29 @@
             </div>
             <div class="grid gap-4">
                 {#if !sold}
-                <AddToCartBtn product_id={product.id} product_name={product.name} extraCss={"tablet:w-8/12 mx-auto"}/>
+                    <AddToCartBtn product_id={product.id} product_name={product.name} extraCss={"tablet:w-8/12 mx-auto"}/>
                 {:else}
                     <button class="btn tablet:w-8/12 mx-auto">Sold</button>
                 {/if}
                 <button class="btn btn-secondary rounded-md shadow-lg tablet:w-8/12 mx-auto" on:click={()=>{window.location.href="/products"}}>Back To Product Page</button>
-                <p class="font-bold pt-3 tablet:text-2xl">Description</p>
-                <p class="tablet:text-xl">{product.description}</p>
+                <div class="grid gap-2">
+                    <p class="font-bold pt-3 tablet:text-2xl">Description</p>
+                    <p class="tablet:text-xl">{product.description}</p>
+                </div>
+                <div class="grid">
+                    <p class="font-bold pt-3 tablet:text-2xl">Dimensions</p>
+                    {#if product.dimesion_height != null}
+                        <p class="tablet:text-xl">Height: {product.dimesion_height}</p>
+                    {/if}
+
+                    {#if product.dimesion_length != null}
+                        <p class="tablet:text-xl">Length: {product.dimesion_length}</p>
+                    {/if}
+
+                    {#if product.dimesion_width != null}
+                        <p class="tablet:text-xl">Width: {product.dimesion_width}</p>
+                    {/if}
+                </div>
             </div>
         </div>
     </div>
