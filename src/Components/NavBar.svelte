@@ -2,8 +2,6 @@
     import {Link} from "svelte-routing"
     import {onMount} from "svelte"
     import {IsSearchOverlayOpen} from '../Stores/IsSearchOverlayOpen'
-    import {ShowCartNotification} from '../Stores/CartNotificationPopUp'
-    import ShowCartNotificationPopUp from "./Cart/CartNotificationPopUp.svelte";
     import SearchBar from './SearchBar.svelte'
     import {num_items} from '../Stores/num_cart_items'
 
@@ -40,8 +38,4 @@
 
 {#if $IsSearchOverlayOpen}
     <SearchBar />
-{/if}
-
-{#if $ShowCartNotification}
-    <ShowCartNotificationPopUp />
 {/if}

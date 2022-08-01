@@ -2,7 +2,6 @@
     import { onMount } from "svelte";
     import {recent_item} from '../../Stores/recent_cart_item.js'
     import {num_items} from '../../Stores/num_cart_items'
-    import {ShowCartNotification} from '../../Stores/CartNotificationPopUp'
     export let product_id
     export let extraCss
     export let product_name
