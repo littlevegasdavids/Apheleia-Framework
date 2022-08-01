@@ -95,16 +95,17 @@ router.get('/get/:id', async (req, res)=>{
 
 // Return all products that aren't sold
 router.get('/notSold/all', async(req, res)=>{
-    const items = await prisma.Product.findMany({
+    const products = await prisma.Product.findMany({
         include:{
-            Product_Inventory: true,
             Product_Category: true
+        },
+        where:{
+            Product_Inventory:{
+                sold: false
+            }
         }
     })
 
-    const products = items.filter((item)=>{
-        return item.Product_Inventory.sold == false
-    })
     return res.status(200).json({success: true, message:{products}})
 })
 

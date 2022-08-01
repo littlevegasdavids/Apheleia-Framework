@@ -23,12 +23,12 @@
 </script>
 <Router>
 <div class = "bg-base-200">
-    <div class="max-w-7xl bg-base-100 shadow-2xl mx-auto min-h-screen">
+    <div class="max-w-7xl bg-base-100 shadow-2xl mx-auto min-h-screen flex flex-col">
         <div class="pt-3 sticky top-0">
             <NavBar />
         </div>
         
-        <div class="mt-5 mx-3 tablet:mx-6">
+        <div class="mt-5 mx-3 tablet:mx-6 flex-grow">
             <Route path="/">
                 <Transition url={'/'}>
                     <HomePage />
@@ -141,8 +141,13 @@
                     <ResetPassword customer_id={params.id} />
                 </Transition>
             </Route>
-    
+        
         </div>
+
+        <div class="mt-5">
+            <Footer />
+        </div>
+        
     </div>
     
 </div>
