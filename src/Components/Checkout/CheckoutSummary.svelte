@@ -1,9 +1,9 @@
 <script>
     import { onMount } from "svelte";
     import Yoco from '../Payment/Yoco.svelte'
-    import CartItemsMobile from "../Cart/CartItemsMobile.svelte";
     import CartItems from '../Cart/CartItems.svelte'
     import Loading from '../Loading.svelte'
+    import CartItemsTable from "../Cart/CartItemsTable.svelte";
     export let address_id
     let address = null
     let session = null
@@ -44,12 +44,8 @@
 </div>
 
     <div class="grid gap-4 tablet:w-9/12 tablet:mx-auto">
-        <div class="tablet:hidden grid justify-items-center">
-            <CartItemsMobile items={items} />
-        </div>
-
-        <div class="hidden tablet:grid tablet:justify-items-center">
-            <CartItems items={items} />
+        <div class="grid justify-items-center">
+            <CartItemsTable items={items} />
         </div>
         
         <div class="grid divide-y divide-solid">

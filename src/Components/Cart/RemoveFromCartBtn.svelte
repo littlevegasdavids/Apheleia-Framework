@@ -10,4 +10,4 @@
     }
 </script>
 
-<button class="btn btn-ghost {extraCss}" on:click={removeItemFromCart}>X</button>
+<button class="btn {extraCss}" on:click={removeItemFromCart}>X</button>

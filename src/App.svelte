@@ -23,11 +23,11 @@
 <Router>
 <div class = "bg-base-200">
     <div class="max-w-7xl bg-base-100 shadow-2xl mx-auto min-h-screen flex flex-col">
-        <div class="pt-3 sticky top-0">
+        <div class="pt-3 sticky top-0 z-50">
             <NavBar />
         </div>
         
-        <div class="mt-5 mx-3 tablet:mx-6 flex-grow">
+        <div class="mt-5 mx-3 tablet:mx-6 flex-grow z-0">
             <Route path="/">
                 <Transition url={'/'}>
                     <HomePage />
