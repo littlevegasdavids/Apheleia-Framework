@@ -9,7 +9,7 @@
 <div class="grid grid-cols-1 p-3 text-center">
     <div class="justify-self-center">
         <Link to="/product/{product_id}">
-            <img src="/product_images/{product_id}/1.jpg" alt={product_name + " - image"} class="rounded-lg" height="400" width="300" />
+            <img src="/product_images/{product_id}/1.jpg" alt={product_name + " - image"} class="rounded-lg shadow-lg" height="400" width="300" />
         </Link>
     </div>
     

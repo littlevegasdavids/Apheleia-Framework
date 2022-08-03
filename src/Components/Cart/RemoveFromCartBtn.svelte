@@ -10,4 +10,4 @@
     }
 </script>
 
-<button class="btn {extraCss}" on:click={removeItemFromCart}>X</button>
+<button class="btn rounded-md shadow-lg {extraCss}" on:click={removeItemFromCart}>X</button>

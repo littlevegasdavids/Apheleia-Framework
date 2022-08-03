@@ -54,7 +54,7 @@
     <div class="grid justify-items-center gap-4 mt-5">
         <div>
             <p class="text-center tablet:text-xl pb-1">Enter the new name you would like to change to :</p>
-            <input class="input input-bordered w-full" type="text" bind:value={newName} placeholder="New Name"/>
+            <input class="input outline outline-1 outline-black w-full" type="text" bind:value={newName} placeholder="New Name"/>
         </div>
         
         {#if showError}
@@ -63,8 +63,8 @@
             <p class="text-center tablet:text-lg">(Note please your real name so that we can associated any orders with you)</p>
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
-            <button class="btn btn-success rounded-md" on:click={changeName}>Save</button>
-            <button class="btn btn-primary rounded-md" on:click={()=>window.location.href = "/customer"}>Back</button>
+            <button class="btn btn-success rounded-md shadow-lg" on:click={changeName}>Save</button>
+            <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
         </div>
         
 

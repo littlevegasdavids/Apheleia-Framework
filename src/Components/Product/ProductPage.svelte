@@ -10,9 +10,9 @@
     let sold
 
     let mainImageSrc = '1'
-    let image1Css = 'outline outline-3 outline-black'
-    let image2Css = 'outline outline-1 outline-black'
-    let image3Css = 'outline outline-1 outline-black'
+    let image1Css = 'outline outline-3 outline-black rounded-md shadow-lg'
+    let image2Css = 'outline outline-1 outline-black rounded-md shadow-lg'
+    let image3Css = 'outline outline-1 outline-black rounded-md shadow-lg'
 
     onMount(async ()=>{
         const prod_res = await fetch(`/api/product/get/${product_id}`)
@@ -46,19 +46,19 @@
     function changeMainImage(id){
         mainImageSrc = id
         if(id === 1){
-            image1Css = 'outline outline-3 outline-black cursor-pointer'
-            image2Css = 'outline outline-1 outline-black cursor-pointer'
-            image3Css = 'outline outline-1 outline-black cursor-pointer'
+            image1Css = 'outline outline-3 outline-black cursor-pointer rounded-md shadow-lg'
+            image2Css = 'outline outline-1 outline-black cursor-pointer rounded-md shadow-lg'
+            image3Css = 'outline outline-1 outline-black cursor-pointer rounded-md shadow-lg'
         }
         else if(id === 2){
-            image1Css = 'outline outline-1 outline-black cursor-pointer'
-            image2Css = 'outline outline-2 outline-black cursor-pointer'
-            image3Css = 'outline outline-1 outline-black cursor-pointer'
+            image1Css = 'outline outline-1 outline-black cursor-pointer rounded-md shadow-lg'
+            image2Css = 'outline outline-2 outline-black cursor-pointer rounded-md shadow-lg'
+            image3Css = 'outline outline-1 outline-black cursor-pointer rounded-md shadow-lg'
         }
         else{
-            image1Css = 'outline outline-1 outline-black cursor-pointer'
-            image2Css = 'outline outline-1 outline-black cursor-pointer'
-            image3Css = 'outline outline-3 outline-black cursor-pointer'
+            image1Css = 'outline outline-1 outline-black cursor-pointer rounded-md shadow-lg'
+            image2Css = 'outline outline-1 outline-black cursor-pointer rounded-md shadow-lg'
+            image3Css = 'outline outline-3 outline-black cursor-pointer rounded-md shadow-lg'
         }
     }
 </script>
@@ -69,7 +69,7 @@
     <div class="grid bg-primary-content p-4 rounded-3xl shadow-2xl gap-4 text-center outline outline-1 outline-black browser:grid-cols-2">
         <div class="grid justify-items-center">
             <a href="/product_images/{product_id}/{mainImageSrc}.jpg" target="__blank" class="">
-                <img src="/product_images/{product_id}/{mainImageSrc}.jpg" alt="{product.name} - image" class="rounded-xl" height="600" width="450" id="displayImage"/>
+                <img src="/product_images/{product_id}/{mainImageSrc}.jpg" alt="{product.name} - image" class="rounded-x; shadow-lg" height="600" width="450" id="displayImage"/>
             </a>
             <div class="grid grid-cols-3 gap-3 pt-5">
                 <img src ="/product_images/{product_id}/1.jpg" alt="{product.name} - image 1" height="60" width="45" class={image1Css} on:click={()=>changeMainImage(1)} id="image1"/>
@@ -86,7 +86,7 @@
                 {#if !sold}
                     <AddToCartBtn product_id={product.id} extraCss={"tablet:w-8/12 mx-auto"}/>
                 {:else}
-                    <button class="btn tablet:w-8/12 mx-auto">Sold</button>
+                    <button class="btn rounded-md shadow-lg tablet:w-8/12 mx-auto">Sold</button>
                 {/if}
                 <button class="btn btn-secondary rounded-md shadow-lg tablet:w-8/12 mx-auto" on:click={()=>{window.location.href="/products"}}>Back To Product Page</button>
                 <div class="grid gap-2">

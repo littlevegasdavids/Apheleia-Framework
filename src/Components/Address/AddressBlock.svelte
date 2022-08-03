@@ -17,14 +17,14 @@
     <p class="font-bold">{address.street_address}, {address.suburb}, {address.city}, {address.postal_code}</p>
     {#if windowLocation === "/checkout"}
         <div class="grid grid-cols-3 gap-4 mt-2">
-            <button class="btn btn-primary rounded-md btn-sm tablet:w-8/12 tablet:mx-auto browser:w-8/12" on:click={()=>window.location.href=`/checkoutSummary/${address.id}`}>Select<i class="fa-solid fa-check pl-2"></i></button>
-            <button class="btn btn-warning rounded-md btn-sm tablet:w-8/12 tablet:mx-auto browser:w-8/12" on:click={()=>window.location.href=`/editAddressCheckout/${address.id}`}>Edit<i class="fa-solid fa-pen-to-square pl-2"></i></button>
-            <button class="btn btn-error rounded-md btn-sm tablet:w-8/12 tablet:mx-auto browser:w-8/12" on:click={deleteAddress(address.id)}>Delete<i class="fa-solid fa-trash pl-2"></i></button>
+            <button class="btn btn-primary rounded-md btn-sm shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-8/12" on:click={()=>window.location.href=`/checkoutSummary/${address.id}`}>Select<i class="fa-solid fa-check pl-2"></i></button>
+            <button class="btn btn-warning rounded-md btn-sm shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-8/12" on:click={()=>window.location.href=`/editAddressCheckout/${address.id}`}>Edit<i class="fa-solid fa-pen-to-square pl-2"></i></button>
+            <button class="btn btn-error rounded-md btn-sm shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-8/12" on:click={deleteAddress(address.id)}>Delete<i class="fa-solid fa-trash pl-2"></i></button>
         </div>
     {:else}
         <div class="grid grid-cols-2 gap-4 mt-2">
-            <button class="btn btn-secondary-content rounded-md btn-sm tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href=`/editAddress/${address.id}`}>Edit<i class="fa-solid fa-pen-to-square pl-2"></i></button>
-            <button class="btn btn-error rounded-md btn-sm tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={deleteAddress(address.id)}>Delete<i class="fa-solid fa-trash pl-2"></i></button>
+            <button class="btn btn-secondary-content rounded-md btn-sm shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href=`/editAddress/${address.id}`}>Edit<i class="fa-solid fa-pen-to-square pl-2"></i></button>
+            <button class="btn btn-error rounded-md btn-sm shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={deleteAddress(address.id)}>Delete<i class="fa-solid fa-trash pl-2"></i></button>
         </div>
     {/if}
     

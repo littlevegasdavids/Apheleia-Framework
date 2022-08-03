@@ -6,10 +6,10 @@
 <div class="grid divide-y divide-solid max-w-6xl mx-auto">
     <h1 class="font-bold text-3xl pb-5 text-center underline underline-offset-4 tablet:text-4xl browser:text-6xl">Welcome to App Heading</h1>
     <div class="grid justify-items-center py-5">
-        <img src="/main_banner.jpg" alt="banner"/>
+        <img src="/main_banner.jpg" alt="banner" class="rounded-md shadow-lg"/>
     </div>
     <div class="grid justify-items-center py-5">
-        <button class="btn btn-primary rounded-md" on:click={()=>window.location.href = "/products"}>See Latest Products</button>
+        <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href = "/products"}>See Latest Products</button>
     </div>
     <div class="py-5">
         <About />

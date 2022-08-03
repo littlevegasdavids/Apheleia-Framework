@@ -30,20 +30,20 @@
     </div>
     <div class="flex-none">
         <div class="tooltip tooltip-bottom" data-tip="Products Page">
-            <button class="btn btn-ghost rounded-md" on:click={()=>window.location.href="/products"}><i class="fa-solid fa-shop fa-xl"></i></button>
+            <button class="btn btn-ghost rounded-md " on:click={()=>window.location.href="/products"}><i class="fa-solid fa-shop fa-xl"></i></button>
         </div>
 
         <div class="tooltip tooltip-bottom" data-tip="Search">
-            <button class="btn btn-ghost rounded-md" on:click={()=>$IsSearchOverlayOpen=true}><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
+            <button class="btn btn-ghost rounded-md " on:click={()=>$IsSearchOverlayOpen=true}><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
         </div>
 
         <div class="tooltip tooltip-bottom" data-tip="User Page">
-            <button class="btn btn-ghost rounded-md" on:click={()=>window.location.href="/customer"}><i class="fa-solid fa-xl fa-user"></i></button>
+            <button class="btn btn-ghost rounded-md " on:click={()=>window.location.href="/customer"}><i class="fa-solid fa-xl fa-user"></i></button>
         </div>
         
         <div class="indicator dropdown dropdown-end dropdown-hover">
             <span class="indicator-item badge badge-primary rounded-full mr-3">{$num_items}</span> 
-            <button class="btn btn-ghost btn-sm rounded-md" on:click={()=>window.location.href = "/cart"}>
+            <button class="btn btn-ghost btn-sm rounded-md " on:click={()=>window.location.href = "/cart"}>
                 <i class="fa-solid fa-xl fa-cart-shopping"></i>
             </button>
             <CartPopUp />

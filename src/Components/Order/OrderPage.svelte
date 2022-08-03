@@ -47,7 +47,7 @@
                 {#each items as item}
                     <tr>
                         <td>
-                            <img src="/product_images/{item.Product.id}/1.jpg" alt="{item.Product.name} - image" height="175" width="131"/>
+                            <img src="/product_images/{item.Product.id}/1.jpg" alt="{item.Product.name} - image" height="175" width="131" class="rounded-md shadow-lg"/>
                         </td>
                         <td>{item.Product.name}</td>
                         <td>{item.Product.price}</td>
@@ -87,7 +87,7 @@
         </div>
     </div>
     
-    <button class="btn btn-warning rounded-md col-span-2 w-4/12 justify-self-center" on:click={()=>window.location.href = "/customer"}>Back</button>
+    <button class="btn btn-warning rounded-md col-span-2 w-4/12 justify-self-center shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
 </div>
     
 {:else}

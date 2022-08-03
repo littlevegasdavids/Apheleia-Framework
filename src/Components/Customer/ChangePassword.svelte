@@ -83,17 +83,17 @@
     <div class="grid justify-items-center gap-4 mt-5">
         <div>
             <p class="pb-1 tablet:text-xl">Old Password</p>
-            <input class="input outline outline-1 outline-blacked tablet:input-lg" bind:value={oldPassword} type="password"/>
+            <input class="input outline outline-1 outline-blacked " bind:value={oldPassword} type="password"/>
         </div>
         
         <div>
             <p class="pb-1 tablet:text-xl">New Password</p>
-            <input class="input outline outline-1 outline-blacked tablet:input-lg" bind:value={newPassword} type="password"/>
+            <input class="input outline outline-1 outline-blacked " bind:value={newPassword} type="password"/>
         </div>
     
         <div>
             <p class="pb-1 tablet:text-xl">Confirm Password</p>
-            <input class="input outline outline-1 outline-blacked tablet:input-lg" bind:value={confirmPassword} type="password"/>
+            <input class="input outline outline-1 outline-blacked " bind:value={confirmPassword} type="password"/>
         </div>
     
         {#if showError}
@@ -102,8 +102,8 @@
             <p class="text-center">Successfully changed your password. Redirecting you in 5 seconds</p>
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
-            <button class="btn btn-success rounded-md" on:click={changePassword} disabled={disbaleBtn}>Save</button>
-            <button class="btn btn-primary rounded-md" on:click={()=>window.location.href = "/customer"}>Back</button>
+            <button class="btn btn-success rounded-md shadow-lg" on:click={changePassword} disabled={disbaleBtn}>Save</button>
+            <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
         </div>
         
     

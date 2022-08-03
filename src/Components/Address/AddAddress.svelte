@@ -83,27 +83,27 @@
     <div class="p-6 grid grid-cols-1 gap-4 min-w-full justify-items-center">
         <div>
             <p class="pb-1 tablet:text-xl">Street Address</p>
-            <input id="street_address" type="text" class="input input-bordered tablet:input-lg" bind:value={street_address}/>
+            <input id="street_address" type="text" class="input outline outline-1 outline-black " bind:value={street_address}/>
         </div>
         
         <div>
             <p class="pb-1 tablet:text-xl">Suburb</p>
-            <input id="suburb" type="text" class="input input-bordered tablet:input-lg" bind:value={suburb}/>
+            <input id="suburb" type="text" class="input outline outline-1 outline-black " bind:value={suburb}/>
         </div>
 
         <div>
             <p class="pb-1 tablet:text-xl">City/Town</p>
-            <input id="city" type="text" class="input input-bordered tablet:input-lg" bind:value={city}/>
+            <input id="city" type="text" class="input outline outline-1 outline-black " bind:value={city}/>
         </div>
 
         <div>
             <p class="pb-1 tablet:text-xl">Postal Code</p>
-            <input id="postal_code" type="number" class="input input-bordered tablet:input-lg" bind:value={postal_code}/>
+            <input id="postal_code" type="number" class="input outline outline-1 outline-black " bind:value={postal_code}/>
         </div>
 
         <div>
             <p class="pb-1 tablet:text-xl">Country</p>
-            <select id="country" class="select select-bordered tablet:input-lg" bind:value={country}>
+            <select id="country" class="select select-bordered " bind:value={country}>
                 <option selected disabled>Select Country</option>
                 {#each $countries as country}
                     <option value={country}>{country}</option>
@@ -114,8 +114,8 @@
             <p class="text-center text-red-600">{errorMessage}</p>
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
-            <button class="btn btn-success rounded-md" on:click={addAddress}>Save</button>
-            <button class="btn btn-warning rounded-md" on:click={()=>window.location.href="/customer"}>Cancel</button>
+            <button class="btn btn-success rounded-md shadow-lg" on:click={addAddress}>Save</button>
+            <button class="btn btn-warning rounded-md shadow-lg" on:click={()=>window.location.href="/customer"}>Cancel</button>
         </div>
         
 

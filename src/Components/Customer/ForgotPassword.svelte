@@ -37,12 +37,12 @@
     <div class="grid justify-items-center gap-4">
         <div>
             <p class="pb-1 tablet:text-xl">Email</p>
-            <input type="email" class="input outline outline-1 outline-black tablet:input-lg" bind:value={email}/>
+            <input type="email" class="input outline outline-1 outline-black " bind:value={email}/>
         </div>
         {#if showError}
             <p class="text-red font-bold">{errorMessage}</p>
         {/if}
-        <button class="btn btn-primary rounded-md" on:click={sendForgotPassword}>Continue</button>
+        <button class="btn btn-primary rounded-md shadow-lg" on:click={sendForgotPassword}>Continue</button>
 
         {#if showSuccess}
             <p>Link has been sent to email. You will receieve the link only if the email is registered to the website</p>

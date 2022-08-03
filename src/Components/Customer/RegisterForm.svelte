@@ -68,24 +68,24 @@
     <div class="grid grid-cols-1 gap-4 p-3 min-w-full justify-items-center">
         <div>
             <p class="pb-1 tablet:text-xl">Full Name</p>
-            <input class="input tablet:input-lg outline outline-1 outline-black" type="text" id="name"/>
+            <input class="input  outline outline-1 outline-black" type="text" id="name"/>
         </div>
     
         <div>
             <p class="pb-1 tablet:text-xl">Email</p>
-            <input class="input tablet:input-lg outline outline-1 outline-black" type="email" id="email"/>
+            <input class="input  outline outline-1 outline-black" type="email" id="email"/>
         </div>
     
         <div>
             <p class="pb-1 tablet:text-xl">Password</p>
-            <input class="input tablet:input-lg outline outline-1 outline-black" type="password" id="password"/>
+            <input class="input  outline outline-1 outline-black" type="password" id="password"/>
         </div>
         {#if showError}
             <p class="text-center font-bold text-red-600">{erorrMessage}</p>
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
-            <button class="btn btn-success rounded-md" on:click={createCustomer}>Create Account</button>
-            <button class="btn btn-warning rounded-md" on:click={()=>window.location.href = "/login"}>Cancel</button>
+            <button class="btn btn-success rounded-md shadow-lg" on:click={createCustomer}>Create Account</button>
+            <button class="btn btn-warning rounded-md shadow-lg" on:click={()=>window.location.href = "/login"}>Cancel</button>
         </div>
         
     </div>

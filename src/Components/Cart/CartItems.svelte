@@ -20,7 +20,7 @@
         {#each items as item}
         <tr>
             <td on:click={goToProductPage(item.Product.id)}>
-                <img src="/product_images/{item.Product.id}/1.jpg" alt="{item.name} - image" height="175" width="131"/>
+                <img src="/product_images/{item.Product.id}/1.jpg" alt="{item.name} - image" height="175" width="131" class="rounded-md shadow-lg"/>
             </td>
             <td on:click={goToProductPage(item.Product.id)}>
                 {item.Product.name}
