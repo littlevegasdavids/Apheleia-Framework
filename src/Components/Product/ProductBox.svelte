@@ -1,5 +1,6 @@
 <script>
     import AddToCartBtn from "../Cart/AddToCartBtn.svelte";
+    import ImageLoader from "../LazyLoading/ImageLoader.svelte";
     import { Link } from "svelte-routing";
     export let product_name;
     export let product_price;
@@ -9,7 +10,7 @@
 <div class="grid grid-cols-1 p-3 text-center">
     <div class="justify-self-center">
         <Link to="/product/{product_id}">
-            <img src="/product_images/{product_id}/1.jpg" alt={product_name + " - image"} class="rounded-lg shadow-lg" height="400" width="300" />
+            <ImageLoader src="/product_images/{product_id}/1.jpg" alt={product_name + " - image"} height="400" width="300"/>
         </Link>
     </div>
     
