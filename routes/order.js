@@ -2,9 +2,10 @@ const {Router} = require('express')
 const router = new Router()
 const prisma = require('../prisma/client')
 const logger = require('../helpers/logger')
+const asyncHandler = require('express-async-handler')
 
 // *** Create ***
-router.post('/', async(req, res)=>{
+router.post('/', asyncHandler (async(req, res)=>{
     const payment_provider = req.body.payment_provider
     const product_ids = req.body.product_ids
     const total = parseInt(req.body.total)
@@ -112,11 +113,11 @@ router.post('/', async(req, res)=>{
 
     logger.info(`Order API -- Created id: ${order.id}`)
     return res.status(201).json({success: true, message: {order}})
-})
+}))
 
 // *** Read ***
 // Get Order By Order_Details ID
-router.get('/get/:id', async(req, res)=>{
+router.get('/get/:id', asyncHandler (async(req, res)=>{
     const id = parseInt(req.params['id'])
 
     if(isNaN(id)){
@@ -138,10 +139,10 @@ router.get('/get/:id', async(req, res)=>{
     }
     
     return res.status(200).json({success: true, message: {order}})
-})
+}))
 
 // Get Order By Customer_Id 
-router.get('/get/customer_id/:id', async(req, res)=>{
+router.get('/get/customer_id/:id', asyncHandler (async(req, res)=>{
     const customer_id = parseInt(req.params['id'])
 
     if(isNaN(customer_id)){
@@ -169,10 +170,10 @@ router.get('/get/customer_id/:id', async(req, res)=>{
     })
 
     return res.status(200).json({success: true, message: {orders}})
-})
+}))
 
 // Get Order_Items 
-router.get('/get/order_items/:id', async(req, res)=>{
+router.get('/get/order_items/:id', asyncHandler (async(req, res)=>{
     const id = parseInt(req.params['id'])
 
     if(isNaN(id)){
@@ -193,10 +194,10 @@ router.get('/get/order_items/:id', async(req, res)=>{
     }
 
     return res.status(200).json({success: true, message: {order_items}})
-})
+}))
 
 // Get All Orders by order_status = x
-router.get('/get/order_status/:status', async (req, res)=>{
+router.get('/get/order_status/:status', asyncHandler (async (req, res)=>{
     const status = parseInt(req.params['status'])
     
     if(isNaN(status)){
@@ -215,13 +216,13 @@ router.get('/get/order_status/:status', async (req, res)=>{
     })
 
     return res.status(200).json({success: true, message: {orders}})
-})
+}))
 
 // *** Update ***
 // Currently no need for patch methods
 
 // *** Delete ***
-router.delete('/:id', async(req, res)=>{
+router.delete('/:id', asyncHandler (async(req, res)=>{
     const id = parseInt(req.params['id'])
 
     if(isNaN(id)){
@@ -246,13 +247,13 @@ router.delete('/:id', async(req, res)=>{
 
     logger.info(`Order API -- Deleted id: ${id}`)
     return res.status(200).json({success: true, message: `Successfully deleted order id: ${id}`})
-})
+}))
 
 //All
-router.get('/all', async(req, res)=>{
+router.get('/all', asyncHandler(async(req, res)=>{
     const orders = await prisma.order_Details.findMany({})
 
     return res.status(200).json({success: true, message: {orders}})
-})
+}))
 
 module.exports = router

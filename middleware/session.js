@@ -2,12 +2,12 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const prisma = require('../prisma/client')
 const { v4: uuidv4 } = require('uuid')
-const logger = require('../helpers/logger')
+const asyncHandler = require('express-async-handler')
 const secrete = process.env.TOKEN_SECRETE
 
 // Used to generate JWT token and cookie if not found
 // Generates a new shopping session as well
-async function checkSession(req, res, next){
+const checkSession = asyncHandler (async function checkSession(req, res, next){
     const authCookie = req.cookies.authCookie
     // First time visiting
     if(authCookie === undefined){
@@ -78,7 +78,7 @@ async function checkSession(req, res, next){
         
     }
     
-}
+})
 
 function createGuestToken(session_id){
     return jwt.sign({session_id: session_id, registered: false, customer_id: null}, secrete)

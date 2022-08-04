@@ -2,9 +2,10 @@ const {Router} = require('express')
 const router = new Router()
 const logger = require('../helpers/logger')
 const prisma = require('../prisma/client')
+const asyncHandler = require('express-async-handler')
 
 // *** Create ***
-router.post('/', async (req, res) =>{
+router.post('/', asyncHandler (async (req, res) =>{
     const name = req.body.name
     let price = req.body.price
     const description = req.body.description
@@ -66,11 +67,11 @@ router.post('/', async (req, res) =>{
     logger.info(`Product API -- Created id: ${newProduct.id}`)
 
     return res.status(201).json({success: true, message:{newProduct}})
-})
+}))
 
 // *** Read ***
 // Get By ID
-router.get('/get/:id', async (req, res)=>{
+router.get('/get/:id', asyncHandler (async (req, res)=>{
     const id = parseInt(req.params['id'])
     
     if(isNaN(id)){
@@ -91,10 +92,10 @@ router.get('/get/:id', async (req, res)=>{
     }
 
     return res.status(200).json({success: true, message: {product}})
-})
+}))
 
 // Return all products that aren't sold
-router.get('/notSold/all', async(req, res)=>{
+router.get('/notSold/all', asyncHandler (async(req, res)=>{
     const products = await prisma.Product.findMany({
         include:{
             Product_Category: true
@@ -107,11 +108,11 @@ router.get('/notSold/all', async(req, res)=>{
     })
 
     return res.status(200).json({success: true, message:{products}})
-})
+}))
 
 
 // Returns true or false if the item is sold
-router.get('/isSold/:id', async(req, res)=>{
+router.get('/isSold/:id', asyncHandler(async(req, res)=>{
     const product_id = parseInt(req.params['id'])
 
     if(isNaN(product_id)){
@@ -141,10 +142,10 @@ router.get('/isSold/:id', async(req, res)=>{
     else{
         return res.status(200).json({success: true, sold: false})
     }
-})
+}))
 
 // *** Update ***
-router.patch('/:id', async (req, res)=>{
+router.patch('/:id', asyncHandler (async (req, res)=>{
     const id = parseInt(req.params['id'])
 
     if(isNaN(id)){
@@ -229,10 +230,10 @@ router.patch('/:id', async (req, res)=>{
     }
     
     return res.status(200).json({success: true, message: {product}})
-})
+}))
 
 // *** Delete ***
-router.delete('/:id', async (req, res)=>{
+router.delete('/:id', asyncHandler (async (req, res)=>{
     const id = parseInt(req.params['id'])
 
     if(isNaN(id)){
@@ -264,10 +265,10 @@ router.delete('/:id', async (req, res)=>{
     logger.info(`Product API -- Deleted id: ${id}`)
 
     return res.status(200).json({success: true, message: `Product successfully deleted id: ${id}`})
-})
+}))
 
 // All
-router.get('/all', async (req, res)=>{
+router.get('/all', asyncHandler (async (req, res)=>{
     const products = await prisma.Product.findMany({
         include:{
             Product_Inventory: true
@@ -275,7 +276,7 @@ router.get('/all', async (req, res)=>{
     })
 
     return res.status(200).json({success: true, message:{products}})
-})
+}))
 
 
 module.exports = router

@@ -6,6 +6,7 @@ const port = process.env.PORT
 const prisma = require('./prisma/client')
 const jwt = require('jsonwebtoken')
 const compression = require('compression')
+const asyncHandler = require('express-async-handler')
 
 app.use(compression())
 app.use(express.json())
@@ -20,6 +21,12 @@ const {checkSession} = require('./middleware/session.js')
 app.use(checkSession)
 app.use(express.static('public'))
 
+// Error Handle
+app.use((err, req, res, next)=>{
+    logger.error(err.message)
+    return res.status(500).send('Internal server error')
+})
+
 const mountRoutes = require('./routes')
 mountRoutes(app)
 
@@ -33,7 +40,7 @@ app.get('/', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/product/:id', async (req, res)=>{
+app.get('/product/:id', asyncHandler(async (req, res)=>{
     const id = parseInt(req.params['id'])
     if(isNaN(id)){
         return res.status(400).send('Invalid ID')
@@ -49,7 +56,7 @@ app.get('/product/:id', async (req, res)=>{
         return res.status(404).end('product not found')
     }
     return res.sendFile(__dirname + "/public/index.html")
-})
+}))
 
 app.get('/products', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
@@ -116,7 +123,7 @@ app.get('/customer/changePassword/:id', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/editAddress/:id', async (req, res)=>{
+app.get('/editAddress/:id', asyncHandler(async (req, res)=>{
     const address_id = parseInt(req.params['id'])
     if(isNaN(address_id)){
         return res.status(400).send('Invalid ID')
@@ -142,9 +149,9 @@ app.get('/editAddress/:id', async (req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html") 
-})
+}))
 
-app.get('/addNewAddress', async (req, res)=>{
+app.get('/addNewAddress', (req, res)=>{
     if(!req.registered){
         return res.redirect('/login')
     }
@@ -152,7 +159,7 @@ app.get('/addNewAddress', async (req, res)=>{
 
 })
 
-app.get('/order/:id', async(req, res)=>{
+app.get('/order/:id', asyncHandler( async(req, res)=>{
     const order_id = parseInt(req.params['id'])
     if(isNaN(order_id)){
         return res.status(400).send('Invalid ID')
@@ -168,21 +175,21 @@ app.get('/order/:id', async(req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html")
-})
+}))
 
-app.get('/checkout', async(req, res)=>{
+app.get('/checkout', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/registerCheckout', async(req, res)=>{
+app.get('/registerCheckout', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/addAddressCheckout', async(req, res)=>{
+app.get('/addAddressCheckout', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/editAddressCheckout/:id', async(req, res)=>{
+app.get('/editAddressCheckout/:id', asyncHandler(async(req, res)=>{
     const address_id = parseInt(req.params['id'])
     if(isNaN(address_id)){
         return res.status(400).send('Invalid ID')
@@ -208,9 +215,9 @@ app.get('/editAddressCheckout/:id', async(req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html") 
-})
+}))
 
-app.get('/checkoutSummary/:address_id', async(req, res)=>{
+app.get('/checkoutSummary/:address_id', asyncHandler (async(req, res)=>{
     const address_id = parseInt(req.params['address_id'])
     if(isNaN(address_id)){
         return res.status(400).send('Invalid ID')
@@ -236,7 +243,7 @@ app.get('/checkoutSummary/:address_id', async(req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html") 
-})
+}))
 
 app.get('/forgot-password', (req, res)=>{
     if(req.registered){
@@ -245,7 +252,7 @@ app.get('/forgot-password', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html") 
 })
 
-app.get('/reset-password/:id/:token', async (req, res)=>{
+app.get('/reset-password/:id/:token', asyncHandler (async (req, res)=>{
     const id = parseInt(req.params['id'])
     const token = req.params['token']
     
@@ -271,7 +278,7 @@ app.get('/reset-password/:id/:token', async (req, res)=>{
         }
         return res.sendFile(__dirname + "/public/index.html")  
     })
-})
+}))
 
 setInterval(async()=>{
     // numHours is the number of hours where a cart will be deleted if not used in that amount of hours

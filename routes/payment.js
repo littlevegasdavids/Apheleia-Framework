@@ -2,10 +2,11 @@ require('dotenv').config()
 const {Router} = require('express')
 const router = new Router()
 const axios = require('axios')
+const asyncHandler = require('express-async-handler')
 
 const yocoSecrete = process.env.YOCO_SECRETE_KEY_TEST
 
-router.post('/yocoPayment', async(req, res)=>{
+router.post('/yocoPayment', asyncHandler (async(req, res)=>{
     const token_id = req.body.token_id
     const total = parseInt(req.body.total)
 
@@ -36,6 +37,6 @@ router.post('/yocoPayment', async(req, res)=>{
       .catch(error => {
         console.log(`Error: ${error}`)
       })
-})
+}))
 
 module.exports = router

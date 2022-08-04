@@ -9,10 +9,11 @@ const {createRegisteredToken} = require('../middleware/session')
 const router = new Router()
 const jwt = require('jsonwebtoken')
 const {sendForgotPassword} = require('../helpers/nodeMailer')
+const asyncHandler = require('express-async-handler')
 
 // *** Create *** 
 // Create new Customer
-router.post('/', async (req, res)=>{
+router.post('/', asyncHandler(async (req, res)=>{
     const name = req.body.name
     const password = req.body.password
     const email = req.body.email
@@ -72,11 +73,11 @@ router.post('/', async (req, res)=>{
     logger.info(`Customer API -- Created id: ${customer.id}`)
 
     return res.status(200).json({success: true, message: {customer}})
-})
+}))
 
 // *** Read ***
 // Get Current Customer Info including address
-router.get('/get', async(req, res)=>{
+router.get('/get', asyncHandler (async(req, res)=>{
     const customer_id = req.customer_id
 
     if(customer_id === null){
@@ -98,11 +99,11 @@ router.get('/get', async(req, res)=>{
     }
 
     return res.status(200).json({success: true, message: {customer}})
-})
+}))
 
 // *** Update ***
 // Change customer name
-router.patch('/name/:id', async(req, res)=>{
+router.patch('/name/:id', asyncHandler(async(req, res)=>{
     const id = parseInt(req.params['id'])
     const name = req.body.name
 
@@ -134,10 +135,10 @@ router.patch('/name/:id', async(req, res)=>{
     })
     logger.info(`Customer API -- Changed Name id: ${id}`)
     return res.status(200).json({success: true, message: "Succcessfully changed name"})
-})
+}))
 
 // Change Customer Password
-router.patch('/password/:id', async (req, res)=>{
+router.patch('/password/:id', asyncHandler(async (req, res)=>{
     const id = parseInt(req.params['id'])
     const newPassword = req.body.newPassword
     const oldPassword = req.body.oldPassword
@@ -185,10 +186,10 @@ router.patch('/password/:id', async (req, res)=>{
 
     return res.status(200).json({success: true, message: `Successfully update customer password id: ${id}`})
 
-})
+}))
 
 // Change Customer Password when using forgot-password
-router.patch('/reset-password/:id', async(req, res)=>{
+router.patch('/reset-password/:id', asyncHandler (async(req, res)=>{
     const id = parseInt(req.params['id'])
     const password = req.body.password
 
@@ -228,12 +229,12 @@ router.patch('/reset-password/:id', async(req, res)=>{
     logger.info(`Customer API -- Changed Password Reset: ${id}`)
 
     return res.status(200).json({success: true, message: `Successfully update customer password id: ${id}`})
-})
+}))
 
 
 // *** Delete ***
 // Delete Customer
-router.delete('/:id', async (req, res)=>{
+router.delete('/:id', asyncHandler (async (req, res)=>{
     const id = parseInt(req.params['id'])
 
     if(isNaN(id)){
@@ -261,11 +262,11 @@ router.delete('/:id', async (req, res)=>{
     logger.info(`Customer API -- Deleted id: ${id}`)
     return res.status(200).json({success: true, message: `Success delete customer id: ${id}`})
     
-})
+}))
 
 // Whenever a customer logins, replace there old customer_session with the new one that they have been using
 // Edge case: guest session is empty and has no items. Then do not replace the session
-router.post('/login', async (req, res)=>{
+router.post('/login', asyncHandler (async (req, res)=>{
     const email = req.body.email
     const password = req.body.password
 
@@ -334,7 +335,7 @@ router.post('/login', async (req, res)=>{
     logger.info(`Customer API -- Login id: ${customer_id}`)
 
     return res.status(200).json({success: true, message: "Successful login"})
-})
+}))
 
 router.get('/logout', (req, res)=>{
     res.clearCookie('authCookie')
@@ -342,7 +343,7 @@ router.get('/logout', (req, res)=>{
     return res.redirect('/login')
 })
 
-router.post('/forgot-password', async (req, res)=>{
+router.post('/forgot-password', asyncHandler (async (req, res)=>{
     const email = req.body.email
     if(email === undefined){
         return res.status(400).json({success: false, message: "Email missing in req body"})
@@ -367,6 +368,6 @@ router.post('/forgot-password', async (req, res)=>{
     }
 
     return res.status(200).send({success: true})
-})
+}))
 
 module.exports = router

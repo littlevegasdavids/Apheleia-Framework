@@ -2,10 +2,11 @@ require('dotenv').config()
 const prisma = require('../prisma/client')
 const {Router} = require('express')
 const logger = require('../helpers/logger')
+const asyncHandler = require('express-async-handler')
 const router = new Router()
 
 // *** Create *** -- CHECK
-router.post('/address', async (req, res)=>{
+router.post('/address', asyncHandler(async (req, res)=>{
     const street_address = req.body.street_address
     const suburb = req.body.suburb
     const city = req.body.city
@@ -56,10 +57,10 @@ router.post('/address', async (req, res)=>{
 
     return res.status(201).json({success: true, message:{address_id: address.id}})
     
-})
+}))
 
 // *** Read ***
-router.get('/address/get/:id', async (req, res)=>{
+router.get('/address/get/:id', asyncHandler (async (req, res)=>{
     const id = parseInt(req.params['id'])
 
     if(isNaN(id)){
@@ -76,10 +77,10 @@ router.get('/address/get/:id', async (req, res)=>{
     })
 
     return res.status(200).json({success: true, message: address})
-})
+}))
 
 // *** Update ***
-router.patch('/address/:id', async (req, res)=>{
+router.patch('/address/:id', asyncHandler (async (req, res)=>{
     const id = parseInt(req.params['id'])
     const street_address = req.body.street_address
     const city = req.body.city
@@ -127,10 +128,10 @@ router.patch('/address/:id', async (req, res)=>{
 
     logger.info(`Customer Address API -- Updated id: ${id}`)
     return res.status(200).json({success: true, message: `Success updated address id: ${id}`})
-})
+}))
 
 // Delete -- CHECK
-router.delete('/address/:id', async(req, res)=>{
+router.delete('/address/:id', asyncHandler (async(req, res)=>{
     const id = parseInt(req.params['id'])
 
     if(isNaN(id)){
@@ -163,6 +164,6 @@ router.delete('/address/:id', async(req, res)=>{
     logger.info(`Customer Address API -- Deleted id: ${id}`)
 
     return res.status(200).json({success: true, message: `Success deleted address id: ${id}`})
-})
+}))
 
 module.exports = router
