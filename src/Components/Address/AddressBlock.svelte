@@ -13,7 +13,7 @@
     }
 </script>
 
-<div class="bg-secondary outline outline-black outline-1 grid grid-rows-2 p-3 rounded-lg">
+<div class="bg-secondary outline outline-black outline-1 grid grid-rows-2 p-3 rounded-lg shadow-md">
     <p class="font-bold">{address.street_address}, {address.suburb}, {address.city}, {address.postal_code}</p>
     {#if windowLocation === "/checkout"}
         <div class="grid grid-cols-3 gap-4 mt-2">

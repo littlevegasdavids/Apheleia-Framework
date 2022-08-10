@@ -9,7 +9,7 @@
     }
 </script>
 
-<div class="bg-primary-content outline outline-black outline-1 grid grid-rows-2 p-3 rounded-lg gap-2">
+<div class="bg-primary-content outline outline-black outline-1 grid grid-rows-2 p-3 rounded-lg gap-2 shadow-md">
     <div class="grid grid-cols-2">
         <p class="font-bold">Order #{order.id} | {convertDate(order.created_at)}</p>
         {#if order.status === 0}
