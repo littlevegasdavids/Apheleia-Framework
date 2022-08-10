@@ -1,4 +1,5 @@
 <script>
+    const url = window.location.pathname
     import { Router, Route, Link } from "svelte-routing";
     import HomePage from "./Components/HomePage.svelte";
     import ProductPage from "./Components/Product/ProductPage.svelte";
@@ -19,7 +20,14 @@
     import ResetPassword from './Components/Customer/ResetPassword.svelte' 
     import ChangeCustomerName from './Components/Customer/ChangeName.svelte'
     import ChangeCustomerPassword from './Components/Customer/ChangePassword.svelte'
+    import DashboardHome from "./Components/Dashboard/DashboardHome.svelte";
+    import DashboardLogin from "./Components/Dashboard/DashboardLogin.svelte";
+    import DashboardOrders from "./Components/Dashboard/DashboardOrders.svelte";
+import DashboardProducts from "./Components/Dashboard/DashboardProducts.svelte";
+import NewProduct from "./Components/Dashboard/Products/NewProduct.svelte";
 </script>
+
+{#if !url.includes('/dashboard')}
 <Router>
 <div class = "bg-base-200">
     <div class="max-w-7xl bg-base-100 shadow-2xl mx-auto min-h-screen flex flex-col">
@@ -150,6 +158,37 @@
     </div>
     
 </div>
-
 </Router>
+{:else}
+<Router>
+    <div class="bg-base-200">
+        <div class="max-w-7xl bg-base-100 mx-auto min-h-screen flex flex-col">
+            <div class="mt-5 mx-6 flex-grow z-0">
+                <Route path="/dashboard">
+                    <DashboardHome />
+                </Route>
+    
+                <Route path="/dashboard/login">
+                    <DashboardLogin />
+                </Route>
+
+                <Route path="/dashboard/orders">
+                    <DashboardOrders />
+                </Route>
+
+                <Route path="/dashboard/products">
+                    <DashboardProducts />
+                </Route>
+
+                <Route path="/dashboard/newProduct">
+                    <NewProduct />
+                </Route>
+            </div>
+        </div>
+    </div>
+    
+    
+</Router>
+{/if}
+
 

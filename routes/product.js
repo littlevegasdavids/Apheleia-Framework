@@ -3,70 +3,106 @@ const router = new Router()
 const logger = require('../helpers/logger')
 const prisma = require('../prisma/client')
 const asyncHandler = require('express-async-handler')
+const formidable = require('formidable')
+const fileSystem = require('fs')
+const path = require('path')
 
 // *** Create ***
+
 router.post('/', asyncHandler (async (req, res) =>{
-    const name = req.body.name
-    let price = req.body.price
-    const description = req.body.description
-    const categoryID = req.body.category_id
 
-    if(name === undefined){
-        return res.status(400).json({success: false, message: 'Missing Name in req body'})
-    }
-    if(price === undefined){
-        return res.status(400).json({success: false, message: 'Missing Price in req body'})
-    }
-    if(description === undefined){
-        return res.status(400).json({success: false, message: 'Missing Description in req body'})
-    }
-    if(categoryID === undefined){
-        return res.status(400).json({success: false, message: 'Missing Category ID in req body'})
-    }
-
-    // Check if price is whole integer
-    price = parseInt(price)
-    if(isNaN(price)){
-        return res.status(400).json({success: false, message:"Price invalid format"})
-    }
-
-    // Checking that category exists
-    const category = await prisma.product_Category.findUnique({
-        where:{
-            id: categoryID
+    const form = formidable({})
+    form.parse(req, async (err, fields, files)=>{
+        if(err){
+            logger.error(`Error encountered with creating product in formidable: ${err.message}`)
+            return res.status(500).send('Internal server error')
         }
-    })
 
-    if(category === null){
-        return res.status(404).json({success: false, message: `Category does not exist with id: ${categoryID}`})
-    }
+        const name = fields.name
+        const price = parseInt(fields.price)
+        const description = fields.description
+        let category = parseInt(fields.category)
+        const new_category_bool = fields.new_category_bool
+        const new_category_name = fields.new_category_name
+        const dimension_height = fields.dimension_height
+        const dimension_width = fields.dimension_width
+        const dimension_length = fields.dimension_length
 
-    // Creating inventory for the new product
-    const inventory = await prisma.product_Inventory.create({data:{}})
+        const image1 = files.image1
+        const image2 = files.image2
+        const image3 = files.image3
 
-    if(inventory == null){
-        logger.error('Create new inventory: null inventory return')
-        return res.status(500).json({success: false, message: "Error encountered creating new product"})
-    }
-    
-    const newProduct = await prisma.Product.create({
-        data:{
-            name: name, 
-            price: parseInt(price), 
-            description: description, 
-            inventory_id: inventory.id, 
-            category_id: categoryID
+        if(new_category_bool){
+            let new_category = await prisma.product_Category.create({
+                data:{
+                    name: new_category_name
+                }
+            })
+
+            category = new_category.id
         }
+
+        
+        const inventory = await prisma.product_Inventory.create({data:{}})
+
+        const new_product = await prisma.product.create({
+            data:{
+                name:name,
+                price:price,
+                description: description, 
+                category_id: category, 
+                inventory_id: inventory.id,
+                dimension_height: dimension_height, 
+                dimension_length: dimension_length,
+                dimension_width: dimension_width
+            }
+        })
+
+        const new_product_id = String(new_product.id)
+
+        fileSystem.mkdir(path.join(__dirname, "../", "public", "product_images", new_product_id), (err)=>{
+            if(err){
+                logger.error(`Error creating new directory for images id: ${new_product_id}`)
+                return res.status(500).send('Internal Sever Error')
+            }
+        })
+        
+        var oldPath = image1.filepath
+        var newPath = path.join(__dirname, "../", 'public', 'product_images', new_product_id) + "/" + "1.jpg"
+        var rawData = fileSystem.readFileSync(oldPath)
+        fileSystem.writeFileSync(newPath, rawData, function(err){
+            if(err){
+                logger.error(`Error creating new image 1 for id: ${new_product_id}`)
+                return res.status(500).send('Internal Sever Error')
+            }
+        })
+
+        oldPath = image2.filepath
+        newPath = path.join(__dirname, "../", 'public', 'product_images', new_product_id) + "/" + "2.jpg"
+        rawData = fileSystem.readFileSync(oldPath)
+        fileSystem.writeFileSync(newPath, rawData, function(err){
+            if(err){
+                logger.error(`Error creating new image 2 for id: ${new_product_id}`)
+                return res.status(500).send('Internal Sever Error')
+
+            }
+        })
+
+
+        oldPath = image3.filepath
+        newPath = path.join(__dirname, "../", 'public', 'product_images', new_product_id) + "/" + "3.jpg"
+        rawData = fileSystem.readFileSync(oldPath)
+        fileSystem.writeFileSync(newPath, rawData, function(err){
+            if(err){
+                logger.error(`Error creating new image 3 for id: ${new_product_id}`)
+                return res.status(500).send('Internal Sever Error')
+
+            }
+        })
+        logger.info(`Product API -- Created id: ${new_product_id}`)
+        return res.redirect('/dashboard/products')
+        
     })
-
-    if(newProduct == null){
-        logger.error('Create new product: null product return')
-        return res.status(500).json({success: false, message: "Error encountered creating new product"})
-    }
-    
-    logger.info(`Product API -- Created id: ${newProduct.id}`)
-
-    return res.status(201).json({success: true, message:{newProduct}})
 }))
 
 // *** Read ***
@@ -272,6 +308,9 @@ router.get('/all', asyncHandler (async (req, res)=>{
     const products = await prisma.Product.findMany({
         include:{
             Product_Inventory: true
+        }, 
+        orderBy:{
+            created_at: "desc"
         }
     })
 

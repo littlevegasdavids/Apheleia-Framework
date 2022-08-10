@@ -220,6 +220,35 @@ router.get('/get/order_status/:status', asyncHandler (async (req, res)=>{
 
 // *** Update ***
 // Currently no need for patch methods
+router.patch('/status/:id', asyncHandler(async(req, res)=>{
+    const status = parseInt(req.body.status)
+    const order_id = parseInt(req.params['id'])
+
+    if(isNaN(status)){
+        return res.status(400).json({success: false, message: "Status invalid format"})
+    }
+
+    if(isNaN(order_id)){
+        return res.status(400).json({success: false, message: "Order Id invalid format"})
+    }
+
+    if(status != 0 && status != 1 && status != 2 && status != 3){
+        return res.status(400).json({success: false, message: "Invalid status number"})
+    }
+
+    await prisma.order_Details.update({
+        where:{
+            id: order_id
+        }, 
+        data:{
+            status: status
+        }
+    })
+
+    logger.info(`Order API -- Updated order #${order_id} status to #${status}`)
+
+    return res.status(200).json({success: true, message:`Updated order ${order_id} to status ${status}`})
+}))
 
 // *** Delete ***
 router.delete('/:id', asyncHandler (async(req, res)=>{
@@ -251,7 +280,41 @@ router.delete('/:id', asyncHandler (async(req, res)=>{
 
 //All
 router.get('/all', asyncHandler(async(req, res)=>{
-    const orders = await prisma.order_Details.findMany({})
+    const orders = await prisma.order_Details.findMany({
+        include:{
+            Customer: true,
+            Payment_Details: true, 
+            Order_Items: {
+                include:{
+                    Product: true
+                }
+            }
+        }, 
+        orderBy:{
+            created_at: "desc"
+        }
+    })
+
+    return res.status(200).json({success: true, message: {orders}})
+}))
+
+// Returns all the orders with status 0 (new orders made)
+router.get('/all/new', asyncHandler(async (req, res)=>{
+    const orders = await prisma.order_Details.findMany({
+        where:{
+            status: 0
+        }, 
+        include:{
+            Customer: true,
+            Payment_Details: true, 
+            Order_Items: {
+                include:{
+                    Product: true
+                }
+            }
+            
+        }
+    })
 
     return res.status(200).json({success: true, message: {orders}})
 }))
