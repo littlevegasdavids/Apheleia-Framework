@@ -177,7 +177,7 @@
                     <p class="pb-1 text-xl">Main Image</p>
                     <div class="grid grid-cols-4 gap-2">
                         <img src="/product_images/{product_id}/1.jpg" alt="{product.name} - image 1" height="120" width="90"/>
-                        <input type="file" name="image1" class="col-span-2"/>
+                        <input type="file" name="image1" class="col-span-2" accept="image/png, image/jpeg"/>
                     </div>
                 </div>
 
@@ -185,7 +185,7 @@
                     <p class="pb-1 text-xl">Image 2</p>
                     <div class="grid grid-cols-4 gap-2">
                         <img src="/product_images/{product_id}/2.jpg" alt="{product.name} - image 2" height="120" width="90"/>
-                        <input type="file" name="image2" class="col-span-2"/>
+                        <input type="file" name="image2" class="col-span-2" accept="image/png, image/jpeg"/>
                     </div>
                 </div>
 
@@ -193,7 +193,7 @@
                     <p class="pb-1 text-xl">Image 3</p>
                     <div class="grid grid-cols-4 gap-2">
                         <img src="/product_images/{product_id}/3.jpg" alt="{product.name} - image 3" height="120" width="90"/>
-                        <input type="file" name="image3" class="col-span-2"/>
+                        <input type="file" name="image3" class="col-span-2" accept="image/png, image/jpeg"/>
                     </div>
                 </div>
                 
