@@ -7,7 +7,7 @@ const path = require('path')
 const secrete = process.env.TOKEN_SECRETE
 const jwt = require('jsonwebtoken')
 
-router.get('/', (req, res)=>{
+function checkAdminCookie(req, res, next){
     const adminCookie = req.cookies.adminDashboard
     if(adminCookie === undefined){
         return res.redirect('/dashboard/login')
@@ -20,11 +20,16 @@ router.get('/', (req, res)=>{
         } 
     })
 
+    next()
+}
+
+router.get('/', checkAdminCookie, (req, res)=>{
+    
     let path_dir = path.join(__dirname + "/../public/index.html")
     return res.sendFile(path_dir) 
 })
 
-router.get('/login', (req, res)=>{
+router.get('/login', checkAdminCookie, (req, res)=>{
     const adminCookie = req.cookies.adminDashboard
     if(adminCookie != undefined){
         return res.redirect('/dashboard')
@@ -34,7 +39,7 @@ router.get('/login', (req, res)=>{
     return res.sendFile(path_dir) 
 })
 
-router.post('/login', (req, res)=>{
+router.post('/login', checkAdminCookie, (req, res)=>{
     const username = req.body.username
     const password = req.body.password
 
@@ -48,7 +53,7 @@ router.post('/login', (req, res)=>{
     return res.status(200).json({success: true})
 })
 
-router.get('/orders', (req, res)=>{
+router.get('/orders', checkAdminCookie, (req, res)=>{
     const adminCookie = req.cookies.adminDashboard
     if(adminCookie === undefined){
         return res.redirect('/dashboard/login')
@@ -65,7 +70,7 @@ router.get('/orders', (req, res)=>{
     return res.sendFile(path_dir) 
 })
 
-router.get('/products', (req, res)=>{
+router.get('/products', checkAdminCookie, (req, res)=>{
     const adminCookie = req.cookies.adminDashboard
     if(adminCookie === undefined){
         return res.redirect('/dashboard/login')
@@ -82,7 +87,7 @@ router.get('/products', (req, res)=>{
     return res.sendFile(path_dir) 
 })
 
-router.get('/newProduct', (req, res)=>{
+router.get('/newProduct', checkAdminCookie, (req, res)=>{
     const adminCookie = req.cookies.adminDashboard
     if(adminCookie === undefined){
         return res.redirect('/dashboard/login')
@@ -97,6 +102,27 @@ router.get('/newProduct', (req, res)=>{
 
     let path_dir = path.join(__dirname + "/../public/index.html")
     return res.sendFile(path_dir) 
+})
+
+router.get('/editProduct/:product_id', checkAdminCookie, async (req, res)=>{
+    const product_id = parseInt(req.params['product_id'])
+
+    if(isNaN(product_id)){
+        return res.status(400).send('Product ID invalid format')
+    }
+
+    const product = await prisma.product.findUnique({
+        where:{
+            id: product_id
+        }
+    })
+
+    if(product === null){
+        return res.status(404).send('Product not found')
+    }
+
+    let path_dir = path.join(__dirname + "/../public/index.html")
+    return res.sendFile(path_dir)
 })
 
 module.exports = router
