@@ -201,17 +201,17 @@ import { onMount } from 'svelte';
             <div class="grid grid-cols gap-4">
                 <div>
                     <p class="pb-1 text-xl">Main Image</p>
-                    <input type="file" name="image1"/>
+                    <input type="file" name="image1" accept="image/png, image/jpeg"/>
                 </div>
 
                 <div>
                     <p class="pb-1 text-xl">Image 2</p>
-                    <input type="file" name="image2"/>
+                    <input type="file" name="image2" accept="image/png, image/jpeg"/>
                 </div>
 
                 <div>
                     <p class="pb-1 text-xl">Image 3</p>
-                    <input type="file" name="image3"/>
+                    <input type="file" name="image3" accept="image/png, image/jpeg"/>
                 </div>
                 
             </div>

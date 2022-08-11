@@ -24,12 +24,11 @@ function checkAdminCookie(req, res, next){
 }
 
 router.get('/', checkAdminCookie, (req, res)=>{
-    
     let path_dir = path.join(__dirname + "/../public/index.html")
     return res.sendFile(path_dir) 
 })
 
-router.get('/login', checkAdminCookie, (req, res)=>{
+router.get('/login', (req, res)=>{
     const adminCookie = req.cookies.adminDashboard
     if(adminCookie != undefined){
         return res.redirect('/dashboard')
@@ -39,7 +38,7 @@ router.get('/login', checkAdminCookie, (req, res)=>{
     return res.sendFile(path_dir) 
 })
 
-router.post('/login', checkAdminCookie, (req, res)=>{
+router.post('/login', (req, res)=>{
     const username = req.body.username
     const password = req.body.password
 
