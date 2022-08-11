@@ -59,8 +59,8 @@
             return
         }
 
-        if(isNaN(data.price)){
-            errorMessage = "Invalid input for product price"
+        if(isNaN(parseInt(data.price))){
+            errorMessage = "Product price must be a number"
             showError = true
             return
         }

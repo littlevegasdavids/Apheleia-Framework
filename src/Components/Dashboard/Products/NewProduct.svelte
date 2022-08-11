@@ -48,6 +48,12 @@ import { onMount } from 'svelte';
             return
         }
         
+        if(isNaN(parseInt(data.price))){
+            errorMessage = "Product price must be a number"
+            showError = true
+            return
+        }
+        
         if(data.price.includes('.') || data.price.includes(',')){
             errorMessage = "Price must be whole number (i.e R100)"
             showError = true
