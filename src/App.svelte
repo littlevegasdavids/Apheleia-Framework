@@ -23,8 +23,9 @@
     import DashboardHome from "./Components/Dashboard/DashboardHome.svelte";
     import DashboardLogin from "./Components/Dashboard/DashboardLogin.svelte";
     import DashboardOrders from "./Components/Dashboard/DashboardOrders.svelte";
-import DashboardProducts from "./Components/Dashboard/DashboardProducts.svelte";
-import NewProduct from "./Components/Dashboard/Products/NewProduct.svelte";
+    import DashboardProducts from "./Components/Dashboard/DashboardProducts.svelte";
+    import NewProduct from "./Components/Dashboard/Products/NewProduct.svelte";
+    import EditProduct from "./Components/Dashboard/Products/EditProduct.svelte";
 </script>
 
 {#if !url.includes('/dashboard')}
@@ -182,6 +183,10 @@ import NewProduct from "./Components/Dashboard/Products/NewProduct.svelte";
 
                 <Route path="/dashboard/newProduct">
                     <NewProduct />
+                </Route>
+
+                <Route path="/dashboard/editProduct/:product_id" let:params>
+                    <EditProduct product_id={params.product_id}/>
                 </Route>
             </div>
         </div>

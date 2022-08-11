@@ -11,7 +11,6 @@
         const result = await res.json()
         if(result.success){
             products = result.message.products
-            console.log(products)
             loading = false
         }
     })
@@ -52,7 +51,7 @@
                     <img alt="{product.name} - image" src="/product_images/{product.id}/1.jpg" class="rounded-md" height="120" width="90"/>
                     <p class="font-bold text-xl self-center">{product.name}</p>
                     <div class="self-center grid grid-cols-2 gap-2">
-                        <button class="btn btn-secondary rounded-md">Edit<i class="fa-solid fa-pen-to-square fa-xl pl-3"></i></button>
+                        <button class="btn btn-secondary rounded-md" on:click={()=>window.location.href=`/dashboard/editProduct/${product.id}`}>Edit<i class="fa-solid fa-pen-to-square fa-xl pl-3"></i></button>
                         <a href="/product/{product.id}" target="__blank">
                             <button class="btn btn-primary rounded-md" on:click={()=>goToProductPage(product.id)}>View<i class="fa-solid fa-eye fa-xl pl-3"></i></button>
                         </a>  

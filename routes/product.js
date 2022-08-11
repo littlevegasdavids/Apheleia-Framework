@@ -20,6 +20,11 @@ router.post('/', asyncHandler (async (req, res) =>{
 
         const name = fields.name
         const price = parseInt(fields.price)
+
+        if(isNaN(price)){
+            return res.status(500).send('Invalid price format')
+        }
+
         const description = fields.description
         let category = parseInt(fields.category)
         const new_category_bool = fields.new_category_bool
@@ -32,7 +37,7 @@ router.post('/', asyncHandler (async (req, res) =>{
         const image2 = files.image2
         const image3 = files.image3
 
-        if(new_category_bool){
+        if(new_category_bool === "true"){
             let new_category = await prisma.product_Category.create({
                 data:{
                     name: new_category_name
@@ -181,91 +186,126 @@ router.get('/isSold/:id', asyncHandler(async(req, res)=>{
 }))
 
 // *** Update ***
-router.patch('/:id', asyncHandler (async (req, res)=>{
-    const id = parseInt(req.params['id'])
+router.post('/:id', asyncHandler (async (req, res)=>{
+    const product_id = parseInt(req.params['id'])
 
-    if(isNaN(id)){
+    if(isNaN(product_id)){
         return res.status(400).json({success: false, message:"Invalid ID"})
     }
 
-    const name = req.body.name
-    const price = req.body.price
-    const description = req.body.description
-    const categoryID = req.body.category_id
-    const sold = req.body.sold
-
-    if(name === undefined){
-        return res.status(400).json({success: false, message: 'Missing Name in req body'})
-    }
-    if(price === undefined){
-        return res.status(400).json({success: false, message: 'Missing Price in req body'})
-    }
-    if(description === undefined){
-        return res.status(400).json({success: false, message: 'Missing Description in req body'})
-    }
-    if(categoryID === undefined){
-        return res.status(400).json({success: false, message: 'Missing Category ID in req body'})
-    }
-    if(sold === undefined){
-        return res.status(400).json({success: false, message: 'Missing Sold in req body'})
-    }
-
-    const category = await prisma.product_Category.findUnique({
+    const product = await prisma.product.findUnique({
         where:{
-            id: categoryID
-        }
-    })
-
-    if(category === null){
-        return res.status(400).json({success: false, message: `Category does not exist with id: ${categoryID}`})
-    }
-    
-    const temp = await prisma.product.findUnique({
-        where:{
-            id: id
+            id: product_id
         }, 
         include:{
             Product_Inventory: true
         }
     })
 
-    if(temp === null){
-        return res.status(400).json({success: false, message: `Product does not exist with id: ${id}`})
+    if(product === null){
+        return res.status(404).send(`Product with id: ${product_id} does not exist therefore cannot be updated`)
     }
 
-    await prisma.product_Inventory.update({
-        where:{
-            id: temp.Product_Inventory.id
-        }, 
-        data:{
-            sold: sold
+    const form = formidable({})
+    form.parse(req, async(err, fields, files)=>{
+        if(err){
+            logger.error(`Error encountered with creating product in formidable: ${err.message}`)
+            return res.status(500).send('Internal server error')
         }
-    })
 
-    const product = await prisma.Product.update({
-        where:{ 
-            id: id
-        },
-        data:{
-            name: name, 
-            price: price, 
-            description: description, 
-            category_id: categoryID
-        }, 
-        include:{
-            Product_Inventory: true
+        const name = fields.name
+        const price = parseInt(fields.price)
+
+        if(isNaN(price)){
+            return res.status(500).send('Invalid price format')
         }
-    })
 
-    logger.info(`Product API -- Updated id: ${id}`)
-    if(sold){
-        logger.info(`Product API -- Set to Sold id: ${id}`)
-    }
-    if(categoryID != temp.category_id){
-        logger.info(`Product API -- Changed Category id: ${id}, new_category_id: ${temp.category_id}`)
-    }
+        const description = fields.description
+        let category = parseInt(fields.category)
+        const dimension_height = fields.dimension_height
+        const dimension_width = fields.dimension_width
+        const dimension_length = fields.dimension_length
+        let sold
+        if(fields.sold === 'true'){
+            sold = true
+        }
+        else{
+            sold = false
+        }
+
+        const image1 = files.image1
+        const image2 = files.image2
+        const image3 = files.image3
+
+        await prisma.product.update({
+            data:{
+                name:name,
+                price:price,
+                description: description, 
+                category_id: category, 
+                dimension_height: dimension_height, 
+                dimension_length: dimension_length,
+                dimension_width: dimension_width
+            }, 
+            where:{
+                id: product_id
+            }
+        })
+
+        await prisma.product_Inventory.update({
+            data:{
+                sold: sold
+            }, 
+            where:{
+                id: product.Product_Inventory.id
+            }
+        })
+
+        var oldPath
+        var newPath
+        var rawData
+
+        if(image1.size != 0){
+            oldPath = image1.filepath
+            newPath = path.join(__dirname, "../", 'public', 'product_images', String(product_id)) + "/" + "1.jpg"
+            rawData = fileSystem.readFileSync(oldPath)
+            fileSystem.writeFileSync(newPath, rawData, function(err){
+                if(err){
+                    logger.error(`Error creating new image 1 for id: ${product_id}`)
+                    return res.status(500).send('Internal Sever Error')
+                }
+            })
+        }
+        
+        if(image2.size != 0){
+            oldPath = image2.filepath
+            newPath = path.join(__dirname, "../", 'public', 'product_images', String(product_id)) + "/" + "2.jpg"
+            rawData = fileSystem.readFileSync(oldPath)
+            fileSystem.writeFileSync(newPath, rawData, function(err){
+                if(err){
+                    logger.error(`Error creating new image 2 for id: ${product_id}`)
+                    return res.status(500).send('Internal Sever Error')
     
-    return res.status(200).json({success: true, message: {product}})
+                }
+            })
+        }
+        
+        if(image3.size != 0){
+            oldPath = image3.filepath
+            newPath = path.join(__dirname, "../", 'public', 'product_images', String(product_id)) + "/" + "3.jpg"
+            rawData = fileSystem.readFileSync(oldPath)
+            fileSystem.writeFileSync(newPath, rawData, function(err){
+                if(err){
+                    logger.error(`Error creating new image 3 for id: ${product_id}`)
+                    return res.status(500).send('Internal Sever Error')
+    
+                }
+            })
+        }
+        
+        logger.info(`Product API -- Edit id: ${product_id}`)
+        return res.redirect('/dashboard/products')
+    })
 }))
 
 // *** Delete ***
