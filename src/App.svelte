@@ -26,6 +26,7 @@
     import DashboardProducts from "./Components/Dashboard/DashboardProducts.svelte";
     import NewProduct from "./Components/Dashboard/Products/NewProduct.svelte";
     import EditProduct from "./Components/Dashboard/Products/EditProduct.svelte";
+    import DashboardCategories from "./Components/Dashboard/DashboardCategories.svelte";
 </script>
 
 {#if !url.includes('/dashboard')}
@@ -188,6 +189,11 @@
                 <Route path="/dashboard/editProduct/:product_id" let:params>
                     <EditProduct product_id={params.product_id}/>
                 </Route>
+
+                <Route path="/dashboard/categories">
+                    <DashboardCategories />
+                </Route>
+                
             </div>
         </div>
     </div>

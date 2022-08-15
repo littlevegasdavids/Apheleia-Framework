@@ -53,51 +53,18 @@ router.post('/login', (req, res)=>{
 })
 
 router.get('/orders', checkAdminCookie, (req, res)=>{
-    const adminCookie = req.cookies.adminDashboard
-    if(adminCookie === undefined){
-        return res.redirect('/dashboard/login')
-    }
-
-    jwt.verify(adminCookie, secrete, async(err, data)=>{
-        if(err){
-            res.clearCookie('adminDashboard')
-            return res.redirect('/dashboard/login')
-        } 
-    })
 
     let path_dir = path.join(__dirname + "/../public/index.html")
     return res.sendFile(path_dir) 
 })
 
 router.get('/products', checkAdminCookie, (req, res)=>{
-    const adminCookie = req.cookies.adminDashboard
-    if(adminCookie === undefined){
-        return res.redirect('/dashboard/login')
-    }
-
-    jwt.verify(adminCookie, secrete, async(err, data)=>{
-        if(err){
-            res.clearCookie('adminDashboard')
-            return res.redirect('/dashboard/login')
-        } 
-    })
 
     let path_dir = path.join(__dirname + "/../public/index.html")
     return res.sendFile(path_dir) 
 })
 
 router.get('/newProduct', checkAdminCookie, (req, res)=>{
-    const adminCookie = req.cookies.adminDashboard
-    if(adminCookie === undefined){
-        return res.redirect('/dashboard/login')
-    }
-
-    jwt.verify(adminCookie, secrete, async(err, data)=>{
-        if(err){
-            res.clearCookie('adminDashboard')
-            return res.redirect('/dashboard/login')
-        } 
-    })
 
     let path_dir = path.join(__dirname + "/../public/index.html")
     return res.sendFile(path_dir) 
@@ -120,6 +87,11 @@ router.get('/editProduct/:product_id', checkAdminCookie, async (req, res)=>{
         return res.status(404).send('Product not found')
     }
 
+    let path_dir = path.join(__dirname + "/../public/index.html")
+    return res.sendFile(path_dir)
+})
+
+router.get('/categories', checkAdminCookie, (req, res)=>{
     let path_dir = path.join(__dirname + "/../public/index.html")
     return res.sendFile(path_dir)
 })
