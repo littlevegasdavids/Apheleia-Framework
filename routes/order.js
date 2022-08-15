@@ -4,6 +4,8 @@ const prisma = require('../prisma/client')
 const logger = require('../helpers/logger')
 const asyncHandler = require('express-async-handler')
 
+const {order_confirmed_email, order_shipped_email} = require('../helpers/nodeMailer')
+
 // *** Create ***
 router.post('/', asyncHandler (async(req, res)=>{
     const payment_provider = req.body.payment_provider
@@ -236,14 +238,26 @@ router.patch('/status/:id', asyncHandler(async(req, res)=>{
         return res.status(400).json({success: false, message: "Invalid status number"})
     }
 
-    await prisma.order_Details.update({
+    const order = await prisma.order_Details.update({
         where:{
             id: order_id
         }, 
         data:{
             status: status
+        }, 
+        include:{
+            Customer: true
         }
     })
+
+    
+
+    if(status === 1){
+        order_confirmed_email(order.Customer.email, order.id, order.Customer.name, convertDate(order.created_at), order.shipping_address, `http://localhost:9000/order/${order.id}`)
+    }
+    else if(status === 2){
+        order_shipped_email(order.Customer.email, order.id, order.Customer.name, convertDate(order.created_at), order.shipping_address, `http://localhost:9000/order/${order.id}`)
+    }
 
     logger.info(`Order API -- Updated order #${order_id} status to #${status}`)
 
@@ -318,5 +332,12 @@ router.get('/all/new', asyncHandler(async (req, res)=>{
 
     return res.status(200).json({success: true, message: {orders}})
 }))
+
+function convertDate(date){
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    const d = new Date(date)
+    const dateString = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
+    return dateString
+}
 
 module.exports = router

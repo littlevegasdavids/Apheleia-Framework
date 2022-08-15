@@ -11,6 +11,8 @@ const jwt = require('jsonwebtoken')
 const {sendForgotPassword} = require('../helpers/nodeMailer')
 const asyncHandler = require('express-async-handler')
 
+const {changed_password_email, forgot_password_email, new_account_email} = require('../helpers/nodeMailer')
+
 // *** Create *** 
 // Create new Customer
 router.post('/', asyncHandler(async (req, res)=>{
@@ -69,6 +71,8 @@ router.post('/', asyncHandler(async (req, res)=>{
 
     const token = createRegisteredToken(session_id, customer.id) 
     res.cookie('authCookie', token)
+
+    new_account_email(email, name)
 
     logger.info(`Customer API -- Created id: ${customer.id}`)
 
@@ -137,7 +141,7 @@ router.patch('/name/:id', asyncHandler(async(req, res)=>{
     return res.status(200).json({success: true, message: "Succcessfully changed name"})
 }))
 
-// Change Customer Password
+// Change Customer Password using portal
 router.patch('/password/:id', asyncHandler(async (req, res)=>{
     const id = parseInt(req.params['id'])
     const newPassword = req.body.newPassword
@@ -181,6 +185,8 @@ router.patch('/password/:id', asyncHandler(async (req, res)=>{
             password: hash
         }
     })
+
+    changed_password_email(temp.email, temp.name)
 
     logger.info(`Customer API -- Changed Password: ${id}`)
 
@@ -364,7 +370,7 @@ router.post('/forgot-password', asyncHandler (async (req, res)=>{
         const pass_token = jwt.sign({email: customer.email, id: customer.id}, secrete, {expiresIn: '15m'})
         const link = `http://localhost:9000/reset-password/${customer.id}/${pass_token}`
         // Send email to user
-        sendForgotPassword(email, link)
+        forgot_password_email(customer.email, customer.name, link)
     }
 
     return res.status(200).send({success: true})
