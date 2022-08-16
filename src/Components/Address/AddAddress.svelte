@@ -1,6 +1,5 @@
 <script>
-    import { Link } from 'svelte-routing'
-import {countries} from '../../Stores/countries'
+    import {countries} from '../../Stores/countries'
 
     let windowLocation = window.location.pathname
 
@@ -116,10 +115,7 @@ import {countries} from '../../Stores/countries'
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
             <button class="btn btn-success rounded-md shadow-lg" on:click={addAddress}>Save</button>
-            <Link to="/customer">
-                <button class="btn btn-warning rounded-md shadow-lg">Cancel</button>
-            </Link>
-            
+            <button class="btn btn-warning rounded-md shadow-lg" on:click={()=>window.location.href="/customer"}>Cancel</button>
         </div>
         
 

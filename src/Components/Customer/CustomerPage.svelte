@@ -1,6 +1,5 @@
 <script>
     import { onMount } from "svelte";
-import { Link } from "svelte-routing";
     import AddressBlock from '../Address/AddressBlock.svelte'
     import OrderBlock from '../Order/OrderBlock.svelte'
     let loading = true
@@ -45,9 +44,7 @@ import { Link } from "svelte-routing";
             <div class="pt-5">
                 <div class="grid gap-4 grid-cols-2 mb-3">
                     <p class="font-bold text-lg tablet:text-2xl">Addresses</p>
-                    <Link to="/addNewAddress">
-                        <button class="btn btn-primary rounded-md btn-sm justify-self-end shadow-lg tablet:w-9/12">Add New Address<i class="fa-solid fa-plus pl-2"></i></button>
-                    </Link>
+                    <button class="btn btn-primary rounded-md btn-sm justify-self-end shadow-lg tablet:w-9/12" on:click={()=>window.location.href="/addNewAddress"}>Add New Address<i class="fa-solid fa-plus pl-2"></i></button>
                 </div>
                 <div class="grid gap-4">
                     {#each addresses as address}
@@ -59,12 +56,8 @@ import { Link } from "svelte-routing";
             </div>
             
             <div class="grid grid-cols-1 justify-center gap-4 mt-5 pt-5 tablet:mt-0">
-                <Link to="/customer/changePassword/{customer_id}">
-                    <button class="btn btn-warning rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12">Change Password<i class="fa-solid fa-key fa-lg pl-2"></i></button> 
-                </Link>
-                <Link to="/customer/changeName/{customer_id}">
-                    <button class="btn btn-neutral rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12">Change Name<i class="fa-solid fa-user-pen fa-lg pl-2"></i></button>
-                </Link>
+                <button class="btn btn-warning rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = `/customer/changePassword/${customer_id}`}>Change Password<i class="fa-solid fa-key fa-lg pl-2"></i></button> 
+                <button class="btn btn-neutral rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = `/customer/changeName/${customer_id}`}>Change Name<i class="fa-solid fa-user-pen fa-lg pl-2"></i></button>
                 <button class="btn btn-error rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = "/api/customer/logout"}>Logout<i class="fa-solid fa-arrow-right-from-bracket pl-2 fa-lg"></i></button> 
             </div>
 

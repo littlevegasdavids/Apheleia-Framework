@@ -88,10 +88,7 @@
                 {:else}
                     <button class="btn rounded-md shadow-lg tablet:w-8/12 mx-auto">Sold</button>
                 {/if}
-                <Link to="/products">
-                    <button class="btn btn-secondary rounded-md shadow-lg tablet:w-8/12 mx-auto">Back To Product Page</button>
-                </Link>
-                
+                <button class="btn btn-secondary rounded-md shadow-lg tablet:w-8/12 mx-auto" on:click={()=>{window.location.href="/products"}}>Back To Product Page</button>
                 <div class="grid gap-2">
                     <p class="font-bold pt-3 tablet:text-2xl">Description</p>
                     <p class="tablet:text-xl">{product.description}</p>

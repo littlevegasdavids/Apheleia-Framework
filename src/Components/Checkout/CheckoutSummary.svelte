@@ -4,7 +4,6 @@
     import CartItems from '../Cart/CartItems.svelte'
     import Loading from '../Loading.svelte'
     import CartItemsTable from "../Cart/CartItemsTable.svelte";
-import { Link } from "svelte-routing";
     export let address_id
     let address = null
     let session = null
@@ -60,12 +59,8 @@ import { Link } from "svelte-routing";
             <p class="py-5"></p>
             <div class="grid gap-4 tablet:w-8/12 tablet:mx-auto">
                 <Yoco total={total * 100} items={items} subtotal={session.total} shipping_price={100} shipping_address={addressToString(address)}/>
-                <Link to="/checkout">
-                    <button class="btn btn-primary rounded-md shadow-lg">Select different address<i class="fa-solid fa-pen-to-square fa-lg pl-2"></i></button>
-                </Link>
-                <Link to="/products">
-                    <button class="btn btn-secondary rounded-md shadow-lg">Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
-                </Link>
+                <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href = "/checkout"}>Select different address<i class="fa-solid fa-pen-to-square fa-lg pl-2"></i></button>
+                <button class="btn btn-secondary rounded-md shadow-lg" on:click={()=>window.location.href = "/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
             </div>
             
         </div>  

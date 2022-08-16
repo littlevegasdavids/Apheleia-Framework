@@ -1,6 +1,5 @@
 <script>
-    import { Link } from 'svelte-routing';
-import {cart_items} from '../../Stores/cart.js'
+    import {cart_items} from '../../Stores/cart.js'
     
     let total = 0
 
@@ -29,9 +28,7 @@ import {cart_items} from '../../Stores/cart.js'
 
             <span class="font-bold text-lg tablet:text-xl">Subtotal: R{total}</span>
             <div class="card-actions">
-                <Link to="/cart">
-                    <button class="btn btn-primary btn-sm rounded-md shadow-lg">View cart</button>
-                </Link>
+                <button class="btn btn-primary btn-sm rounded-md shadow-lg" on:click={()=>window.location.href="/cart"}>View cart</button>
             </div>
         </div>
     </div>

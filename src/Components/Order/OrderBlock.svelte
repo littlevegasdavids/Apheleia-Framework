@@ -1,6 +1,4 @@
 <script>
-import { Link } from "svelte-routing";
-
     export let order
 
     function convertDate(date){
@@ -26,7 +24,5 @@ import { Link } from "svelte-routing";
     </div>
     
     <p>Total: R{order.total}</p>
-    <Link to="/order/{order.id}">
-        <button class="btn btn-primary rounded-md btn-sm shadow-lg tablet:w-4/12 tablet:mx-auto">View Order<i class="fa-solid fa-eye fa-lg pl-2"></i></button>
-    </Link>
+    <button class="btn btn-primary rounded-md btn-sm shadow-lg tablet:w-4/12 tablet:mx-auto" on:click={()=>window.location.href=`/order/${order.id}`}>View Order<i class="fa-solid fa-eye fa-lg pl-2"></i></button>
 </div>
