@@ -107,7 +107,6 @@ router.delete('/:id', asyncHandler (async (req, res)=>{
     })
 }))
 
-
 // All -- DONE
 router.get('/all', asyncHandler(async (req, res)=>{
     const categories = await prisma.product_Category.findMany({

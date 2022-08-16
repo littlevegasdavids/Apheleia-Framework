@@ -151,6 +151,17 @@ router.get('/notSold/all', asyncHandler (async(req, res)=>{
     return res.status(200).json({success: true, message:{products}})
 }))
 
+// Return all products that aren't assigned to a category
+router.get('/nullCategory', asyncHandler(async (req, res)=>{
+    const products = await prisma.product.findMany({
+        where:{
+            category_id: null
+        }
+    })
+
+    return res.status(200).json({success: true, products})
+}))
+
 
 // Returns true or false if the item is sold
 router.get('/isSold/:id', asyncHandler(async(req, res)=>{
@@ -306,6 +317,49 @@ router.post('/:id', asyncHandler (async (req, res)=>{
         logger.info(`Product API -- Edit id: ${product_id}`)
         return res.redirect('/dashboard/products')
     })
+}))
+
+router.patch('/assignCategory/:id', asyncHandler(async(req, res)=>{
+    const product_id = parseInt(req.params['id'])
+    
+
+    if(req.body.category_id === undefined){
+        return res.status(400).json({success: false, message: "Category ID not in req body"})
+    }
+
+    const category_id = parseInt(req.body.category_id)
+
+    if(isNaN(category_id)){
+        return res.status(400).json({success: false, message: "Category ID invalid format"})
+    }
+
+    if(isNaN(product_id)){
+        return res.status(400).json({success: false, message:"Invalid ID"})
+    }
+
+    const product = await prisma.product.findUnique({
+        where:{
+            id: product_id
+        }, 
+        include:{
+            Product_Inventory: true
+        }
+    })
+
+    if(product === null){
+        return res.status(404).send(`Product with id: ${product_id} does not exist therefore cannot be updated`)
+    }
+
+    await prisma.product.update({
+        where:{
+            id: product_id
+        }, 
+        data:{
+            category_id: category_id
+        }
+    })
+
+    return res.status(200).json({success: true})
 }))
 
 // *** Delete ***

@@ -27,6 +27,10 @@
     import NewProduct from "./Components/Dashboard/Products/NewProduct.svelte";
     import EditProduct from "./Components/Dashboard/Products/EditProduct.svelte";
     import DashboardCategories from "./Components/Dashboard/DashboardCategories.svelte";
+    import NewCategory from "./Components/Dashboard/Categories/NewCategory.svelte";
+    import EditCategory from "./Components/Dashboard/Categories/EditCategory.svelte";
+import AssignNullCategory from "./Components/Dashboard/Products/AssignNullCategory.svelte";
+import DashboardNavBar from "./Components/Dashboard/DashboardNavBar.svelte";
 </script>
 
 {#if !url.includes('/dashboard')}
@@ -165,6 +169,9 @@
 <Router>
     <div class="bg-base-200">
         <div class="max-w-7xl bg-base-100 mx-auto min-h-screen flex flex-col">
+            <div class="pt-3 sticky top-0 z-50">
+                <DashboardNavBar />
+            </div>
             <div class="mt-5 mx-6 flex-grow z-0">
                 <Route path="/dashboard">
                     <DashboardHome />
@@ -192,6 +199,18 @@
 
                 <Route path="/dashboard/categories">
                     <DashboardCategories />
+                </Route>
+
+                <Route path="/dashboard/newCategory">
+                    <NewCategory />
+                </Route>
+
+                <Route path="/dashboard/editCategory/:category_id" let:params>
+                    <EditCategory category_id={params.category_id}/>
+                </Route>
+
+                <Route path="/dashboard/assignCategory">
+                    <AssignNullCategory />
                 </Route>
                 
             </div>
