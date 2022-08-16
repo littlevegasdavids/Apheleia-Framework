@@ -1,6 +1,7 @@
 <script>
     import About from '../Components/Home/About.svelte'
     import FAQ from '../Components/Home/Faq.svelte'
+    import {Link} from 'svelte-routing'
 </script>
 
 <div class="grid divide-y divide-solid max-w-6xl mx-auto">
@@ -9,7 +10,9 @@
         <img src="/main_banner.jpg" alt="banner" class="rounded-md shadow-lg"/>
     </div>
     <div class="grid justify-items-center py-5">
-        <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href = "/products"}>See Latest Products</button>
+        <Link to="/products">
+            <button class="btn btn-primary rounded-md shadow-lg">See Latest Products</button>
+        </Link>
     </div>
     <div class="py-5">
         <About />

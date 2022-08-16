@@ -1,4 +1,6 @@
 <script>
+import { Link } from "svelte-routing"
+
     let showError = false
     let erorrMessage = ""
     let name = ""
@@ -85,7 +87,9 @@
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
             <button class="btn btn-success rounded-md shadow-lg" on:click={createCustomer}>Create Account</button>
-            <button class="btn btn-warning rounded-md shadow-lg" on:click={()=>window.location.href = "/login"}>Cancel</button>
+            <Link to="/login">
+                <button class="btn btn-warning rounded-md shadow-lg">Cancel</button>
+            </Link>
         </div>
         
     </div>

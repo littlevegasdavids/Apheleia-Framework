@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+import { Link } from "svelte-routing";
     import Loading from '../Loading.svelte'
 
     let categories
@@ -48,7 +49,9 @@
 <div class=" w-4/6 mx-auto mb-10">
     <div class="grid grid-cols-3">
         <h1 class="col-start-2 text-center font-bold text-4xl underline underline-offset-2 mb-5">Categories</h1>
-        <button class="btn btn-success rounded-md justify-self-end" on:click={()=>window.location.href="/dashboard/newCategory"}>Create new Category<i class="fa-solid fa-plus fa-xl pl-3"></i></button>
+        <Link to="/dashboard/newCategory">
+            <button class="btn btn-success rounded-md justify-self-end">Create new Category<i class="fa-solid fa-plus fa-xl pl-3"></i></button>
+        </Link>
     </div>
     
     <div class="grid gap-4">
@@ -56,7 +59,9 @@
         <div class="grid grid-cols-3 p-3 {cardColor()} rounded-md outline outline-1">
             <p class="font-bold text-center col-start-2 text-3xl">{category.name}</p>
             <div class="justify-self-end">
-                <button class="btn rounded-md btn-primary" on:click={()=>window.location.href=`/dashboard/editCategory/${category.id}`}>Edit<i class="fa-solid fa-pen-to-square fa-xl pl-3"></i></button>
+                <Link to="/dashboard/editCategory/{category.id}">
+                    <button class="btn rounded-md btn-primary">Edit<i class="fa-solid fa-pen-to-square fa-xl pl-3"></i></button>
+                </Link>
             </div>
             {#each category.Product as product}
                 <div class="grid grid-cols-2 mt-5">
@@ -74,7 +79,9 @@
         {#if null_category.length > 0}
             <div class="grid grid-cols-3 p-3 {cardColor()} rounded-md outline outline-1">
                 <p class="font-bold text-center col-start-2 text-3xl">Products with no category assigned</p>
-                <button class="btn btn-success rounded-md justify-self-end" on:click={()=>window.location.href="/dashboard/assignCategory"}>Assign<i class="fa-solid fa-plus fa-xl pl-3"></i></button>
+                <Link to="/dashboard/assignCategory">
+                    <button class="btn btn-success rounded-md justify-self-end" >Assign<i class="fa-solid fa-plus fa-xl pl-3"></i></button>
+                </Link>
                 {#each null_category as product}
                     <div class="grid grid-cols-2 mt-5">
                         <img src="/product_images/{product.id}/1.jpg" alt="{product.name} - image" height="120" width="90"/>

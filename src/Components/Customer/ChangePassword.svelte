@@ -1,4 +1,5 @@
 <script>
+    import {Link} from 'svelte-routing'
     export let customer_id
     let oldPassword = ""
     let newPassword = ""
@@ -103,7 +104,9 @@
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
             <button class="btn btn-success rounded-md shadow-lg" on:click={changePassword} disabled={disbaleBtn}>Save</button>
-            <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
+            <Link to="/customer">
+                <button class="btn btn-primary rounded-md shadow-lg">Back</button>
+            </Link>
         </div>
         
     

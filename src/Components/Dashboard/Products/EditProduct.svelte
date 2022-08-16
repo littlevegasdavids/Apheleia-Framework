@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+import { Link } from "svelte-routing";
     import Loading from "../../Loading.svelte";
     export let product_id
 
@@ -200,7 +201,9 @@
             </div>
         </div>
         <button class="btn btn-success mt-3" on:click={editProduct}>Save Changes<i class="fa-solid fa-floppy-disk fa-xl pl-3"></i></button>
-        <button class="btn btn-warning rounded-md mt-3" on:click={()=>window.location.href="/dashboard/products"}>Back</button>
+        <Link to="/dashboard/products">
+            <button class="btn btn-warning rounded-md mt-3">Back</button>
+        </Link>
         {#if showError}
             <p class="text-red-600 text-center font-bold text-xl">{errorMessage}</p>
         {/if}

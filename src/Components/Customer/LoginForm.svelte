@@ -1,4 +1,6 @@
 <script>
+import { Link } from "svelte-routing"
+
     let email
     let password
     let showError = false
@@ -70,7 +72,9 @@
         {/if}
         <div class="grid grid-cols-1 gap-4">
             <button class="btn btn-primary rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={loginCustomer}>Login</button>
-            <button class="btn btn-secondary rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={()=>window.location.href="/forgot-password"}>Forgot Password ?</button>
+            <Link to="/forgot-password">
+                <button class="btn btn-secondary rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12">Forgot Password ?</button>
+            </Link>
             <button class="btn btn-accent rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={regiterCustomer}>Register New Account</button>
         </div>
         

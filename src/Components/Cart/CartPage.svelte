@@ -2,6 +2,7 @@
     import { onMount } from "svelte"
     import CartItemsTable from "./CartItemsTable.svelte";
     import Loading from '../Loading.svelte'
+import { Link } from "svelte-routing";
     let items = null
     let total = 0
     onMount(async ()=>{
@@ -28,14 +29,20 @@
             
             <div class="grid justify-center gap-5 p-5 w-full">
                 <p class="font-extrabold text-2xl text-center">Subtotal: R{total}</p>
-                <button class="btn btn-success rounded-md shadow-lg" on:click={()=>window.location.href="/checkout"}>Check out<i class="fa-solid fa-basket-shopping fa-lg pl-2"></i></button>
-                <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href="/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
+                <Link to="/checkout">
+                    <button class="btn btn-success rounded-md shadow-lg">Check out<i class="fa-solid fa-basket-shopping fa-lg pl-2"></i></button>
+                </Link>
+                <Link to="/products">
+                    <button class="btn btn-primary rounded-md shadow-lg">Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
+                </Link>
             </div>
         </div>
     {:else}
         <p class="text-center text-2xl py-5">Your Cart Is Empty</p>
         <div class="grid justify-items-center pt-3">
-            <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href="/products"}>Cotinue Shopping</button>
+            <Link to="/products">
+                <button class="btn btn-primary rounded-md shadow-lg">Cotinue Shopping</button>
+            </Link>
         </div>
     {/if}
 {:else}

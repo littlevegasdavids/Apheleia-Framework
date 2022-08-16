@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import {countries} from '../../Stores/countries'
     import Loading from '../Loading.svelte'
-
+    import {Link} from 'svelte-routing'
     let windowLocation = window.location.pathname
 
     export let address_id
@@ -131,10 +131,10 @@
             {/if}
             <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
                 <button class="btn btn-success rounded-md shadow-lg" on:click={saveAddress}>Save</button>
-                <button class="btn btn-warning rounded-md shadow-lg" on:click={()=>window.location.href="/customer"}>Cancel</button>
+                <Link to="/customer">
+                    <button class="btn btn-warning rounded-md shadow-lg">Cancel</button>
+                </Link>
             </div>
-            
-
         </div>
     </div>
 {/if}

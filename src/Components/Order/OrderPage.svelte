@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+import { Link } from "svelte-routing";
     import Loading from '../Loading.svelte'
     export let order_id
     let order_details
@@ -86,8 +87,10 @@
             </div>
         </div>
     </div>
+    <Link to="/customer">
+        <button class="btn btn-warning rounded-md col-span-2 w-4/12 justify-self-center shadow-lg">Back</button>
+    </Link>
     
-    <button class="btn btn-warning rounded-md col-span-2 w-4/12 justify-self-center shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
 </div>
     
 {:else}

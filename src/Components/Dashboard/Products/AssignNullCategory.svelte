@@ -93,8 +93,6 @@
                     {/each}
                 </select>
             </div>
-        {:else}
-            {()=>window.location.href="/dashboard/categories"}
         {/each}
     </div>
 {:else}

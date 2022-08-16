@@ -30,7 +30,9 @@
     </div>
     <div class="flex-none">
         <div class="tooltip tooltip-bottom" data-tip="Products Page">
-            <button class="btn btn-ghost rounded-md " on:click={()=>window.location.href="/products"}><i class="fa-solid fa-shop fa-xl"></i></button>
+            <Link to="/products">
+                <button class="btn btn-ghost rounded-md"><i class="fa-solid fa-shop fa-xl"></i></button>
+            </Link>
         </div>
 
         <div class="tooltip tooltip-bottom" data-tip="Search">
@@ -38,14 +40,18 @@
         </div>
 
         <div class="tooltip tooltip-bottom" data-tip="User Page">
-            <button class="btn btn-ghost rounded-md " on:click={()=>window.location.href="/customer"}><i class="fa-solid fa-xl fa-user"></i></button>
+            <Link to="/customer">
+                <button class="btn btn-ghost rounded-md"><i class="fa-solid fa-xl fa-user"></i></button>
+            </Link>
         </div>
         
         <div class="indicator dropdown dropdown-end dropdown-hover">
             <span class="indicator-item badge badge-primary rounded-full mr-3">{$num_items}</span> 
-            <button class="btn btn-ghost btn-sm rounded-md " on:click={()=>window.location.href = "/cart"}>
+            <Link to="/cart">
+                <button class="btn btn-ghost btn-sm rounded-md">
                 <i class="fa-solid fa-xl fa-cart-shopping"></i>
             </button>
+            </Link>
             <CartPopUp />
         </div>
     </div>
