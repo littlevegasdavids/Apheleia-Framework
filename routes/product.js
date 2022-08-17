@@ -32,6 +32,14 @@ router.post('/', asyncHandler (async (req, res) =>{
         const dimension_height = fields.dimension_height
         const dimension_width = fields.dimension_width
         const dimension_length = fields.dimension_length
+        let show
+        if(fields.show === "true"){
+            show = true
+        }
+        else{
+            show = false
+        }
+
 
         const image1 = files.image1
         const image2 = files.image2
@@ -59,7 +67,8 @@ router.post('/', asyncHandler (async (req, res) =>{
                 inventory_id: inventory.id,
                 dimension_height: dimension_height, 
                 dimension_length: dimension_length,
-                dimension_width: dimension_width
+                dimension_width: dimension_width, 
+                show: show
             }
         })
 
@@ -144,7 +153,8 @@ router.get('/notSold/all', asyncHandler (async(req, res)=>{
         where:{
             Product_Inventory:{
                 sold: false
-            }
+            }, 
+            show: true
         }
     })
 
@@ -237,11 +247,20 @@ router.post('/:id', asyncHandler (async (req, res)=>{
         const dimension_width = fields.dimension_width
         const dimension_length = fields.dimension_length
         let sold
+        let show
+        
         if(fields.sold === 'true'){
             sold = true
         }
         else{
             sold = false
+        }
+
+        if(fields.show === 'true'){
+            show = true
+        }
+        else{
+            show = false
         }
 
         const image1 = files.image1
@@ -256,7 +275,8 @@ router.post('/:id', asyncHandler (async (req, res)=>{
                 category_id: category, 
                 dimension_height: dimension_height, 
                 dimension_length: dimension_length,
-                dimension_width: dimension_width
+                dimension_width: dimension_width, 
+                show: show
             }, 
             where:{
                 id: product_id

@@ -53,7 +53,10 @@ app.get('/product/:id', asyncHandler(async (req, res)=>{
     })
 
     if(temp === null){
-        return res.status(404).end('product not found')
+        return res.status(404).send('product not found')
+    }
+    if(!temp.show){
+        return res.status(200).send('Cannot show product at this moment')
     }
     return res.sendFile(__dirname + "/public/index.html")
 }))

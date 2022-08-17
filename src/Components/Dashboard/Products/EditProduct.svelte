@@ -170,6 +170,16 @@
                         <option value={true}>Sold</option>
                     </select>
                 </div>
+
+                <div>
+                    <p class="pb-1 text-xl">
+                        Show product on website
+                    </p>
+                    <select class="select outline outline-1" name="show" bind:value={product.show}>
+                        <option value={true}>Yes</option>
+                        <option value={false}>No</option>
+                    </select>
+                </div>
             </div>
 
             <div class="grid grid-cols gap-4">
