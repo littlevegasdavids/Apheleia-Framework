@@ -51,7 +51,7 @@
                             <img src="/product_images/{item.Product.id}/1.jpg" alt="{item.Product.name} - image" height="175" width="131" class="rounded-md shadow-lg"/>
                         </td>
                         <td>{item.Product.name}</td>
-                        <td>{item.Product.price}</td>
+                        <td>R{item.Product.price}</td>
                     </tr>
                     {:else}
                         <tr>
