@@ -171,5 +171,22 @@ async function forgot_password_email(customer_email, customer_name, link){
     }
 }
 
+async function send_order_invoice(email, html){
+    let transporter = await createMailTransport()
 
-module.exports = {order_confirmed_email, order_shipped_email, changed_password_email, new_account_email, forgot_password_email}
+    try{
+        transporter.sendMail({
+            from: `${app_heading} <testmail@example.com>`, 
+            to: String(email),
+            subject: 'Invoice', 
+            html: html
+        }).then(info=>{
+            logger.info(`Sent test mail: ${nodemailer.getTestMessageUrl(info)}`)
+        })
+    }
+    catch(err){
+        logger.error(`Error sending order invoice: ${err.message}`)
+    }
+}
+
+module.exports = {send_order_invoice, order_confirmed_email, order_shipped_email, changed_password_email, new_account_email, forgot_password_email}

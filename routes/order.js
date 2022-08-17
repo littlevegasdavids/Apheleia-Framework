@@ -3,8 +3,12 @@ const router = new Router()
 const prisma = require('../prisma/client')
 const logger = require('../helpers/logger')
 const asyncHandler = require('express-async-handler')
+const path = require('path')
+const filesystem = require('fs')
+const Handlebars = require('handlebars')
+const puppeteer = require('puppeteer')
 
-const {order_confirmed_email, order_shipped_email} = require('../helpers/nodeMailer')
+const {send_order_invoice, order_confirmed_email, order_shipped_email} = require('../helpers/nodeMailer')
 
 // *** Create ***
 router.post('/', asyncHandler (async(req, res)=>{
@@ -107,15 +111,82 @@ router.post('/', asyncHandler (async(req, res)=>{
             id: order_details.id
         }, 
         include:{
-            Order_Items: true, 
-            Payment_Details: true
+            Order_Items: {
+                include:{
+                   Product: true 
+                }
+            }, 
+            Payment_Details: true, 
+            Customer: true
         }
     })
 
+    create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, subtotal, shipping_price, total)
 
     logger.info(`Order API -- Created id: ${order.id}`)
     return res.status(201).json({success: true, message: {order}})
 }))
+
+async function create_and_send_invoice(order_number, customer_name, shipping_address, payment_service, subtotal, shipping_price, total){
+    try{
+        const order = await prisma.order_Details.findUnique({
+            where:{
+                id: order_number
+            }, 
+            include:{
+                Order_Items: {
+                    include:{
+                       Product: true 
+                    }
+                }, 
+                Payment_Details: true, 
+                Customer: true
+            }
+        })
+        let items = []
+        order.Order_Items.forEach(item => {
+            items.push(item.Product)
+        });
+        const filepath = path.join(__dirname, '../', 'email_templates', 'order_invoice.html')
+        const source = filesystem.readFileSync(filepath, 'utf-8').toString()
+        const template = Handlebars.compile(source)
+        const replace = {
+            app_heading: 'App Heading',
+            order_number: String(order_number),
+            customer_name: customer_name, 
+            shipping_address: shipping_address, 
+            items: items, 
+            payment_service: payment_service, 
+            subtotal_amount: String(subtotal), 
+            shipping_amount: String(shipping_price), 
+            total_amount: String(total)
+        }
+        const html = template(replace)
+        
+        const browser = await puppeteer.launch()
+        const page = await browser.newPage()
+    
+        await page.setContent(html)
+        
+        const invoice_dir = path.join(__dirname, '../', 'public', 'order_invoices', String(order_number))
+
+        filesystem.mkdirSync(invoice_dir)
+
+        const invoice_path = path.join(invoice_dir, String(order_number) + " - invoice.pdf")
+        
+
+        await page.pdf({path: invoice_path, format: 'A4'})
+        await browser.close()
+    
+        logger.info(`Successfully created Order Invoice #${order_number}`)
+
+
+    }
+    catch(err){
+        logger.error(`Error creating pdf: ${err.message}`)
+    }
+    
+}
 
 // *** Read ***
 // Get Order By Order_Details ID

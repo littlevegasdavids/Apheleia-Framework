@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html{
+            font-family: Helvetica;
+            background-color: lightgrey;
+            height: 100%;
+        }
+        body{
+            max-width: 700px;
+            height: 100%;
+            margin: auto;
+            background-color: white;
+            border-radius: 25px;
+        }
+        #container{
+            padding-left: 35px;
+            padding-right: 35px;
+            padding-bottom: 10px;
+            font-size: large;
+            min-height: 100%;
+        }
+    
+        .heading{
+            text-align: center;
+        }
+        span{
+            font-weight: bold;
+        }
+        button{
+            border-radius: 25px;
+            padding: 10px;
+        }
+        #info{
+            display: grid;
+
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table, td, th{
+            border: 1px solid;
+        }
+        .payment_summary{
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1 class="heading">
+            {{app_heading}}
+        </h1>
+        <h2 class="heading">Order #{{order_number}} Invoice</h2>
+            <p>To: {{customer_name}}</p>
+            <p>Shipping address: {{shipping_address}}</p>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            {{#each items}}
+                <tr>
+                    <td style="padding-left:10px">
+                        {{id}}
+                    </td>
+                    <td style="padding-left:10px">
+                        {{name}}
+                    </td>
+                    <td style="padding-left:10px">
+                        R{{price}}
+                    </td>
+                </tr>
+            {{/each}}
+        </table>
+        <div class="payment_summary">
+            <p>Payment service: {{payment_service}}</p>
+            <p>Subtotal: R{{subtotal_amount}}</p>
+            <p>Shipping Fee: R{{shipping_amount}}</p>
+            <p style="font-weight: bold;">Total: R{{total_amount}}</p>
+        </div>
+    </div>
+</body>
+
+</html>
