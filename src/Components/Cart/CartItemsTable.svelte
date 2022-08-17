@@ -19,18 +19,21 @@
     <tbody>
         {#each items as item}
             <tr class="hover">
-                <td on:click={goToProductPage(item.Product.id)}>
-                    <div class="grid tablet:hidden">
-                        <img src="/product_images/{item.Product.id}/1.jpg" height="30" width="23" alt="{item.Product.name} - image" class="rounded-md shadow-lg"/>
-                    </div>
-                    <div class="hidden tablet:grid">
-                        <img src="/product_images/{item.Product.id}/1.jpg" height="120" width="90" alt="{item.Product.name} - image" class="rounded-md shadow-lg"/>
-                    </div>
+                
+                <td>
+                    <a href="/product/{item.Product.id}" target="_blank">
+                        <div class="grid tablet:hidden">
+                            <img src="/product_images/{item.Product.id}/1.jpg" height="30" width="23" alt="{item.Product.name} - image" class="rounded-md shadow-lg"/>
+                        </div>
+                        <div class="hidden tablet:grid">
+                            <img src="/product_images/{item.Product.id}/1.jpg" height="120" width="90" alt="{item.Product.name} - image" class="rounded-md shadow-lg"/>
+                        </div>
+                    </a>
                 </td>
-                <td on:click={goToProductPage(item.Product.id)}>
+                <td>
                     {item.Product.name}
                 </td>
-                <td on:click={goToProductPage(item.Product.id)}>
+                <td>
                     R{item.Product.price}
                 </td>
                 <td>
