@@ -168,11 +168,11 @@ import DashboardNavBar from "./Components/Dashboard/DashboardNavBar.svelte";
 {:else}
 <Router>
     <div class="bg-base-200">
-        <div class="max-w-7xl bg-base-100 mx-auto min-h-screen flex flex-col">
+        <div class="max-w-7xl bg-base-100 mx-auto min-h-screen flex flex-col ">
             <div class="pt-3 sticky top-0 z-50">
                 <DashboardNavBar />
             </div>
-            <div class="mt-5 mx-6 flex-grow z-0">
+            <div class="mt-5 mx-6 flex-grow z-0 mb-10">
                 <Route path="/dashboard">
                     <DashboardHome />
                 </Route>
