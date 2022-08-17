@@ -280,6 +280,13 @@ app.get('/reset-password/:id/:token', asyncHandler (async (req, res)=>{
     })
 }))
 
+app.get('/deleteAccount', (req, res)=>{
+    if(!req.registered){
+        return res.redirect('/login')
+    }
+    return res.sendFile(__dirname + "/public/index.html") 
+})
+
 setInterval(async()=>{
     // numHours is the number of hours where a cart will be deleted if not used in that amount of hours
     const numHours = 3

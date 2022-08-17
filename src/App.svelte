@@ -29,8 +29,9 @@
     import DashboardCategories from "./Components/Dashboard/DashboardCategories.svelte";
     import NewCategory from "./Components/Dashboard/Categories/NewCategory.svelte";
     import EditCategory from "./Components/Dashboard/Categories/EditCategory.svelte";
-import AssignNullCategory from "./Components/Dashboard/Products/AssignNullCategory.svelte";
-import DashboardNavBar from "./Components/Dashboard/DashboardNavBar.svelte";
+    import AssignNullCategory from "./Components/Dashboard/Products/AssignNullCategory.svelte";
+    import DashboardNavBar from "./Components/Dashboard/DashboardNavBar.svelte";
+    import DeleteCustomer from "./Components/Customer/DeleteCustomer.svelte";
 </script>
 
 {#if !url.includes('/dashboard')}
@@ -152,6 +153,12 @@ import DashboardNavBar from "./Components/Dashboard/DashboardNavBar.svelte";
             <Route path="/reset-password/:id/:token" let:params>
                 <Transition url={`/reset-password/${params.id}/${params.token}`}>
                     <ResetPassword customer_id={params.id} />
+                </Transition>
+            </Route>
+
+            <Route path="/deleteAccount">
+                <Transition url={"/deleteAccount"}>
+                    <DeleteCustomer />
                 </Transition>
             </Route>
         

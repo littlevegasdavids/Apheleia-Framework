@@ -240,33 +240,41 @@ router.patch('/reset-password/:id', asyncHandler (async(req, res)=>{
 
 // *** Delete ***
 // Delete Customer
-router.delete('/:id', asyncHandler (async (req, res)=>{
-    const id = parseInt(req.params['id'])
+router.delete('/', asyncHandler (async (req, res)=>{
+    const password = req.body.password 
+    const customer_id = req.customer_id
 
-    if(isNaN(id)){
-        return res.status(400).json({success: false, message:"Invalid id"})
+    if(customer_id === null){
+        return res.status(404).json({success: false, message: "Cannot find customer ID"})
     }
 
     const temp = await prisma.customer.findUnique({
         where:{
-            id: id
+            id: customer_id
         }, 
         include:{
             Shopping_Session: true
         }
     })
+
     if(temp === null){
         return res.status(404).json({success: false, message: `Customer does not exist with id: ${temp.id}`})
     }
 
+    const passRes = comparePassword(password, temp.password)
+
+    if(!passRes){
+        return res.status(400).json({success: false, message: 'Password is incorrect'})
+    }
+
     await prisma.customer.delete({
         where:{
-            id: id
+            id: customer_id
         }
     })
 
-    logger.info(`Customer API -- Deleted id: ${id}`)
-    return res.status(200).json({success: true, message: `Success delete customer id: ${id}`})
+    logger.info(`Customer API -- Deleted id: ${customer_id}`)
+    return res.status(200).json({success: true, message: `Success delete customer id: ${customer_id}`})
     
 }))
 

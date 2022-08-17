@@ -56,9 +56,10 @@
             </div>
             
             <div class="grid grid-cols-1 justify-center gap-4 mt-5 pt-5 tablet:mt-0">
+                <button class="btn btn-error rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = "/api/customer/logout"}>Logout<i class="fa-solid fa-arrow-right-from-bracket pl-2 fa-lg"></i></button> 
                 <button class="btn btn-warning rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = `/customer/changePassword/${customer_id}`}>Change Password<i class="fa-solid fa-key fa-lg pl-2"></i></button> 
                 <button class="btn btn-neutral rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = `/customer/changeName/${customer_id}`}>Change Name<i class="fa-solid fa-user-pen fa-lg pl-2"></i></button>
-                <button class="btn btn-error rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = "/api/customer/logout"}>Logout<i class="fa-solid fa-arrow-right-from-bracket pl-2 fa-lg"></i></button> 
+                <button class="btn btn-error rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = "/deleteAccount"}>Delete Account</button> 
             </div>
 
         </div>
