@@ -5,7 +5,6 @@
     let order_details
     let items
     let loading = true
-    let status
 
     onMount(async ()=>{
         const order_items_res = await fetch(`/api/order/get/order_items/${order_id}`)
