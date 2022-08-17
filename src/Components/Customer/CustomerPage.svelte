@@ -59,7 +59,7 @@
                 <button class="btn btn-error rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = "/api/customer/logout"}>Logout<i class="fa-solid fa-arrow-right-from-bracket pl-2 fa-lg"></i></button> 
                 <button class="btn btn-warning rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = `/customer/changePassword/${customer_id}`}>Change Password<i class="fa-solid fa-key fa-lg pl-2"></i></button> 
                 <button class="btn btn-neutral rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = `/customer/changeName/${customer_id}`}>Change Name<i class="fa-solid fa-user-pen fa-lg pl-2"></i></button>
-                <button class="btn btn-error rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = "/deleteAccount"}>Delete Account</button> 
+                <button class="btn btn-error rounded-md shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href = "/deleteAccount"}>Delete Account<i class="fa-solid fa-circle-minus fa-lg pl-2"></i></button> 
             </div>
 
         </div>
