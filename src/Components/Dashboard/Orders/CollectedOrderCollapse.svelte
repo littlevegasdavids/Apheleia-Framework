@@ -22,7 +22,11 @@
             <div class="grid outline outline-1 outline-black p-5 rounded-md gap-4 mb-5 justify-self-center">
                 <div class="grid grid-cols-3 font-bold">
                     <p>#{order.id}</p>
-                    <p class="text-center">{order.Customer.name} - {order.Customer.email}</p>
+                    {#if order.customer_id != null}
+                        <p class="text-center">{order.Customer.name} - {order.Customer.email}</p>
+                    {:else}
+                        <p class="text-center">[Deleted Customer]</p>
+                    {/if}
                     <p class="text-end">R{order.subtotal}</p>
                 </div>
             <p>{order.shipping_address}</p>

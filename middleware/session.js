@@ -17,19 +17,32 @@ const checkSession = asyncHandler (async function checkSession(req, res, next){
         req.session_id = session.id
         req.registered = false
         req.customer_id = null
-        next()
+        return next()
     }
     else{
         jwt.verify(authCookie, secrete, async (err, data)=>{
             if(err){
                 res.clearCookie('authCookie')
-                return res.redirect('/login')
+                return next()
             }
             
             const session_id = data.session_id
             const registered = data.registered
             const customer_id = data.customer_id
 
+            if(customer_id != null){
+                //Check that customer stills exist
+                const customer = await prisma.customer.findUnique({
+                    where:{
+                        id: customer_id
+                    }
+                })
+                if(customer === null){
+                    res.clearCookie('authCookie')
+                    return res.redirect('/')
+                }
+            }
+            
             const shopping_session = await prisma.shopping_Session.findUnique({
                 where:{
                     id: session_id
@@ -48,7 +61,7 @@ const checkSession = asyncHandler (async function checkSession(req, res, next){
                     req.session_id = new_session.id
                     req.registered = false
                     req.customer_id = null
-                    next()
+                    return next()
                 }
                 // Registered user
                 else{
@@ -63,7 +76,7 @@ const checkSession = asyncHandler (async function checkSession(req, res, next){
                     req.session_id = new_session.id
                     req.registered = true
                     req.customer_id = customer_id
-                    next()
+                    return next()
                 }   
             }
             // Session is still alive
@@ -71,7 +84,7 @@ const checkSession = asyncHandler (async function checkSession(req, res, next){
                 req.session_id = session_id
                 req.registered = registered
                 req.customer_id = customer_id
-                next()
+                return next()
             }
             
         })
