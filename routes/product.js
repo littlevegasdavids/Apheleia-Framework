@@ -65,7 +65,7 @@ router.post('/', asyncHandler (async (req, res) =>{
 
         const new_product_id = String(new_product.id)
 
-        fileSystem.mkdir(path.join(__dirname, "../", "public", "product_images", new_product_id), (err)=>{
+        fileSystem.mkdirSync(path.join(__dirname, "../", "public", "product_images", new_product_id), (err)=>{
             if(err){
                 logger.error(`Error creating new directory for images id: ${new_product_id}`)
                 return res.status(500).send('Internal Sever Error')
@@ -386,9 +386,11 @@ router.delete('/:id', asyncHandler (async (req, res)=>{
         }
     })
 
-    await prisma.product_Inventory.delete({
-        where:{
-            id: temp.inventory_id
+    const image_dir = path.join(__dirname, "../", "public", "product_images", String(id))
+
+    fileSystem.rm(image_dir, {recursive: true},(err)=>{
+        if(err){
+            logger.error(`Error deleting product ${id} image directory`)
         }
     })
 

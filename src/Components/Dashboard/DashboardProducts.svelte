@@ -15,10 +15,6 @@
         }
     })
 
-    function goToProductPage(id){
-        window.open(window.location.host + `/product/${id}`)
-    }
-
     function cardColor(){
         if(i % 2 === 0){ 
             i++
@@ -27,6 +23,27 @@
         else{
             i++
             return 'bg-base-300'
+        }
+    }
+
+    async function deleteProduct(product_id, product_name){
+        if(confirm(`Are you sure you want to delete ${product_name}`)){
+            const res = await fetch(`/api/product/${product_id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json', 
+                    'Content-Type': 'application/json',
+                }
+            })
+
+            const result = await res.json()
+            if(result.success){
+                window.location.reload()
+            }
+            else{
+                console.error(result.message)
+                alert(`Error encounterd deleting product ${product_name}`)
+            } 
         }
     }
 </script>
@@ -50,11 +67,19 @@
                 <div class="grid grid-cols-3 gap-4">
                     <img alt="{product.name} - image" src="/product_images/{product.id}/1.jpg" class="rounded-md" height="120" width="90"/>
                     <p class="font-bold text-xl self-center">{product.name}</p>
-                    <div class="self-center grid grid-cols-2 gap-2">
-                        <button class="btn btn-secondary rounded-md" on:click={()=>window.location.href=`/dashboard/editProduct/${product.id}`}>Edit<i class="fa-solid fa-pen-to-square fa-xl pl-3"></i></button>
-                        <a href="/product/{product.id}" target="__blank">
-                            <button class="btn btn-primary rounded-md" on:click={()=>goToProductPage(product.id)}>View<i class="fa-solid fa-eye fa-xl pl-3"></i></button>
-                        </a>  
+                    <div class="self-center grid grid-cols-3 gap-2">
+                        <div class="tooltip" data-tip="Edit">
+                            <button class="btn btn-secondary btn-circle" on:click={()=>window.location.href=`/dashboard/editProduct/${product.id}`}><i class="fa-solid fa-pen-to-square"></i></button>
+                        </div>
+                        <div class="tooltip" data-tip="View">
+                            <a href="/product/{product.id}" target="_blank">
+                                <button class="btn btn-primary btn-circle"><i class="fa-solid fa-eye"></i></button>
+                            </a> 
+                        </div>
+
+                        <div class="tooltip" data-tip="Delete">
+                            <button class="btn btn-error btn-circle" on:click={deleteProduct(product.id, product.name)}><i class="fa-solid fa-trash"></i></button>
+                        </div>           
                     </div>
                 </div>
                
