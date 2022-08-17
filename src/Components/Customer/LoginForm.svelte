@@ -69,7 +69,7 @@
             <p class="font-bold text-red-600 text-center">Invalid Email/Password</p>
         {/if}
         <div class="grid grid-cols-1 gap-4">
-            <button class="btn btn-primary rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={loginCustomer}>Login</button>zzz
+            <button class="btn btn-primary rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={loginCustomer}>Login</button>
             <button class="btn btn-secondary rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={()=>window.location.href="/forgot-password"}>Forgot Password ?</button>
             <button class="btn btn-accent rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={regiterCustomer}>Register New Account</button>
         </div>
