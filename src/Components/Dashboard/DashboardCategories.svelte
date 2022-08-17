@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+import { identity } from "svelte/internal";
     import Loading from '../Loading.svelte'
 
     let categories
@@ -41,6 +42,28 @@
             return 'bg-base-300'
         }
     }
+
+    async function deleteCategory(id, name){
+        if(confirm(`Are you sure you want to delete category ${name}`)){
+            const res = await fetch(`/api/category/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json', 
+                    'Content-Type': 'application/json',
+                }
+            })
+
+            const result = await res.json()
+
+            if(result.success){
+                window.location.reload()
+            }   
+            else{
+                console.error(result.message)
+                alert(`Error encountered deleting category ${name}`)
+            }
+        }
+    }
 </script>
 
 
@@ -56,8 +79,14 @@
         {#each categories as category}
         <div class="grid grid-cols-3 p-3 {cardColor()} rounded-md outline outline-1">
             <p class="font-bold text-center col-start-2 text-3xl">{category.name}</p>
-            <div class="justify-self-end">
-                <button class="btn rounded-md btn-primary" on:click={()=>window.location.href=`/dashboard/editCategory/${category.id}`}>Edit<i class="fa-solid fa-pen-to-square fa-xl pl-3"></i></button>
+            <div class="justify-self-end grid grid-cols-2 gap-4">
+                <div class="tooltip tooltip-bottom" data-tip="Edit">
+                    <button class="btn btn-circle btn-primary" on:click={()=>window.location.href=`/dashboard/editCategory/${category.id}`}><i class="fa-solid fa-pen-to-square"></i></button>
+                </div>
+                <div class="tooltip tooltip-bottom" data-tip="Delete">
+                    <button class="btn btn-circle btn-error" on:click={deleteCategory(category.id, category.name)}><i class="fa-solid fa-trash"></i></button>
+                </div>
+
             </div>
             {#each category.Product as product}
                 <div class="grid grid-cols-2 mt-5">

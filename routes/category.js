@@ -18,7 +18,7 @@ router.post('/', asyncHandler(async (req, res)=>{
         }
     })
 
-    logger.info(`Created new category ${category.id}`)
+    logger.info(`Category API -- Created id: ${category.id}`)
     return res.status(201).json({success: true, message:{category}})
 }))
 
@@ -78,7 +78,7 @@ router.patch('/:id', asyncHandler(async (req, res)=>{
         }
     })
 
-    logger.info(`Update category id: ${id}`)
+    logger.info(`Category API -- Updated id: ${id}`)
 
     return res.status(200).json({success: true, message: {category}})
 }))
@@ -105,6 +105,10 @@ router.delete('/:id', asyncHandler (async (req, res)=>{
             id: id
         }
     })
+
+    logger.info(`Category API -- Delete id: ${id}`)
+
+    return res.status(200).json({success: true})
 }))
 
 // All -- DONE
