@@ -45,6 +45,7 @@
             </thead>
             <tbody>
                 {#each items as item}
+                    {#if item.product_id != null}
                     <tr>
                         <td>
                             <img src="/product_images/{item.Product.id}/1.jpg" alt="{item.Product.name} - image" height="175" width="131" class="rounded-md shadow-lg"/>
@@ -52,6 +53,15 @@
                         <td>{item.Product.name}</td>
                         <td>{item.Product.price}</td>
                     </tr>
+                    {:else}
+                        <tr>
+                            <td>
+                                [Deleted Product]
+                            </td>
+                            <td>[Deleted Product]</td>
+                            <td>[Deleted Product]</td>
+                        </tr>
+                    {/if}
                 {/each}
             </tbody>
         </table>

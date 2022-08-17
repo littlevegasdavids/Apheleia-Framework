@@ -28,10 +28,16 @@
             <p>{order.shipping_address}</p>
             <div class="grid grid-cols-2 gap-4">
                 {#each order.Order_Items as item}
-                    <div class="grid grid-cols-3">
-                        <img alt="{item.Product.name}" src="/product_images/{item.Product.id}/1.jpg" height="120" width="90" class="shadow-lg rounded-md outline outline-1 outline-black"/>
-                        <p class="text-start place-self-center">{item.Product.name}</p>
-                    </div>
+                    {#if item.product_id != null}
+                        <div class="grid grid-cols-3">
+                            <img alt="{item.Product.name}" src="/product_images/{item.Product.id}/1.jpg" height="120" width="90" class="shadow-lg rounded-md outline outline-1 outline-black"/>
+                            <p class="text-start place-self-center">{item.Product.name}</p>
+                        </div>
+                    {:else}
+                        <div class="grid grid-cols-3">
+                            <p class="text-start place-self-center">[Deleted Product]</p>
+                        </div>
+                    {/if}
                 {/each}
                 </div>
             </div>
