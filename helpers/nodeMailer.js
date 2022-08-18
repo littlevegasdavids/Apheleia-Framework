@@ -171,15 +171,29 @@ async function forgot_password_email(customer_email, customer_name, link){
     }
 }
 
-async function send_order_invoice(email, html){
+async function send_order_invoice(email, invoice_path, link, order_number, customer_name){
     let transporter = await createMailTransport()
 
     try{
+        const filePath = path.join(__dirname, '../email_templates/order_new.html')
+        const source = fileSystem.readFileSync(filePath, 'utf-8').toString()
+        const template = Handlebars.compile(source)
+        const replace = {
+            customer_name: String(customer_name),
+            app_heading: app_heading, 
+            link: link, 
+            order_number: String(order_number) 
+        }
+        const htmlSend = template(replace)
         transporter.sendMail({
             from: `${app_heading} <testmail@example.com>`, 
             to: String(email),
-            subject: 'Invoice', 
-            html: html
+            subject: 'New Order', 
+            html: htmlSend, 
+            attachments:{
+                filename: 'Invoice.pdf', 
+                path: invoice_path
+            }
         }).then(info=>{
             logger.info(`Sent test mail: ${nodemailer.getTestMessageUrl(info)}`)
         })

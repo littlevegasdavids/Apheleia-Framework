@@ -86,12 +86,6 @@ router.post('/', asyncHandler (async(req, res)=>{
             }
         })
 
-        let product = await prisma.Product.findUnique({
-            where:{
-                id: product_id
-            },
-        })
-
         await prisma.product.update({
             where:{
                 id: product_id
@@ -171,9 +165,12 @@ async function create_and_send_invoice(order_number, customer_name, shipping_add
 
         const invoice_path = path.join(invoice_dir, String(order_number) + " - invoice.pdf")
         
-
         await page.pdf({path: invoice_path, format: 'A4'})
         await browser.close()
+
+        let link = `http://localhost:9000/order/${order_number}`
+
+        send_order_invoice(order.Customer.email, invoice_path, link, order_number, order.Customer.name)
     
         logger.info(`Successfully created Order Invoice #${order_number}`)
 
