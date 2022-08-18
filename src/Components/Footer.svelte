@@ -1,16 +1,18 @@
 <footer class="footer footer-center gap-2 justify-items-center p-4 bg-neutral text-neutral-content text-lg">
+    <div class="grid grid-cols-2">
+        <a href="/about" target="_blank">
+            <span>
+                <i class="fa-solid fa-circle-info pr-3"></i>About
+            </span>
+        </a>
     
-    <a href="/about" target="_blank">
-        <span>
-            <i class="fa-solid fa-circle-info pr-3"></i>About
-        </span>
-    </a>
-
-    <a href="/faq" target="_blank">
-        <span>
-            <i class="fa-solid fa-circle-question pr-3"></i>FAQ
-        </span>
-    </a>
+        <a href="/faq" target="_blank">
+            <span>
+                <i class="fa-solid fa-circle-question pr-3"></i>FAQ
+            </span>
+        </a>
+    </div>
+    
 
     <div>
         <span>
