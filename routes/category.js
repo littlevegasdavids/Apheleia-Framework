@@ -35,7 +35,12 @@ router.get('/get/:id', asyncHandler(async (req, res)=>{
             id: id
         }, 
         include:{
-            Product: true
+            Product: {
+                where:{
+                    sold: false, 
+                    show: true
+                }
+            }
         }
     })
 

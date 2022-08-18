@@ -110,18 +110,20 @@
             </div>
         </div>
     </div>
-    <div class="grid justify-items-center mt-5">
-        <p class="font-bold text-3xl pb-3">You may also like</p>
-        <div class="grid grid-cols-3 gap-3 text-center browser:grid-cols-4">
-            {#each other_products as other}
-                <div class="grid grid-cols-1 bg-primary-content p-3 rounded-2xl shadow-lg browser:hover:bg-secondary">
-                    <Link to="/product/{other.id}">
-                        <img src="/product_images/{other.id}/1.jpg" alt={other.name + " - image"} class="rounded-lg" height="400" width="300"/>
-                    </Link>
-                    <p class="font-bold pt-1">{other.name}</p>
-                    <p class="">R{other.price}</p>
-                </div>
-            {/each}
+    {#if other_products.length != 0}
+        <div class="grid justify-items-center mt-5">
+            <p class="font-bold text-3xl pb-3">You may also like</p>
+            <div class="grid grid-cols-3 gap-3 text-center browser:grid-cols-4">
+                {#each other_products as other}
+                    <div class="grid grid-cols-1 bg-primary-content p-3 rounded-2xl shadow-lg browser:hover:bg-secondary">
+                        <Link to="/product/{other.id}">
+                            <img src="/product_images/{other.id}/1.jpg" alt={other.name + " - image"} class="rounded-lg" height="400" width="300"/>
+                        </Link>
+                        <p class="font-bold pt-1">{other.name}</p>
+                        <p class="">R{other.price}</p>
+                    </div>
+                {/each}
+            </div>
         </div>
-    </div>
+    {/if}
 {/if}
