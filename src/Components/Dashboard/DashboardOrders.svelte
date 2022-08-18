@@ -46,6 +46,11 @@ import CollectedOrderCollapse from "./Orders/CollectedOrderCollapse.svelte";
         <Loading />
     {:else}
         <div class="grid pt-5 w-4/6 mx-auto gap-4">
+            <h1 class="text-4xl font-bold underline underline-offset-2 text-center">Orders</h1>
+            {#if new_orders.length === 0 && shipped_orders.length === 0 && confirmed_orders.length === 0 && collect_orders.length === 0}
+                <p class="font-bold text-center text-xl">All your online orders will show here</p>
+            {/if}
+
             {#if new_orders.length != 0}
                 <NewOrderCollapse {new_orders} />
             {/if}
