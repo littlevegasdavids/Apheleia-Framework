@@ -164,7 +164,7 @@
 
                 <div>
                     <p class="pb-1 text-xl">Is Sold</p>
-                    <select class="select outline outline-1 outline-black" bind:value={product.Product_Inventory.sold} name="sold">
+                    <select class="select outline outline-1 outline-black" bind:value={product.sold} name="sold">
                         <option disabled>Select</option>
                         <option value={false}>Available</option>
                         <option value={true}>Sold</option>

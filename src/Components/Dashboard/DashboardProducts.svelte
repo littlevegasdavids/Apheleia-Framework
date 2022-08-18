@@ -58,7 +58,7 @@
         {#each products as product}
             <div class="p-5 outline outline-1 outline-black rounded-md {cardColor()}">
                 <div class="grid grid-cols-1">
-                    {#if product.Product_Inventory.sold}
+                    {#if product.sold}
                         <p class="p-1 rounded-md font-bold justify-self-end bg-success">Sold</p>
                     {:else}
                         <p class="p-1 rounded-md font-bold justify-self-end bg-warning">Available</p>

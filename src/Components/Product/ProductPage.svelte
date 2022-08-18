@@ -19,7 +19,7 @@
         const prod_result = await prod_res.json()
         if(prod_result.success){
             product = prod_result.message.product
-            sold = prod_result.message.product.Product_Inventory.sold
+            sold = prod_result.message.product.sold
 
             const other_prod_res = await fetch(`/api/category/get/${product.category_id}`)
             const other_prod_result = await other_prod_res.json()

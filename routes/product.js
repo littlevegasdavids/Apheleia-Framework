@@ -55,20 +55,17 @@ router.post('/', asyncHandler (async (req, res) =>{
             category = new_category.id
         }
 
-        
-        const inventory = await prisma.product_Inventory.create({data:{}})
-
         const new_product = await prisma.product.create({
             data:{
                 name:name,
                 price:price,
                 description: description, 
                 category_id: category, 
-                inventory_id: inventory.id,
                 dimension_height: dimension_height, 
                 dimension_length: dimension_length,
                 dimension_width: dimension_width, 
-                show: show
+                show: show, 
+                sold: false
             }
         })
 
@@ -131,9 +128,6 @@ router.get('/get/:id', asyncHandler (async (req, res)=>{
     const product = await prisma.Product.findUnique({   
         where:{
             id: id
-        }, 
-        include:{
-            Product_Inventory: true
         }
     })
 
@@ -151,9 +145,7 @@ router.get('/notSold/all', asyncHandler (async(req, res)=>{
             Product_Category: true
         },
         where:{
-            Product_Inventory:{
-                sold: false
-            }, 
+            sold: false,
             show: true
         }
     })
@@ -188,9 +180,6 @@ router.get('/isSold/:id', asyncHandler(async(req, res)=>{
     const product = await prisma.product.findUnique({
         where:{
             id: product_id
-        }, 
-        include: {
-            Product_Inventory: true
         }
     })
 
@@ -198,7 +187,7 @@ router.get('/isSold/:id', asyncHandler(async(req, res)=>{
         return res.status(404).json({success: false, message: `Cannot find product with id: ${product_id}`})
     }
 
-    if(product.Product_Inventory.sold){
+    if(product.sold){
         return res.status(200).json({success: true, sold: true})
     }
     else{
@@ -217,9 +206,6 @@ router.post('/:id', asyncHandler (async (req, res)=>{
     const product = await prisma.product.findUnique({
         where:{
             id: product_id
-        }, 
-        include:{
-            Product_Inventory: true
         }
     })
 
@@ -276,19 +262,11 @@ router.post('/:id', asyncHandler (async (req, res)=>{
                 dimension_height: dimension_height, 
                 dimension_length: dimension_length,
                 dimension_width: dimension_width, 
-                show: show
-            }, 
-            where:{
-                id: product_id
-            }
-        })
-
-        await prisma.product_Inventory.update({
-            data:{
+                show: show, 
                 sold: sold
             }, 
             where:{
-                id: product.Product_Inventory.id
+                id: product_id
             }
         })
 
@@ -360,9 +338,6 @@ router.patch('/assignCategory/:id', asyncHandler(async(req, res)=>{
     const product = await prisma.product.findUnique({
         where:{
             id: product_id
-        }, 
-        include:{
-            Product_Inventory: true
         }
     })
 
@@ -421,10 +396,7 @@ router.delete('/:id', asyncHandler (async (req, res)=>{
 
 // All
 router.get('/all', asyncHandler (async (req, res)=>{
-    const products = await prisma.Product.findMany({
-        include:{
-            Product_Inventory: true
-        }, 
+    const products = await prisma.Product.findMany({ 
         orderBy:{
             created_at: "desc"
         }

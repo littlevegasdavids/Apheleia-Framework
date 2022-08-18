@@ -90,15 +90,12 @@ router.post('/', asyncHandler (async(req, res)=>{
             where:{
                 id: product_id
             },
-            include:{
-                Product_Inventory: true
-            }
         })
 
-        await prisma.Product_Inventory.update({
+        await prisma.product.update({
             where:{
-                id: product.Product_Inventory.id
-            },
+                id: product_id
+            }, 
             data:{
                 sold: true
             }
