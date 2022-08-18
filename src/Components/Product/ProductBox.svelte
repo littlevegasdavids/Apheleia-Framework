@@ -17,7 +17,7 @@
     <p class="font-bold pt-1">{product_name}</p>
     <p class="py-1">R{product_price}</p>
     <div>
-        <AddToCartBtn product_id={product_id} extraCss={"btn-sm browser:w-8/12"}/>
+        <AddToCartBtn product_id={product_id} product_name={product_name} extraCss={"btn-sm browser:w-8/12"}/>
     </div>
     
 </div>

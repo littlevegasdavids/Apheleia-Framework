@@ -67,7 +67,9 @@
                 
             }
             else{
-                console.log(result.message)
+                console.error(result.message)
+                alert('Something went wrong trying to add new address')
+                
             }
         }
 

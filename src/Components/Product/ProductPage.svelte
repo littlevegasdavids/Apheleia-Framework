@@ -84,7 +84,7 @@
             </div>
             <div class="grid gap-4">
                 {#if !sold}
-                    <AddToCartBtn product_id={product.id} extraCss={"tablet:w-8/12 mx-auto"}/>
+                    <AddToCartBtn product_id={product.id} product_name={product.name} extraCss={"tablet:w-8/12 mx-auto"}/>
                 {:else}
                     <button class="btn rounded-md shadow-lg tablet:w-8/12 mx-auto">Sold</button>
                 {/if}

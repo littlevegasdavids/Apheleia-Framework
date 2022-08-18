@@ -1,9 +1,9 @@
 <script>
+    import {show_notification, message} from '../../Stores/notification'
     let password = ""
     let confirmPassword = ""
     let showError = false
     let errorMessage = ""
-    let showSuccess = false
     
 
     async function deleteAccount(){
@@ -39,7 +39,8 @@
 
             const result = await res.json()
             if(result.success){
-                showSuccess = true
+                $message = "Successfully deleted account. Redirecting in 3s"
+                $show_notification = true
                 setTimeout(()=>{
                     window.location.href = "/"
                 }, 3000)
@@ -71,9 +72,6 @@
             </div>
             {#if showError}
                 <p class="font-bold text-red-600 text-center">{errorMessage}</p>
-            {/if}
-            {#if showSuccess}
-                <p class="font-bold text-green-600 text-center">Account deleted. Redirecting you to homepage.</p>
             {/if}
             <button class="btn btn-error rounded-md" on:click={deleteAccount}>Delete account</button>
         </div>

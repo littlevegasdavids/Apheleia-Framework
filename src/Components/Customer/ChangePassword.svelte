@@ -1,12 +1,11 @@
 <script>
+    import {show_notification, message} from '../../Stores/notification'
     export let customer_id
     let oldPassword = ""
     let newPassword = ""
     let confirmPassword = ""
     let showError = false
     let errorMessage = ""
-
-    let showSuccess = false
 
     let disbaleBtn = false
 
@@ -57,10 +56,11 @@
             const result = await res.json()
 
             if(result.success){
-                showSuccess = true
+                $message = "Successfully changed password. Redirecting you in 3s"
+                $show_notification = true
                 setTimeout(() => {
                     window.location.href = "/customer"
-                }, 5000);
+                }, 3000);
             }
             else{
                 errorMessage = result.message
@@ -98,8 +98,6 @@
     
         {#if showError}
             <p class="font-bold text-red-600 text-center">{errorMessage}</p>
-        {:else if showSuccess}
-            <p class="text-center">Successfully changed your password. Redirecting you in 5 seconds</p>
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
             <button class="btn btn-success rounded-md shadow-lg" on:click={changePassword} disabled={disbaleBtn}>Save</button>

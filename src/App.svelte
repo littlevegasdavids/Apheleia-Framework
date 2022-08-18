@@ -1,6 +1,6 @@
 <script>
     const url = window.location.pathname
-    import { Router, Route, Link } from "svelte-routing";
+    import { Router, Route } from "svelte-routing";
     import HomePage from "./Components/HomePage.svelte";
     import ProductPage from "./Components/Product/ProductPage.svelte";
     import CartPage from "./Components/Cart/CartPage.svelte";
@@ -32,6 +32,8 @@
     import AssignNullCategory from "./Components/Dashboard/Products/AssignNullCategory.svelte";
     import DashboardNavBar from "./Components/Dashboard/DashboardNavBar.svelte";
     import DeleteCustomer from "./Components/Customer/DeleteCustomer.svelte";
+    import {show_notification} from './Stores/notification'
+    import Notification from "./Components/Notification.svelte";
 </script>
 
 {#if !url.includes('/dashboard')}
@@ -40,9 +42,14 @@
     <div class="max-w-7xl bg-base-100 shadow-2xl mx-auto min-h-screen flex flex-col">
         <div class="pt-3 sticky top-0 z-50">
             <NavBar />
+            <div class="relative">
+                {#if $show_notification}
+                    <Notification />
+                {/if}
+            </div>
         </div>
         
-        <div class="mt-5 mx-3 tablet:mx-6 flex-grow z-0">
+        <div class="mt-8 mx-3 tablet:mx-6 flex-grow z-0">
             <Route path="/">
                 <Transition url={'/'}>
                     <HomePage />

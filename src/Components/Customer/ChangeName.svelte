@@ -1,4 +1,5 @@
 <script>
+    import {show_notification, message} from '../../Stores/notification'
     export let customer_id
     let newName = ""
     let showError = false
@@ -33,7 +34,11 @@
             const result = await res.json()
 
             if(result.success){
-                window.location.href = "/customer"
+                $message = "Successfully changed name. Redirecting in 3s"
+                $show_notification = true
+                setTimeout(()=>{
+                    window.location.href = "/customer"
+                }, 3000)
             }
             else{
                 errorMessage = "Something went wrong. Please contact the admin of the website"

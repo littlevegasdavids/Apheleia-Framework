@@ -55,11 +55,14 @@
             <CartPopUp />
         </div>
     </div>
+    
 </div>
 
-{#if $IsSearchOverlayOpen}
-    <SearchBar />
-{/if}
+    {#if $IsSearchOverlayOpen}
+        <SearchBar />
+    {/if}
+
+    
 
 {:else}
     <Loading />

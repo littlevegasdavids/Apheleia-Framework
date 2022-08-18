@@ -1,7 +1,9 @@
 <script>
     import { onMount } from "svelte";
     import {num_items, cart_items} from '../../Stores/cart'
+    import {show_notification, message} from '../../Stores/notification'
     export let product_id
+    export let product_name 
     export let extraCss
 
     let addedToCart = null
@@ -14,6 +16,8 @@
             addedToCart = true
             $cart_items = result.message.cart_items
             $num_items = $num_items + 1
+            $message = `${product_name} has been added to your cart`
+            $show_notification = true
         }
     }
 
