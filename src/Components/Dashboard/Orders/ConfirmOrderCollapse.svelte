@@ -66,8 +66,6 @@
                 </div>
                 <button class="btn btn-primary rounded-md w-4/12" on:click={()=>changeOrderToShipped(order.id)}>Confirm Shipping of Order</button>
             </div>
-        {:else}
-            No confirmed orders
         {/each}
     </div>
 </div>

@@ -46,10 +46,21 @@ import CollectedOrderCollapse from "./Orders/CollectedOrderCollapse.svelte";
         <Loading />
     {:else}
         <div class="grid pt-5 w-4/6 mx-auto gap-4">
-            <NewOrderCollapse {new_orders} />
-            <ConfirmOrderCollapse {confirmed_orders} />
-            <ShippedOrderCollapse {shipped_orders} />
-            <CollectedOrderCollapse {collect_orders} />
+            {#if new_orders.length != 0}
+                <NewOrderCollapse {new_orders} />
+            {/if}
+
+            {#if confirmed_orders.length != 0}
+                <ConfirmOrderCollapse {confirmed_orders} />
+            {/if}
+
+            {#if shipped_orders.length != 0}
+                <ShippedOrderCollapse {shipped_orders} />
+            {/if}
+
+            {#if collect_orders.length != 0}
+                <CollectedOrderCollapse {collect_orders} />
+            {/if}
         </div>
     {/if}
 </div>

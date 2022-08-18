@@ -66,8 +66,6 @@
                 </div>
                 <button class="btn btn-primary rounded-md w-4/12" on:click={()=>changeOrderToShipped(order.id)}>Confirm Collection of Order</button>
             </div>
-        {:else}
-            No shipped orders
         {/each}
     </div>
 </div>

@@ -45,8 +45,6 @@
                 {/each}
                 </div>
             </div>
-        {:else}
-            No collected orders
         {/each}
     </div>
 </div>
