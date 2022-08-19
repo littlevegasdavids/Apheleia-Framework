@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id               Int               @id @default(autoincrement())
+  name             String?
+  price            Int?
+  description      String?
+  created_at       DateTime?         @default(now()) @db.Timestamp(6)
+  category_id      Int?
+  dimension_height String?
+  dimension_width  String?
+  dimension_length String?
+  show             Boolean?
+  sold             Boolean?          @default(false)
+  Product_Category Product_Category? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Product_Category_FK")
+  Cart_Item        Cart_Item[]
+  Order_Items      Order_Items[]
+}
+
+model Product_Category {
+  id         Int       @id @default(autoincrement())
+  name       String?
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  Product    Product[]
+}
+
+model Customer {
+  id               Int                @id @default(autoincrement())
+  name             String?
+  password         String?
+  created_at       DateTime?          @default(now()) @db.Timestamp(6)
+  email            String?            @unique(map: "email_unique_constraint")
+  Customer_Address Customer_Address[]
+  Order_Details    Order_Details[]
+  Shopping_Session Shopping_Session?
+}
+
+model Customer_Address {
+  id             Int       @id @default(autoincrement())
+  street_address String?
+  city           String?
+  country        String?
+  postal_code    String?
+  customer_id    Int?
+  suburb         String?
+  Customer       Customer? @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Customer_ID_FK")
+}
+
+model Cart_Item {
+  product_id       Int?
+  created_at       DateTime?         @default(now()) @db.Timestamp(6)
+  session_id       String?
+  id               String            @id @default(dbgenerated("(md5(((random())::text || (clock_timestamp())::text)))::uuid")) @db.Uuid
+  Product          Product?          @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "product_id_FK")
+  Shopping_Session Shopping_Session? @relation(fields: [session_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "session_id_FK")
+}
+
+model Shopping_Session {
+  customer_id Int?        @unique(map: "customer_id_unique_constraint")
+  total       Int?        @default(0)
+  created_at  DateTime?   @default(now()) @db.Timestamp(6)
+  modified_at DateTime?   @default(now()) @db.Timestamp(6)
+  id          String      @id
+  Customer    Customer?   @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "customer_id_FK")
+  Cart_Item   Cart_Item[]
+}
+
+model Order_Details {
+  id               Int               @id @default(autoincrement())
+  customer_id      Int?
+  total            Int?
+  created_at       DateTime?         @default(now()) @db.Timestamp(6)
+  shipping_price   Int?
+  subtotal         Int?
+  status           Int?              @db.SmallInt
+  shipping_address String?
+  Customer         Customer?         @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "customer_id_FK")
+  Order_Status     Order_Status?     @relation(fields: [status], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "order_status_FK")
+  Order_Items      Order_Items[]
+  Payment_Details  Payment_Details[]
+}
+
+model Order_Items {
+  id            Int            @id @default(autoincrement())
+  order_id      Int?
+  product_id    Int?
+  created_at    DateTime?      @default(now()) @db.Timestamp(6)
+  Order_Details Order_Details? @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "order_id_FK")
+  Product       Product?       @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "product_id_FK")
+}
+
+model Payment_Details {
+  id            Int            @id @default(autoincrement())
+  amount        Int?
+  provider      String?
+  created_at    DateTime?      @default(now()) @db.Timestamp(6)
+  order_id      Int?
+  Order_Details Order_Details? @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "order_id_FK")
+}
+
+model Order_Status {
+  id            Int             @id @db.SmallInt
+  status        String?
+  Order_Details Order_Details[]
+}
