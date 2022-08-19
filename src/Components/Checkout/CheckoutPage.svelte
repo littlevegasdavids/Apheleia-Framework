@@ -3,6 +3,7 @@
     import LoginForm from '../Customer/LoginForm.svelte'
     import AddressBlock from '../Address/AddressBlock.svelte'
     import AddAddress from '../Address/AddAddress.svelte'
+    import Loading from '../Loading.svelte'
     let addresses
 
     let login = null
@@ -24,23 +25,29 @@
     })
 </script>
 
-<h1 class="font-bold text-xl text-center">Check out page</h1>
 
 {#if login === null}
-    <p>Loading ....</p>
-{:else if login}
+    <Loading />  
+{/if}
+
+{#if login}
     {#if addresses.length != 0}
-    <div class="grid grid-cols-2 gap-4">
-        <p>Select Address to Deliver to</p>
-        <button class="btn btn-secondary rounded-md" on:click={()=>window.location.href = "/addAddressCheckout"}>Add new Address</button>
-    </div>
-        
+        <div class="divide-y divide-solid pb-5">
+            <h1 class="font-bold text-2xl text-center pb-6 underline underline-offset-8 tablet:text-4xl">Select your shipping address</h1>
+            <p></p>
+        </div>
     {/if}
-    {#each addresses as address}
-        <AddressBlock address = {address} />
-    {:else}
-        <AddAddress />
-    {/each}
-{:else if !login}
+
+    <div class="grid gap-4 tablet:gap-6 tablet:w-9/12 tablet:mx-auto">
+        {#each addresses as address}
+            <AddressBlock address = {address} />
+        {:else}
+            <AddAddress />
+        {/each}
+        {#if addresses.length != 0}
+            <button class="btn btn-success rounded-md justify-self-center shadow-lg" on:click={()=>window.location.href = "/addAddressCheckout"}>Add new Address<i class="fa-solid fa-plus pl-2"></i></button>
+        {/if}
+    </div>
+{:else}
     <LoginForm />
 {/if}

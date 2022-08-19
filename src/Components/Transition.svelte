@@ -1,9 +1,6 @@
 <script>
     import {fade} from 'svelte/transition'
-	import {ShowCartNotification} from '../Stores/CartNotificationPopUp'
     export let url
-
-	ShowCartNotification.update(n=>n=false)
 </script>
 
 {#key url}

@@ -71,7 +71,6 @@
                         const order_result = await order_res.json()
                         
                         if(order_result.success){
-                            console.log(order_result)
                             window.location.href = `/order/${order_result.message.order.id}`
                         }
                         
@@ -82,7 +81,7 @@
                             alert('Card declined. Please contact your bank or try again with another card')
                         }
                         else{
-                            alert('Internal server error. Please contact website admin.')
+                            alert('Internal server error. You have not been charged. Please try again.')
                         }
                     }
                 }
@@ -91,5 +90,5 @@
     }
 </script>
 
-<button id="checkout-button" class="btn btn-success rounded-md" on:click={sendYocoPayment}>Pay With Yoco</button>
+<button id="checkout-button" class="btn btn-success rounded-md shadow-lg" on:click={sendYocoPayment}>Pay With Yoco<i class="fa-solid fa-money-check-dollar fa-lg pl-2"></i></button>
 

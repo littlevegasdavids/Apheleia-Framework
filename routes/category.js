@@ -2,9 +2,10 @@ const {Router} = require('express')
 const logger = require('../helpers/logger')
 const prisma = require('../prisma/client')
 const router = new Router()
+const asyncHandler = require('express-async-handler')
 
 // Create -- DONE
-router.post('/', async (req, res)=>{
+router.post('/', asyncHandler(async (req, res)=>{
     const name = req.body.name
 
     if(name === undefined){
@@ -17,12 +18,12 @@ router.post('/', async (req, res)=>{
         }
     })
 
-    logger.info(`Created new category ${category.id}`)
+    logger.info(`Category API -- Created id: ${category.id}`)
     return res.status(201).json({success: true, message:{category}})
-})
+}))
 
 // Read -- DONE
-router.get('/get/:id', async (req, res)=>{
+router.get('/get/:id', asyncHandler(async (req, res)=>{
     const id = parseInt(req.params['id'])
     
     if(isNaN(id)){
@@ -34,7 +35,12 @@ router.get('/get/:id', async (req, res)=>{
             id: id
         }, 
         include:{
-            Product: true
+            Product: {
+                where:{
+                    sold: false, 
+                    show: true
+                }
+            }
         }
     })
 
@@ -43,10 +49,10 @@ router.get('/get/:id', async (req, res)=>{
     }
 
     return res.status(200).json({success: true, message:{category}})
-})
+}))
 
 // Update -- DONE
-router.patch('/:id', async (req, res)=>{
+router.patch('/:id', asyncHandler(async (req, res)=>{
     const name = req.body.name
     const id = parseInt(req.params['id'])
 
@@ -77,12 +83,12 @@ router.patch('/:id', async (req, res)=>{
         }
     })
 
-    logger.info(`Update category id: ${id}`)
+    logger.info(`Category API -- Updated id: ${id}`)
 
     return res.status(200).json({success: true, message: {category}})
-})
+}))
 
-router.delete('/:id', async (req, res)=>{
+router.delete('/:id', asyncHandler (async (req, res)=>{
     const id = parseInt(req.params['id'])
 
     if(isNaN(id)){
@@ -104,11 +110,14 @@ router.delete('/:id', async (req, res)=>{
             id: id
         }
     })
-})
 
+    logger.info(`Category API -- Delete id: ${id}`)
+
+    return res.status(200).json({success: true})
+}))
 
 // All -- DONE
-router.get('/all', async (req, res)=>{
+router.get('/all', asyncHandler(async (req, res)=>{
     const categories = await prisma.product_Category.findMany({
         include:{
             Product: true
@@ -116,6 +125,6 @@ router.get('/all', async (req, res)=>{
     })
 
     return res.status(200).json({success: true, categories})
-})
+}))
 
 module.exports = router

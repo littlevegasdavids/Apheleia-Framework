@@ -5,8 +5,12 @@ const app = express()
 const port = process.env.PORT
 const prisma = require('./prisma/client')
 const jwt = require('jsonwebtoken')
+const compression = require('compression')
+const asyncHandler = require('express-async-handler')
 
+app.use(compression())
 app.use(express.json())
+
 
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
@@ -16,6 +20,12 @@ app.use(express.urlencoded({extended: true}))
 const {checkSession} = require('./middleware/session.js')
 app.use(checkSession)
 app.use(express.static('public'))
+
+// Error Handle
+app.use((err, req, res, next)=>{
+    logger.error(err.message)
+    return res.status(500).send('Internal server error')
+})
 
 const mountRoutes = require('./routes')
 mountRoutes(app)
@@ -30,7 +40,7 @@ app.get('/', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/product/:id', async (req, res)=>{
+app.get('/product/:id', asyncHandler(async (req, res)=>{
     const id = parseInt(req.params['id'])
     if(isNaN(id)){
         return res.status(400).send('Invalid ID')
@@ -43,10 +53,13 @@ app.get('/product/:id', async (req, res)=>{
     })
 
     if(temp === null){
-        return res.status(404).end('product not found')
+        return res.status(404).send('product not found')
+    }
+    if(!temp.show){
+        return res.status(200).send('Cannot show product at this moment')
     }
     return res.sendFile(__dirname + "/public/index.html")
-})
+}))
 
 app.get('/products', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
@@ -77,7 +90,43 @@ app.get('/customer', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/editAddress/:id', async (req, res)=>{
+app.get('/customer/changeName/:id', (req, res)=>{
+    const id = parseInt(req.params['id'])
+
+    if(isNaN(id)){
+        return res.status(400).send('Invalid ID')
+    }
+
+    if(!req.registered){
+        return res.redirect('/login')
+    }
+
+    if(req.customer_id != id){
+        return res.status(401).send('Not allowed')
+    }
+
+    return res.sendFile(__dirname + "/public/index.html")
+})
+
+app.get('/customer/changePassword/:id', (req, res)=>{
+    const id = parseInt(req.params['id'])
+
+    if(isNaN(id)){
+        return res.status(400).send('Invalid ID')
+    }
+
+    if(!req.registered){
+        return res.redirect('/login')
+    }
+
+    if(req.customer_id != id){
+        return res.status(401).send('Not allowed')
+    }
+
+    return res.sendFile(__dirname + "/public/index.html")
+})
+
+app.get('/editAddress/:id', asyncHandler(async (req, res)=>{
     const address_id = parseInt(req.params['id'])
     if(isNaN(address_id)){
         return res.status(400).send('Invalid ID')
@@ -103,9 +152,9 @@ app.get('/editAddress/:id', async (req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html") 
-})
+}))
 
-app.get('/addNewAddress', async (req, res)=>{
+app.get('/addNewAddress', (req, res)=>{
     if(!req.registered){
         return res.redirect('/login')
     }
@@ -113,7 +162,7 @@ app.get('/addNewAddress', async (req, res)=>{
 
 })
 
-app.get('/order/:id', async(req, res)=>{
+app.get('/order/:id', asyncHandler( async(req, res)=>{
     const order_id = parseInt(req.params['id'])
     if(isNaN(order_id)){
         return res.status(400).send('Invalid ID')
@@ -129,21 +178,21 @@ app.get('/order/:id', async(req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html")
-})
+}))
 
-app.get('/checkout', async(req, res)=>{
+app.get('/checkout', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/checkoutRegister', async(req, res)=>{
+app.get('/registerCheckout', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/addAddressCheckout', async(req, res)=>{
+app.get('/addAddressCheckout', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/editAddressCheckout/:id', async(req, res)=>{
+app.get('/editAddressCheckout/:id', asyncHandler(async(req, res)=>{
     const address_id = parseInt(req.params['id'])
     if(isNaN(address_id)){
         return res.status(400).send('Invalid ID')
@@ -169,9 +218,9 @@ app.get('/editAddressCheckout/:id', async(req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html") 
-})
+}))
 
-app.get('/checkoutSummary/:address_id', async(req, res)=>{
+app.get('/checkoutSummary/:address_id', asyncHandler (async(req, res)=>{
     const address_id = parseInt(req.params['address_id'])
     if(isNaN(address_id)){
         return res.status(400).send('Invalid ID')
@@ -197,7 +246,7 @@ app.get('/checkoutSummary/:address_id', async(req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html") 
-})
+}))
 
 app.get('/forgot-password', (req, res)=>{
     if(req.registered){
@@ -206,7 +255,7 @@ app.get('/forgot-password', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html") 
 })
 
-app.get('/reset-password/:id/:token', async (req, res)=>{
+app.get('/reset-password/:id/:token', asyncHandler (async (req, res)=>{
     const id = parseInt(req.params['id'])
     const token = req.params['token']
     
@@ -226,14 +275,19 @@ app.get('/reset-password/:id/:token', async (req, res)=>{
     }
 
     const secrete = process.env.TOKEN_PASSWORD_SECRETE + customer.password
-    try{
-        const payload = jwt.verify(token, secrete)
+    jwt.verify(token, secrete, (err, data)=>{
+        if(err){
+            return res.status(401).send('Link has timed out')
+        }
         return res.sendFile(__dirname + "/public/index.html")  
+    })
+}))
+
+app.get('/deleteAccount', (req, res)=>{
+    if(!req.registered){
+        return res.redirect('/login')
     }
-    catch(err){
-        logger.error(err.message)
-        return res.status(500).send('Server error')
-    }
+    return res.sendFile(__dirname + "/public/index.html") 
 })
 
 setInterval(async()=>{

@@ -9,7 +9,7 @@
     }
 </script>
 
-<div class="bg-primary-content outline outline-black outline-1 grid grid-rows-2 p-3 rounded-lg gap-2">
+<div class="bg-primary-content outline outline-black outline-1 grid grid-rows-2 p-3 rounded-lg gap-2 shadow-md">
     <div class="grid grid-cols-2">
         <p class="font-bold">Order #{order.id} | {convertDate(order.created_at)}</p>
         {#if order.status === 0}
@@ -24,5 +24,5 @@
     </div>
     
     <p>Total: R{order.total}</p>
-    <button class="btn btn-primary rounded-md btn-sm" on:click={()=>window.location.href=`/order/${order.id}`}>View Order</button>
+    <button class="btn btn-primary rounded-md btn-sm shadow-lg tablet:w-4/12 tablet:mx-auto" on:click={()=>window.location.href=`/order/${order.id}`}>View Order<i class="fa-solid fa-eye fa-lg pl-2"></i></button>
 </div>

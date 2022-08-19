@@ -1,68 +1,206 @@
 require('dotenv').config()
 const nodemailer = require('nodemailer')
-let password = process.env.MAILPASSWORD
 let logger = require('./logger')
-const {google} = require('googleapis')
-const client_id = process.env.MAIL_CLIENT_ID
-const client_secrete = process.env.MAIL_CLIENT_SECRETE
-const redirect_uri = process.env.MAIL_REDIRECT_URI
-const refresh_token = process.env.MAIL_REFRESH_TOKEN
+const Handlebars = require('handlebars')
+const fileSystem = require('fs')
+const path = require('path')
 
-const oAuth2Client = new google.auth.OAuth2(client_id, client_secrete, redirect_uri)
-oAuth2Client.setCredentials({refresh_token: refresh_token})
+const app_heading = 'App Heading'
+const support_email = 'support@test.com'
 
-let details = {
-    from: 'apheleiaframework@gmail.com', 
-    to: 'rdavids963@outlook.com', 
-    subject: 'Test Mail', 
-    text: "Testing Node Mailer"
-}
-
-let accessToken
-let mailTransporter
-
-async function setUp(){
-    accessToken = await oAuth2Client.getAccessToken()
-    mailTransporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            type: 'OAuth2',
-            user: 'apheleiaframework@gmail.com', 
-            clientId: client_id,
-            clientSecret: client_secrete, 
-            refreshToken: refresh_token, 
-            accessToken: accessToken
-        }
-    })
-}
-
-
-async function sendMail(){
+async function createMailTransport(){
     try{
-        await setUp()
-        mailTransporter.sendMail(details)
-        logger.info('Mail Sent')
+        let testAccount = await nodemailer.createTestAccount()
+
+        let transporter = nodemailer.createTransport({
+            host: "smtp.ethereal.email", 
+            port: 587,
+            secure: false, 
+            auth:{
+                user: testAccount.user, 
+                pass: testAccount.pass
+            }
+        })
+        return transporter
     }
     catch(err){
-        logger.error(err.message)
+        logger.error(`Error creating email transport: ${err.message}`)
+    }
+    
+}
+
+async function order_confirmed_email(customer_email, order_number, customer_name, order_date, shipping_address, link){
+    let transporter = await createMailTransport()
+    
+    try{
+        const filePath = path.join(__dirname, '../email_templates/order_confirmed.html')
+        const source = fileSystem.readFileSync(filePath, 'utf-8').toString()
+        const template = Handlebars.compile(source)
+        const replace = {
+            order_number: String(order_number), 
+            customer_name: String(customer_name), 
+            order_date: String(order_date), 
+            shipping_address: String(shipping_address), 
+            app_heading: app_heading, 
+            link: String(link)
+        }
+        const htmlSend = template(replace)
+        transporter.sendMail({
+            from: `${app_heading} <testmail@example.com>`, 
+            to: String(customer_email),
+            subject: `Order #${order_number} confirmed`, 
+            html: htmlSend
+        }).then(info=>{
+            logger.info(`Sent order confirmed mail: ${nodemailer.getTestMessageUrl(info)}`)
+        })
+    }
+    catch(err){
+        logger.error(`Error sending order confirmed email: ${err.message}`)
+    }
+}
+
+async function order_shipped_email(customer_email, order_number, customer_name, order_date, shipping_address, link){
+    let transporter = await createMailTransport()
+    
+    try{
+        const filePath = path.join(__dirname, '../email_templates/order_shipped.html')
+        const source = fileSystem.readFileSync(filePath, 'utf-8').toString()
+        const template = Handlebars.compile(source)
+        const replace = {
+            order_number: String(order_number), 
+            customer_name: String(customer_name),
+            order_date: String(order_date), 
+            shipping_address: String(shipping_address), 
+            app_heading: app_heading, 
+            link: String(link)
+        }
+        const htmlSend = template(replace)
+        transporter.sendMail({
+            from: `${app_heading} <testmail@example.com>`, 
+            to: String(customer_email),
+            subject: `Order #${order_number} shipped`, 
+            html: htmlSend
+        }).then(info=>{
+            logger.info(`Sent order shipped mail: ${nodemailer.getTestMessageUrl(info)}`)
+        })
+    }
+    catch(err){
+        logger.error(`Error sending order confirmed email: ${err.message}`)
+    }
+}
+
+async function changed_password_email(customer_email, customer_name){
+    let transporter = await createMailTransport()
+    
+    try{
+        const filePath = path.join(__dirname, '../email_templates/changed_password.html')
+        const source = fileSystem.readFileSync(filePath, 'utf-8').toString()
+        const template = Handlebars.compile(source)
+        const replace = {
+            customer_name: String(customer_name),
+            app_heading: app_heading, 
+            support_email: support_email
+        }
+        const htmlSend = template(replace)
+        transporter.sendMail({
+            from: `${app_heading} <testmail@example.com>`, 
+            to: String(customer_email),
+            subject: `Changed password`, 
+            html: htmlSend
+        }).then(info=>{
+            logger.info(`Sent changed password mail: ${nodemailer.getTestMessageUrl(info)}`)
+        })
+    }
+    catch(err){
+        logger.error(`Error sending order confirmed email: ${err.message}`)
+    }
+}
+
+async function new_account_email(customer_email, customer_name){
+    let transporter = await createMailTransport()
+    const link = 'http://localhost:9000/customer'
+    try{
+        const filePath = path.join(__dirname, '../email_templates/new_account.html')
+        const source = fileSystem.readFileSync(filePath, 'utf-8').toString()
+        const template = Handlebars.compile(source)
+        const replace = {
+            customer_name: String(customer_name),
+            app_heading: app_heading, 
+            link: link
+        }
+        const htmlSend = template(replace)
+        transporter.sendMail({
+            from: `${app_heading} <testmail@example.com>`, 
+            to: String(customer_email),
+            subject: `Welcome to ${app_heading}`, 
+            html: htmlSend
+        }).then(info=>{
+            logger.info(`Sent test mail: ${nodemailer.getTestMessageUrl(info)}`)
+        })
+    }
+    catch(err){
+        logger.error(`Error sending order confirmed email: ${err.message}`)
     }
 }
 
 // Do not forget to change the domain
-async function sendForgotPassword(sendToMail, link){
+async function forgot_password_email(customer_email, customer_name, link){
+    let transporter = await createMailTransport()
+    
     try{
-        await setUp()
-        mailTransporter.sendMail({
-            from: 'apheleiaframework@gmail.com', 
-            to: sendToMail,
-            subject: 'Forgot Password Link', 
-            text: link
+        const filePath = path.join(__dirname, '../email_templates/forgot_password.html')
+        const source = fileSystem.readFileSync(filePath, 'utf-8').toString()
+        const template = Handlebars.compile(source)
+        const replace = {
+            customer_name: String(customer_name),
+            app_heading: app_heading, 
+            link: link
+        }
+        const htmlSend = template(replace)
+        transporter.sendMail({
+            from: `${app_heading} <testmail@example.com>`, 
+            to: String(customer_email),
+            subject: `Reset Password`, 
+            html: htmlSend
+        }).then(info=>{
+            logger.info(`Sent test mail: ${nodemailer.getTestMessageUrl(info)}`)
         })
-        logger.info(`Sent Forgot Password Link to ${sendToMail}`)
     }
     catch(err){
-        logger.error(err.message)
+        logger.error(`Error sending order confirmed email: ${err.message}`)
     }
 }
 
-module.exports = {sendMail, sendForgotPassword}
+async function send_order_invoice(email, invoice_path, link, order_number, customer_name){
+    let transporter = await createMailTransport()
+
+    try{
+        const filePath = path.join(__dirname, '../email_templates/order_new.html')
+        const source = fileSystem.readFileSync(filePath, 'utf-8').toString()
+        const template = Handlebars.compile(source)
+        const replace = {
+            customer_name: String(customer_name),
+            app_heading: app_heading, 
+            link: link, 
+            order_number: String(order_number) 
+        }
+        const htmlSend = template(replace)
+        transporter.sendMail({
+            from: `${app_heading} <testmail@example.com>`, 
+            to: String(email),
+            subject: 'New Order', 
+            html: htmlSend, 
+            attachments:{
+                filename: 'Invoice.pdf', 
+                path: invoice_path
+            }
+        }).then(info=>{
+            logger.info(`Sent test mail: ${nodemailer.getTestMessageUrl(info)}`)
+        })
+    }
+    catch(err){
+        logger.error(`Error sending order invoice: ${err.message}`)
+    }
+}
+
+module.exports = {send_order_invoice, order_confirmed_email, order_shipped_email, changed_password_email, new_account_email, forgot_password_email}

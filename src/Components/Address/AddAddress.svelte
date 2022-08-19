@@ -13,6 +13,7 @@
     let country = ""
 
     async function addAddress(){
+        showError = false
         if(street_address === "" || street_address.match(/^ *$/)){
             errorMessage = "Street Address cannot be empty"
             showError = true
@@ -57,8 +58,8 @@
             })
             const result = await res.json()
             if(result.success){
-                if(windowLocation === "/addAddressCheckout"){
-                    window.location.href = "/checkout"
+                if(windowLocation === "/checkout"){
+                    window.location.href = `/checkoutSummary/${result.message.address_id}`
                 }
                 else{   
                     window.location.href="/customer"
@@ -66,40 +67,45 @@
                 
             }
             else{
-                console.log(result.message)
+                console.error(result.message)
+                alert('Something went wrong trying to add new address')
+                
             }
         }
 
         
     }
 </script>
-<div class="grid grid-cols-1 justify-items-center">
-    <h1 class="text-3xl font-bold">Add New Address</h1>
-
-    <div class="outline outline-1 outline-black p-6 grid grid-cols-1 gap-4">
+<div class="grid grid-cols-1 justify-items-center max-w-screen-tablet mx-auto">
+    <div class="divide-y divide-solid w-full">
+        <h1 class="text-3xl underline underline-offset-8 pb-5 font-bold text-center tablet:text-4xl">Add New Address</h1>
+        <p></p>
+    </div>
+    
+    <div class="p-6 grid grid-cols-1 gap-4 min-w-full justify-items-center">
         <div>
-            <p>Street Address</p>
-            <input id="street_address" type="text" class="input input-bordered" bind:value={street_address}/>
+            <p class="pb-1 tablet:text-xl">Street Address</p>
+            <input id="street_address" type="text" class="input outline outline-1 outline-black " bind:value={street_address}/>
         </div>
         
         <div>
-            <p>Suburb</p>
-            <input id="suburb" type="text" class="input input-bordered" bind:value={suburb}/>
+            <p class="pb-1 tablet:text-xl">Suburb</p>
+            <input id="suburb" type="text" class="input outline outline-1 outline-black " bind:value={suburb}/>
         </div>
 
         <div>
-            <p>City/Town</p>
-            <input id="city" type="text" class="input input-bordered" bind:value={city}/>
+            <p class="pb-1 tablet:text-xl">City/Town</p>
+            <input id="city" type="text" class="input outline outline-1 outline-black " bind:value={city}/>
         </div>
 
         <div>
-            <p>Postal Code</p>
-            <input id="postal_code" type="number" class="input input-bordered" bind:value={postal_code}/>
+            <p class="pb-1 tablet:text-xl">Postal Code</p>
+            <input id="postal_code" type="number" class="input outline outline-1 outline-black " bind:value={postal_code}/>
         </div>
 
         <div>
-            <p>Country</p>
-            <select id="country" class="select select-bordered" bind:value={country}>
+            <p class="pb-1 tablet:text-xl">Country</p>
+            <select id="country" class="select select-bordered " bind:value={country}>
                 <option selected disabled>Select Country</option>
                 {#each $countries as country}
                     <option value={country}>{country}</option>
@@ -109,8 +115,11 @@
         {#if showError}
             <p class="text-center text-red-600">{errorMessage}</p>
         {/if}
-        <button class="btn btn-success rounded-md" on:click={addAddress}>Save</button>
-        <button class="btn btn-warning rounded-md" on:click={()=>window.location.href="/customer"}>Cancel</button>
+        <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
+            <button class="btn btn-success rounded-md shadow-lg" on:click={addAddress}>Save</button>
+            <button class="btn btn-warning rounded-md shadow-lg" on:click={()=>window.location.href="/customer"}>Cancel</button>
+        </div>
+        
 
     </div>
 </div>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html{
+            font-family: Helvetica;
+            background-color: lightgrey;
+            height: 100%;
+        }
+        body{
+            max-width: 700px;
+            height: 100%;
+            margin: auto;
+            background-color: white;
+            border-radius: 25px;
+        }
+        #container{
+            padding-left: 35px;
+            padding-right: 35px;
+            padding-bottom: 10px;
+            font-size: large;
+            min-height: 100%;
+        }
+    
+        #heading{
+            text-align: center;
+        }
+        span{
+            font-weight: bold;
+        }
+        button{
+            border-radius: 25px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1 id="heading">
+            Welcome to {{app_heading}}
+        </h1>
+        <p>Good day {{customer_name}}.</p>
+        <p>We at {{app_heading}} would like to thank you for creating an account with us.</p>
+        <p>If you would like to change any of your account settings please click <a href="{{link}}" target="_blank">here</a></p>
+        <p>Happy shopping!</p>
+        <p>Kind Regards, </p>
+        <p><span>{{app_heading}}</span></p>
+    </div>
+</body>
+
+</html>

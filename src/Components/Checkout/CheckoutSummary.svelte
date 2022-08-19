@@ -1,6 +1,9 @@
 <script>
     import { onMount } from "svelte";
     import Yoco from '../Payment/Yoco.svelte'
+    import CartItems from '../Cart/CartItems.svelte'
+    import Loading from '../Loading.svelte'
+    import CartItemsTable from "../Cart/CartItemsTable.svelte";
     export let address_id
     let address = null
     let session = null
@@ -12,7 +15,6 @@
         const address_result = await address_res.json()
         if(address_result.success){
             address = address_result.message
-            console.log(address)
         }
 
         const session_res = await fetch('/api/cart')
@@ -23,8 +25,7 @@
             if(items.length === 0){
                 window.location.href = "/cart"
             }
-            console.log(session)
-            console.log(items)
+
             total = session.total + 100
         }
     })
@@ -35,24 +36,33 @@
 </script>
 
 {#if address === null || items === null || session === null}
-    <p>Loading ...</p>
+    <Loading /> 
 {:else}
-    <button class="btn btn-warning rounded-md" on:click={()=>window.location.href = "/checkout"}>Back</button>
-    <p>Deliver to:</p>
-    <p>{addressToString(address)}</p>
-    <p>Items</p>
-    {#each items as item}
-        <div class="grid grid-cols-3 gap-4 bg-base-300 p-3 rounded-2xl">
-            <img src="/product_images/image.jpg" alt="{item.Product.name} - image" class="rounded-lg"/>
-            <div>
-                <p class="font-bold pb-3">{item.Product.name}</p>
-            </div>
-            <p class="font-bold col-start-3 text-right">R{item.Product.price}</p>
-        </div>
-    {/each}
+<div class="divide-y divide-solid">
+    <h1 class="font-bold text-2xl text-center underline underline-offset-8 tablet:text-4xl">Checkout Summary</h1>
+    <p class="my-5"></p>
+</div>
 
-    <p>Shipping fee: R100</p>
-    <p>Subtotal: {session.total}</p>
-    <p>Total: {total}</p>
-    <Yoco total={total * 100} items={items} address_id = {address_id} subtotal={session.total} shipping_price={100} shipping_address={addressToString(address)}/>
+    <div class="grid gap-4 tablet:w-9/12 tablet:mx-auto">
+        <div class="grid justify-items-center">
+            <CartItemsTable items={items} />
+        </div>
+        
+        <div class="grid divide-y divide-solid">
+            <p></p>
+            <p class="font-bold text-center py-5 tablet:text-xl">Shipping Address: {addressToString(address)}</p>
+            <div class="py-3 text-xl text-center tablet:text-2xl">
+                <p>Shipping fee: R100</p>
+                <p>Subtotal: R{session.total}</p>
+                <p class="font-bold">Total: R{total}</p>
+            </div>
+            <p class="py-5"></p>
+            <div class="grid gap-4 tablet:w-8/12 tablet:mx-auto">
+                <Yoco total={total * 100} items={items} subtotal={session.total} shipping_price={100} shipping_address={addressToString(address)}/>
+                <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href = "/checkout"}>Select different address<i class="fa-solid fa-pen-to-square fa-lg pl-2"></i></button>
+                <button class="btn btn-secondary rounded-md shadow-lg" on:click={()=>window.location.href = "/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
+            </div>
+            
+        </div>  
+    </div>
 {/if}

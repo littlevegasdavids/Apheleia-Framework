@@ -1,11 +1,10 @@
 <script>
     import { onMount } from "svelte";
-    import {Link} from 'svelte-routing'
+    import Loading from '../Loading.svelte'
     export let order_id
     let order_details
     let items
     let loading = true
-    let status
 
     onMount(async ()=>{
         const order_items_res = await fetch(`/api/order/get/order_items/${order_id}`)
@@ -27,46 +26,80 @@
     }
 </script>
 
-
-<h1 class="font-bold text-3xl text-center">Order #{order_id}</h1>
-
 {#if !loading}
-    {#if order_details.status === 0}
-        <div class="badge justify-self-end text-xl">Waiting for confirmation</div>
-    {:else if order_details.status === 1}
-        <div class="badge badge-primary text-xl">Confirmed</div>
-    {:else if order_details.status === 2}
-        <div class="badge badge-secondary text-xl">Shipped to address</div>
-    {:else if order_details.status === 3}
-        <div class="badge badge-accent text-xl p-4 outline outline-black outline-1">Collected</div>
-    {/if}
-    <div class="grid justify-start">
-        <p>Date Ordered: {convertDate(order_details.created_at)}</p>
-        <br>
-        <p class="text-xl font-bold">Payment Details:</p>
-        <p>ID: #{order_details.Payment_Details[0].id}</p>
-        <p>Provider: {order_details.Payment_Details[0].provider}</p>
-        <br>
-        <p class="text-xl font-bold">Items:</p>
-            {#each items as item}
-            <Link to="/product/{item.Product.id}">
-                <div class="grid grid-cols-3 bg-primary-content my-3 rounded-xl shadow-xl outline outline-1 outline-line outline-black gap-2 place-items-center p-2">
-                    <img src="/product_images/image.jpg" alt="{item.Product.name} - image" width="100" height="100" class="rounded-md pr-3">
-                    <p class="text-">{item.Product.name}</p>
-                    <p>R {item.Product.price}</p>
-                </div>
-            </Link>
-            {/each}
-        <p class="text-lg">Subtotal: R{order_details.subtotal}</p>
-        <p class="text-lg">Shipping: R{order_details.shipping_price}</p>
-        <p class="font-bold text-lg">Total: R{order_details.total}</p> 
-        <br>
-        <p class="text-xl font-bold">Shipped to:</p>
-        <p>{order_details.shipping_address}</p>
+<div class="divide-y divide-solid">
+    <h1 class="font-bold text-3xl text-center pb-5">Order #{order_id} | {convertDate(order_details.created_at)}</h1>
+    <p class="pb-5"></p>
+</div>
 
-        <button class="btn btn-warning rounded-md" on:click={()=>window.location.href = "/customer"}>Back</button>
+<div class="grid gap-4 grid-cols-1">
+    <div class="divide-y divide-solid">
+        <table class="table table-zebra w-full text-lg mx-auto tablet:w-9/12 outline outline-1 outline-black rounded-md z-0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="text-lg">Name</th>
+                    <th class="text-lg">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#each items as item}
+                    {#if item.product_id != null}
+                    <tr>
+                        <td>
+                            <img src="/product_images/{item.Product.id}/1.jpg" alt="{item.Product.name} - image" height="175" width="131" class="rounded-md shadow-lg"/>
+                        </td>
+                        <td>{item.Product.name}</td>
+                        <td>R{item.Product.price}</td>
+                    </tr>
+                    {:else}
+                        <tr>
+                            <td>
+                                [Deleted Product]
+                            </td>
+                            <td>[Deleted Product]</td>
+                            <td>[Deleted Product]</td>
+                        </tr>
+                    {/if}
+                {/each}
+            </tbody>
+        </table>
+        <p class="mt-5"></p>
     </div>
+
+    <div class="col-start-1 mx-auto">
+        <div class="grid gap-2">
+            <p class="font-bold text-xl">Details:</p>
+            <div class="grid p-3 outline outline-1 outline-black">
+                <p>Status: 
+                    <span>
+                        {#if order_details.status === 0}
+                            <div class="badge">Waiting for confirmation</div>
+                        {:else if order_details.status === 1}
+                            <div class="badge badge-primary">Confirmed</div>
+                        {:else if order_details.status === 2}
+                            <div class="badge badge-secondary">Shipped to address</div>
+                        {:else if order_details.status === 3}
+                            <div class="badge badge-accent outline outline-black outline-1">Collected</div>
+                        {/if}
+                    </span>
+                </p>
+                <p>Payment Service: {order_details.Payment_Details[0].provider}</p>
+                <p>Shipped to: {order_details.shipping_address}</p>
+
+                <div class="grid pt-3">
+                    <p class="text-lg">Subtotal: R{order_details.subtotal}</p>
+                    <p class="text-lg">Shipping: R{order_details.shipping_price}</p>
+                    <p class="font-bold text-lg">Total: R{order_details.total}</p> 
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="btn btn-warning rounded-md col-span-2 w-4/12 justify-self-center shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
+</div>
+    
 {:else}
-    <p>Loading ....</p>
+    <Loading />  
 {/if}
     

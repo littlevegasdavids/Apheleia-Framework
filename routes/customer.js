@@ -9,10 +9,13 @@ const {createRegisteredToken} = require('../middleware/session')
 const router = new Router()
 const jwt = require('jsonwebtoken')
 const {sendForgotPassword} = require('../helpers/nodeMailer')
+const asyncHandler = require('express-async-handler')
+
+const {changed_password_email, forgot_password_email, new_account_email} = require('../helpers/nodeMailer')
 
 // *** Create *** 
 // Create new Customer
-router.post('/', async (req, res)=>{
+router.post('/', asyncHandler(async (req, res)=>{
     const name = req.body.name
     const password = req.body.password
     const email = req.body.email
@@ -69,14 +72,16 @@ router.post('/', async (req, res)=>{
     const token = createRegisteredToken(session_id, customer.id) 
     res.cookie('authCookie', token)
 
+    new_account_email(email, name)
+
     logger.info(`Customer API -- Created id: ${customer.id}`)
 
     return res.status(200).json({success: true, message: {customer}})
-})
+}))
 
 // *** Read ***
 // Get Current Customer Info including address
-router.get('/get', async(req, res)=>{
+router.get('/get', asyncHandler (async(req, res)=>{
     const customer_id = req.customer_id
 
     if(customer_id === null){
@@ -98,11 +103,11 @@ router.get('/get', async(req, res)=>{
     }
 
     return res.status(200).json({success: true, message: {customer}})
-})
+}))
 
 // *** Update ***
 // Change customer name
-router.patch('/name/:id', async(req, res)=>{
+router.patch('/name/:id', asyncHandler(async(req, res)=>{
     const id = parseInt(req.params['id'])
     const name = req.body.name
 
@@ -134,22 +139,16 @@ router.patch('/name/:id', async(req, res)=>{
     })
     logger.info(`Customer API -- Changed Name id: ${id}`)
     return res.status(200).json({success: true, message: "Succcessfully changed name"})
-})
+}))
 
-// Change Customer Password
-router.patch('/password/:id', async (req, res)=>{
+// Change Customer Password using portal
+router.patch('/password/:id', asyncHandler(async (req, res)=>{
     const id = parseInt(req.params['id'])
-    const password = req.body.password
+    const newPassword = req.body.newPassword
+    const oldPassword = req.body.oldPassword
 
     if(isNaN(id)){
         return res.status(400).json({success: false, message:"Invalid id"})
-    }
-    
-    if(password === undefined){
-        return res.status(400).json({success: false, message: 'Missing password in req body'})
-    }
-    if(!checkPassword(password)){
-        return res.status(401).json({success: false, message: 'Password does not pass requirements (Must be length of 8, have numbers and letters)'})
     }
 
     const temp = await prisma.customer.findUnique({
@@ -160,6 +159,66 @@ router.patch('/password/:id', async (req, res)=>{
 
     if(temp === null){
         return res.status(404).json({success: false, message: `Customer does not exist with id: ${temp.id}`})
+    }
+    
+    const passRes = await comparePassword(oldPassword, temp.password)
+
+    if(!passRes){
+        return res.status(400).json({success: false, message: "Old password is incorrect"})
+    }
+
+    if(newPassword === undefined){
+        return res.status(400).json({success: false, message: 'Missing password in req body'})
+    }
+    if(!checkPassword(newPassword)){
+        return res.status(400).json({success: false, message: 'Password does not pass requirements (Must be length of 8, have numbers and letters)'})
+    }
+
+
+    const hash = await generateHash(newPassword)
+
+    await prisma.customer.update({
+        where:{
+            id: id
+        },
+        data:{
+            password: hash
+        }
+    })
+
+    changed_password_email(temp.email, temp.name)
+
+    logger.info(`Customer API -- Changed Password: ${id}`)
+
+    return res.status(200).json({success: true, message: `Successfully update customer password id: ${id}`})
+
+}))
+
+// Change Customer Password when using forgot-password
+router.patch('/reset-password/:id', asyncHandler (async(req, res)=>{
+    const id = parseInt(req.params['id'])
+    const password = req.body.password
+
+    if(isNaN(id)){
+        return res.status(400).json({success: false, message:"Invalid id"})
+    }
+
+    const temp = await prisma.customer.findUnique({
+        where:{
+            id: id
+        }
+    })
+
+    if(temp === null){
+        return res.status(404).json({success: false, message: `Customer does not exist with id: ${temp.id}`})
+    }
+
+    if(password === undefined){
+        return res.status(400).json({success: false, message: 'Missing password in req body'})
+    }
+
+    if(!checkPassword(password)){
+        return res.status(400).json({success: false, message: 'Password does not pass requirements (Must be length of 8, have numbers and letters)'})
     }
 
     const hash = await generateHash(password)
@@ -173,47 +232,55 @@ router.patch('/password/:id', async (req, res)=>{
         }
     })
 
-    logger.info(`Customer API -- Changed Password: ${id}`)
+    logger.info(`Customer API -- Changed Password Reset: ${id}`)
 
     return res.status(200).json({success: true, message: `Successfully update customer password id: ${id}`})
+}))
 
-})
- 
+
 // *** Delete ***
 // Delete Customer
-router.delete('/:id', async (req, res)=>{
-    const id = parseInt(req.params['id'])
+router.delete('/', asyncHandler (async (req, res)=>{
+    const password = req.body.password 
+    const customer_id = req.customer_id
 
-    if(isNaN(id)){
-        return res.status(400).json({success: false, message:"Invalid id"})
+    if(customer_id === null){
+        return res.status(404).json({success: false, message: "Cannot find customer ID"})
     }
 
     const temp = await prisma.customer.findUnique({
         where:{
-            id: id
+            id: customer_id
         }, 
         include:{
             Shopping_Session: true
         }
     })
+
     if(temp === null){
         return res.status(404).json({success: false, message: `Customer does not exist with id: ${temp.id}`})
     }
 
+    const passRes = comparePassword(password, temp.password)
+
+    if(!passRes){
+        return res.status(400).json({success: false, message: 'Password is incorrect'})
+    }
+
     await prisma.customer.delete({
         where:{
-            id: id
+            id: customer_id
         }
     })
 
-    logger.info(`Customer API -- Deleted id: ${id}`)
-    return res.status(200).json({success: true, message: `Success delete customer id: ${id}`})
+    logger.info(`Customer API -- Deleted id: ${customer_id}`)
+    return res.status(200).json({success: true, message: `Success delete customer id: ${customer_id}`})
     
-})
+}))
 
 // Whenever a customer logins, replace there old customer_session with the new one that they have been using
 // Edge case: guest session is empty and has no items. Then do not replace the session
-router.post('/login', async (req, res)=>{
+router.post('/login', asyncHandler (async (req, res)=>{
     const email = req.body.email
     const password = req.body.password
 
@@ -282,7 +349,7 @@ router.post('/login', async (req, res)=>{
     logger.info(`Customer API -- Login id: ${customer_id}`)
 
     return res.status(200).json({success: true, message: "Successful login"})
-})
+}))
 
 router.get('/logout', (req, res)=>{
     res.clearCookie('authCookie')
@@ -290,7 +357,7 @@ router.get('/logout', (req, res)=>{
     return res.redirect('/login')
 })
 
-router.post('/forgot-password', async (req, res)=>{
+router.post('/forgot-password', asyncHandler (async (req, res)=>{
     const email = req.body.email
     if(email === undefined){
         return res.status(400).json({success: false, message: "Email missing in req body"})
@@ -310,12 +377,11 @@ router.post('/forgot-password', async (req, res)=>{
         const secrete = process.env.TOKEN_PASSWORD_SECRETE + customer.password
         const pass_token = jwt.sign({email: customer.email, id: customer.id}, secrete, {expiresIn: '15m'})
         const link = `http://localhost:9000/reset-password/${customer.id}/${pass_token}`
-        logger.info(`Customer API -- Sent forgot password email id: ${req.customer_id}`)
         // Send email to user
-        sendForgotPassword(email, link)
+        forgot_password_email(customer.email, customer.name, link)
     }
 
     return res.status(200).send({success: true})
-})
+}))
 
 module.exports = router

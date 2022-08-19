@@ -1,19 +1,33 @@
 <script>
     export let customer_id
-    let password
-    let confirmPassword
+    let password = ""
+    let confirmPassword = ""
     let showError = false
     let errorMessage = ""
     let showSuccess = false
 
     async function resetPassword(){
+        errorMessage = ""
+        showError = false
+        if(password === "" || password.match(/^ *$/)){
+            errorMessage = "Password input field cannot be empty"
+            showError = true
+            return
+        }
+
+        if(confirmPassword === "" || confirmPassword.match(/^ *$/)){
+            errorMessage = "Confirm password input field cannot be empty"
+            showError = true
+            return
+        }
+
         if(password != confirmPassword){
             errorMessage = "Passwords do not match"
             showError = true
             return
         }
         else{
-            const res = await fetch(`/api/customer/password/${customer_id}`, {
+            const res = await fetch(`/api/customer/reset-password/${customer_id}`, {
                 method: 'PATCH', 
                 headers: {
                     'Accept': 'application/json', 
@@ -35,16 +49,32 @@
         }
     }
 </script>
+<div class="grid grid-cols-1 gap-4 justify-items-center max-w-screen-tablet mx-auto">
+    <div class="divide-y divide-solid w-full">
+        <h1 class="text-center font-bold text-3xl pb-3 tablet:text-4xl">Reset Password</h1>
+        <p></p>
+    </div>
+    
+    <div>
+        <p class="pb-1 tablet:text-xl">New Password</p>
+        <input class="input outline outline-1 outline-black " type="password" bind:value={password}/>
+    </div>
 
-<h1>Reset Password</h1>
-
-<div class="grid justify-items-center gap-4">
-    <input class="input input-bordered" placeholder="New Password" type="password" bind:value={password}/>
-    <input class="input input-bordered" placeholder="Confirm New Password" type="password" bind:value={confirmPassword}/>
+    <div>
+        <p class="pb-1 tablet:text-xl">Confirm Password</p>
+        <input class="input outline outline-1 outline-black " type="password" bind:value={confirmPassword}/>
+    </div>
+    
+    
     {#if showError}
         <p class="text-red-600 font-bold">{errorMessage}</p>
     {/if}
-    <button class="btn btn-primary rounded-md" on:click={resetPassword}>Reset Password</button>
+    <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
+        <button class="btn btn-primary rounded-md shadow-lg" on:click={resetPassword}>Reset Password</button>
+        <button class="btn btn-warning rounded-md shadow-lg" on:click={()=>window.location.href = "/login"}>Cancel</button>
+    </div>
+    
+    
     {#if showSuccess}
         <p>Password Successfully changed. Redirecting in 5s</p>
     {/if}
