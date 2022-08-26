@@ -16,7 +16,7 @@
 
     <div>
         <span>
-            <i class="fa-solid fa-envelope pr-3"></i>support@email.com
+            <i class="fa-solid fa-envelope pr-3"></i>support@shopemporium.co.za
         </span>
     </div>
 
