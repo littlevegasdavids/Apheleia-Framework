@@ -112,7 +112,7 @@ router.post('/', asyncHandler (async(req, res)=>{
         }
     })
 
-    create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, subtotal, shipping_price, total)
+    //create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, subtotal, shipping_price, total)
 
     logger.info(`Order API -- Created id: ${order.id}`)
     return res.status(201).json({success: true, message: {order}})
