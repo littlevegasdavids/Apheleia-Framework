@@ -4,4 +4,4 @@ public
 .env
 .env.test
 *.txt
-logs
+logs/*
