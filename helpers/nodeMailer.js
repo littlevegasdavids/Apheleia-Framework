@@ -4,7 +4,6 @@ let logger = require('./logger')
 const Handlebars = require('handlebars')
 const fileSystem = require('fs')
 const path = require('path')
-const support_email = 'support@shopemporium.com'
 
 const order_password = process.env.ORDERS_EMAIL_PASSWORD
 const customer_password = process.env.CUSTOMER_EMAIL_PASSWORD
@@ -48,7 +47,7 @@ async function createCustomerMailTransport(){
 }
 
 // New order and invoice mail
-async function send_order_invoice(customer_email, invoice_path, link, order_number, customer_name){
+async function send_order_invoice(customer_email, invoice_path, order_number, customer_name){
     let transporter = await createOrderMailTransport()
 
     try{
@@ -57,7 +56,6 @@ async function send_order_invoice(customer_email, invoice_path, link, order_numb
         const template = Handlebars.compile(source)
         const replace = {
             customer_name: String(customer_name),
-            link: link, 
             order_number: String(order_number) 
         }
         const htmlSend = template(replace)
@@ -92,7 +90,6 @@ async function order_confirmed_email(customer_email, order_number, customer_name
             customer_name: String(customer_name), 
             order_date: String(order_date), 
             shipping_address: String(shipping_address), 
-            link: String(link)
         }
         const htmlSend = template(replace)
         transporter.sendMail({
@@ -122,7 +119,6 @@ async function order_shipped_email(customer_email, order_number, customer_name, 
             customer_name: String(customer_name),
             order_date: String(order_date), 
             shipping_address: String(shipping_address), 
-            link: String(link)
         }
         const htmlSend = template(replace)
         transporter.sendMail({
@@ -149,7 +145,6 @@ async function changed_password_email(customer_email, customer_name){
         const template = Handlebars.compile(source)
         const replace = {
             customer_name: String(customer_name),
-            support_email: support_email
         }
         const htmlSend = template(replace)
         transporter.sendMail({
@@ -169,14 +164,12 @@ async function changed_password_email(customer_email, customer_name){
 // Newly created account
 async function new_account_email(customer_email, customer_name){
     let transporter = await createOrderMailTransport()
-    const link = 'http://localhost:9000/customer'
     try{
         const filePath = path.join(__dirname, '../email_templates/new_account.html')
         const source = fileSystem.readFileSync(filePath, 'utf-8').toString()
         const template = Handlebars.compile(source)
         const replace = {
-            customer_name: String(customer_name),
-            link: link
+            customer_name: String(customer_name)
         }
         const htmlSend = template(replace)
         transporter.sendMail({

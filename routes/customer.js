@@ -376,7 +376,7 @@ router.post('/forgot-password', asyncHandler (async (req, res)=>{
     if(customer != null){
         const secrete = process.env.TOKEN_PASSWORD_SECRETE + customer.password
         const pass_token = jwt.sign({email: customer.email, id: customer.id}, secrete, {expiresIn: '15m'})
-        const link = `http://localhost:9000/reset-password/${customer.id}/${pass_token}`
+        const link = `https://www.shopemporium.co.za/reset-password/${customer.id}/${pass_token}`
         // Send email to user
         forgot_password_email(customer.email, customer.name, link)
     }

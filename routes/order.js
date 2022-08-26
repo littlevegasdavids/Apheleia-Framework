@@ -168,9 +168,7 @@ async function create_and_send_invoice(order_number, customer_name, shipping_add
         await page.pdf({path: invoice_path, format: 'A4'})
         await browser.close()
 
-        let link = `http://localhost:9000/order/${order_number}`
-
-        send_order_invoice(order.Customer.email, invoice_path, link, order_number, order.Customer.name)
+        send_order_invoice(order.Customer.email, invoice_path, order_number, order.Customer.name)
     
         logger.info(`Successfully created Order Invoice #${order_number}`)
 
