@@ -4,8 +4,6 @@ let logger = require('./logger')
 const Handlebars = require('handlebars')
 const fileSystem = require('fs')
 const path = require('path')
-
-const app_heading = 'Emporium of Curiosity'
 const support_email = 'support@shopemporium.com'
 
 const order_password = process.env.ORDERS_EMAIL_PASSWORD
@@ -59,13 +57,12 @@ async function send_order_invoice(customer_email, invoice_path, link, order_numb
         const template = Handlebars.compile(source)
         const replace = {
             customer_name: String(customer_name),
-            app_heading: app_heading, 
             link: link, 
             order_number: String(order_number) 
         }
         const htmlSend = template(replace)
         transporter.sendMail({
-            from: `${app_heading} <orders@shopemporium.co.za>`, 
+            from: `Emporium Of Curiosity<orders@shopemporium.co.za>`, 
             to: String(customer_email),
             subject: 'New Order', 
             html: htmlSend, 
@@ -95,12 +92,11 @@ async function order_confirmed_email(customer_email, order_number, customer_name
             customer_name: String(customer_name), 
             order_date: String(order_date), 
             shipping_address: String(shipping_address), 
-            app_heading: app_heading, 
             link: String(link)
         }
         const htmlSend = template(replace)
         transporter.sendMail({
-            from: `${app_heading} <orders@shopemporium.co.za>`, 
+            from: `Emporium Of Curiosity<orders@shopemporium.co.za>`, 
             to: String(customer_email),
             subject: `Order #${order_number} confirmed`, 
             html: htmlSend
@@ -126,12 +122,11 @@ async function order_shipped_email(customer_email, order_number, customer_name, 
             customer_name: String(customer_name),
             order_date: String(order_date), 
             shipping_address: String(shipping_address), 
-            app_heading: app_heading, 
             link: String(link)
         }
         const htmlSend = template(replace)
         transporter.sendMail({
-            from: `${app_heading} <orders@shopemporium.co.za>`, 
+            from: `Emporium Of Curiosity<orders@shopemporium.co.za>`, 
             to: String(customer_email),
             subject: `Order #${order_number} shipped`, 
             html: htmlSend
@@ -154,12 +149,11 @@ async function changed_password_email(customer_email, customer_name){
         const template = Handlebars.compile(source)
         const replace = {
             customer_name: String(customer_name),
-            app_heading: app_heading, 
             support_email: support_email
         }
         const htmlSend = template(replace)
         transporter.sendMail({
-            from: `${app_heading} <customer@shopemporium.co.za>`, 
+            from: `Emporium Of Curiosity<customer@shopemporium.co.za>`, 
             to: String(customer_email),
             subject: `Changed password`, 
             html: htmlSend
@@ -182,14 +176,13 @@ async function new_account_email(customer_email, customer_name){
         const template = Handlebars.compile(source)
         const replace = {
             customer_name: String(customer_name),
-            app_heading: app_heading, 
             link: link
         }
         const htmlSend = template(replace)
         transporter.sendMail({
-            from: `${app_heading} <customer@shopemporium.co.za>`, 
+            from: `Emporium Of Curiosity <customer@shopemporium.co.za>`, 
             to: String(customer_email),
-            subject: `Welcome to ${app_heading}`, 
+            subject: `Welcome to Emporium Of Curiosity`, 
             html: htmlSend
         }).then(info=>{
             logger.info(`Nodemailer -- Sent new account mail: ${customer_email}`)
@@ -210,12 +203,11 @@ async function forgot_password_email(customer_email, customer_name, link){
         const template = Handlebars.compile(source)
         const replace = {
             customer_name: String(customer_name),
-            app_heading: app_heading, 
             link: link
         }
         const htmlSend = template(replace)
         transporter.sendMail({
-            from: `${app_heading} <customer@shopemporium.co.za>`, 
+            from: `Emporium Of Curiosity<customer@shopemporium.co.za>`, 
             to: String(customer_email),
             subject: `Reset Password`, 
             html: htmlSend
