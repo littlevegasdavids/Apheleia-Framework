@@ -13,6 +13,10 @@
                 total += item.Product.price
             });
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong getting cart information')
+        }
     })
 
 </script>

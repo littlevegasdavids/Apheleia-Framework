@@ -20,6 +20,7 @@
             }
             else{
                 console.error('Error Customer ID not found')
+                alert('Something went wrong trying to get customer information for checkout')
             }
         }
     })

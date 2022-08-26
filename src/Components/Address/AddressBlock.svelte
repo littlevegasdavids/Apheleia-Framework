@@ -9,6 +9,10 @@
             if(result.success){
                 window.location.reload()
             }
+            else{
+                console.error(result.message)
+                alert('Something went wrong tryin to delete the address')
+            }
         }
     }
 </script>

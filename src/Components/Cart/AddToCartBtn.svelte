@@ -30,6 +30,10 @@
             $cart_items = result.message.cart_items
             $num_items = $num_items - 1
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong trying to remove item to cart')
+        }
     }
 
     onMount(async ()=>{
@@ -37,6 +41,10 @@
         const result = await res.json()
         if(result.success){
             addedToCart = result.message
+        }
+        else{
+            console.error(result.message)
+            alert('Something went wrong getting item in cart information')
         }
     })
 </script>

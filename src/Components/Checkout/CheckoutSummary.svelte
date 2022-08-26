@@ -16,6 +16,10 @@
         if(address_result.success){
             address = address_result.message
         }
+        else{
+            console.error(address_result.message)
+            alert('Something went wrong trying to get checkout address information')
+        }
 
         const session_res = await fetch('/api/cart')
         const session_result = await session_res.json()
@@ -27,6 +31,10 @@
             }
 
             total = session.total + 100
+        }
+        else{
+            console.error(session_result.message)
+            alert('Something went wrong trying to get session information')
         }
     })
 

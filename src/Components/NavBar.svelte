@@ -17,6 +17,10 @@
             $num_items = result.message.cart_items.length
             loading = false
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong getting cart info for navbar')
+        }
     })
     
 </script>

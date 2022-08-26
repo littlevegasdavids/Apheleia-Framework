@@ -22,7 +22,8 @@ import { onMount } from 'svelte';
             loading = false
         }
         else{
-            console.error('Did not recieve list of categories')
+            console.error(result.message)
+            alert('Something went wrong trying to get list of categories')
             return
         }
     })

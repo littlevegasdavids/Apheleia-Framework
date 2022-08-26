@@ -37,10 +37,12 @@
             }
             else{
                 console.log(other_prod_result.message)
+                alert('Something went wrong getting product information')
             }
         }
         else{
             console.log(prod_result.message)
+            alert('Something went wrong getting product information')
         }
         
     })

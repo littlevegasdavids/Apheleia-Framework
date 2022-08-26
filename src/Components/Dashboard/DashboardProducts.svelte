@@ -13,6 +13,10 @@
             products = result.message.products
             loading = false
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong trying to get list of products')
+        }
     })
 
     function cardColor(){

@@ -12,6 +12,10 @@
         if(result.success){
             listProducts = result.message.products
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong trying to get list of products for search bar')
+        }
     })
 
     async function searchProducts(){

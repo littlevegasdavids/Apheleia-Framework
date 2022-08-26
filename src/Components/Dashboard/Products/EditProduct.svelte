@@ -18,6 +18,7 @@
             product = prod_result.message.product
         }
         else{
+            console.error(prod_result.message)
             alert('Cannot find information on product')
         }
 
@@ -28,6 +29,7 @@
             loading = false
         }
         else{
+            console.error(cat_result.message)
             alert('Cannot find list of categories')
         }
     })

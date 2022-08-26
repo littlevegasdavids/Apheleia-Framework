@@ -7,6 +7,10 @@
         if(result.success){
             window.location.reload()
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong trying to remove item from cart')
+        }
     }
 </script>
 
