@@ -6,6 +6,7 @@ const asyncHandler = require('express-async-handler')
 const formidable = require('formidable')
 const fileSystem = require('fs')
 const path = require('path')
+const {compressImages, compressImage} = require('../helpers/compressImages')
 
 // *** Create ***
 
@@ -77,7 +78,7 @@ router.post('/', asyncHandler (async (req, res) =>{
                 return res.status(500).send('Internal Sever Error')
             }
         })
-        
+
         var oldPath = image1.filepath
         var newPath = path.join(__dirname, "../", 'public', 'product_images', new_product_id) + "/" + "1.jpg"
         var rawData = fileSystem.readFileSync(oldPath)
@@ -87,7 +88,6 @@ router.post('/', asyncHandler (async (req, res) =>{
                 return res.status(500).send('Internal Sever Error')
             }
         })
-
         oldPath = image2.filepath
         newPath = path.join(__dirname, "../", 'public', 'product_images', new_product_id) + "/" + "2.jpg"
         rawData = fileSystem.readFileSync(oldPath)
@@ -107,12 +107,13 @@ router.post('/', asyncHandler (async (req, res) =>{
             if(err){
                 logger.error(`Error creating new image 3 for id: ${new_product_id}`)
                 return res.status(500).send('Internal Sever Error')
-
             }
         })
+
+        compressImages(new_product_id)
+
         logger.info(`Product API -- Created id: ${new_product_id}`)
         return res.redirect('/dashboard/products')
-        
     })
 }))
 
@@ -283,6 +284,9 @@ router.post('/:id', asyncHandler (async (req, res)=>{
                     logger.error(`Error creating new image 1 for id: ${product_id}`)
                     return res.status(500).send('Internal Sever Error')
                 }
+                else{
+                    compressImage(product_id, 1)
+                }
             })
         }
         
@@ -294,7 +298,9 @@ router.post('/:id', asyncHandler (async (req, res)=>{
                 if(err){
                     logger.error(`Error creating new image 2 for id: ${product_id}`)
                     return res.status(500).send('Internal Sever Error')
-    
+                }
+                else{
+                    compressImage(product_id, 2)
                 }
             })
         }
@@ -307,7 +313,9 @@ router.post('/:id', asyncHandler (async (req, res)=>{
                 if(err){
                     logger.error(`Error creating new image 3 for id: ${product_id}`)
                     return res.status(500).send('Internal Sever Error')
-    
+                }
+                else{
+                    compressImage(product_id, 3)
                 }
             })
         }

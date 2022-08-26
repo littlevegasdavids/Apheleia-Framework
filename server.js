@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken')
 const compression = require('compression')
 const asyncHandler = require('express-async-handler')
 
+
 app.use(compression())
 app.use(express.json())
 
@@ -305,4 +306,3 @@ setInterval(async()=>{
         }
     })
 }, 3000)
-
