@@ -24,6 +24,8 @@
             const other_prod_res = await fetch(`/api/category/get/${product.category_id}`)
             const other_prod_result = await other_prod_res.json()
 
+            console.log(product.dimension_height)
+
             if(other_prod_result.success){
                 other_products = other_prod_result.message.category.Product
                 other_products = other_products.filter(p =>{
@@ -95,16 +97,16 @@
                 </div>
                 <div class="grid">
                     <p class="font-bold pt-3 tablet:text-2xl">Dimensions</p>
-                    {#if product.dimesion_height != null}
-                        <p class="tablet:text-xl">Height: {product.dimesion_height}</p>
+                    {#if product.dimension_height != null}
+                        <p class="tablet:text-xl">Height: {product.dimension_height}</p>
                     {/if}
 
-                    {#if product.dimesion_length != null}
-                        <p class="tablet:text-xl">Length: {product.dimesion_length}</p>
+                    {#if product.dimension_length != null}
+                        <p class="tablet:text-xl">Length: {product.dimension_length}</p>
                     {/if}
 
-                    {#if product.dimesion_width != null}
-                        <p class="tablet:text-xl">Width: {product.dimesion_width}</p>
+                    {#if product.dimension_width != null}
+                        <p class="tablet:text-xl">Width: {product.dimension_width}</p>
                     {/if}
                 </div>
             </div>
