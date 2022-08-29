@@ -50,12 +50,12 @@
 </script>
 
 {#if addedToCart === null}
-    <button class="btn btn-disabled rounded-md shadow-lg {extraCss}" id="btn">
+    <button class="btn btn-disabled selection:shadow-lg {extraCss}" id="btn">
         Loading ... <i class="fas fa-spinner fa-spin"></i>
     </button>
 {:else if addedToCart === false}
-    <button class="btn btn-primary rounded-md shadow-lg {extraCss}" on:click={addItemToCart} id="btn">Add To Cart<i class="fa-solid fa-cart-shopping pl-2"></i></button>
+    <button class="btn btn-accent shadow-lg {extraCss}" on:click={addItemToCart} id="btn">Add To Cart<i class="fa-solid fa-cart-shopping pl-2"></i></button>
 {:else}
-    <button class="btn btn-error rounded-md shadow-lg {extraCss}" on:click={removeItemFromCart} id="btn">Remove from Cart</button>
+    <button class="btn btn-error shadow-lg {extraCss}" on:click={removeItemFromCart} id="btn">Remove from Cart</button>
 {/if}
 

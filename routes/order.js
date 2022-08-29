@@ -115,13 +115,12 @@ router.post('/', async(req, res)=>{
         //create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, subtotal, shipping_price, total)
     
         logger.info(`Order API -- Created id: ${order.id}`)
+        return res.status(201).json({success: true, message: {order}})
     }
     catch(err){
         logger.error(`Order API -- Something went wrong in create: ${err.message}`)
         return res.status(500).send('Something went wrong')
     }
-    
-    return res.status(201).json({success: true, message: {order}})
 })
 
 async function create_and_send_invoice(order_number, customer_name, shipping_address, payment_service, subtotal, shipping_price, total){

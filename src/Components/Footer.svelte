@@ -28,7 +28,7 @@
 
     <div>
         <span>
-            <i class="fa-solid fa-copyright pr-3"></i>2022 App Heading. All rights reserved.
+            <i class="fa-solid fa-copyright pr-3"></i>2022 Emporium Of Curiosity. All rights reserved.
         </span>
     </div>
 </footer>

@@ -73,7 +73,7 @@
             {#if showError}
                 <p class="font-bold text-red-600 text-center">{errorMessage}</p>
             {/if}
-            <button class="btn btn-error rounded-md" on:click={deleteAccount}>Delete account</button>
+            <button class="btn btn-error" on:click={deleteAccount}>Delete account</button>
         </div>
 </div>
 </div>

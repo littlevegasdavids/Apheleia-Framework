@@ -42,7 +42,7 @@
         {#if showError}
             <p class="text-red font-bold">{errorMessage}</p>
         {/if}
-        <button class="btn btn-primary rounded-md shadow-lg" on:click={sendForgotPassword}>Continue</button>
+        <button class="btn btn-primary shadow-lg" on:click={sendForgotPassword}>Continue</button>
 
         {#if showSuccess}
             <p>Link has been sent to email. You will receieve the link only if the email is registered to the website</p>

@@ -111,7 +111,7 @@
         <div>
             <div class="grid grid-cols-2 py-5 gap-2 mx-auto tablet:w-8/12">
                 <div class="">
-                    <p class="font-bold pb-1 tablet:text-xl">Category</p>
+                    <p class="font-bold pb-1 pl-3 tablet:text-2xl">Category</p>
                     <select class="select select-bordered w-full" bind:value={category} on:change={filterProducts} id="selectCategory">
                         <option selected disabled value={"-1"}>Select Category</option>
                         <option value="All">All</option>
@@ -123,7 +123,7 @@
                     </select>
                 </div>
                 <div class="">
-                    <p class="font-bold pb-1 tablet:text-xl">Sort by</p>
+                    <p class="font-bold pb-1 pl-3 tablet:text-2xl">Sort by</p>
                     <select class="select select-bordered w-full" bind:value={sorting} on:change={filterProducts} >
                         <option selected disabled value={"-1"}>Select sorting</option>
                         <option value="None">None</option>

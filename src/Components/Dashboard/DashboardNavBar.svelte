@@ -11,17 +11,17 @@
     </div>
     <div class="flex-none gap-2">
         <Link to="/dashboard/orders">
-            <button class="btn btn-ghost rounded-md">Orders</button>
+            <button class="btn btn-ghost">Orders</button>
         </Link>
         <Link to="/dashboard/products">
-            <button class="btn btn-ghost rounded-md">Products</button>
+            <button class="btn btn-ghost">Products</button>
         </Link>
         <Link to="/dashboard/categories">
-            <button class="btn btn-ghost rounded-md">Categories</button>
+            <button class="btn btn-ghost">Categories</button>
         </Link>
 
         {#if !pathname.includes('/login')}
-            <button class="btn btn-error rounded-md" on:click={()=>window.location.href = "/dashboard/logout"}>Logout</button>
+            <button class="btn btn-error" on:click={()=>window.location.href = "/dashboard/logout"}>Logout</button>
         {/if}
     </div>
 </div>

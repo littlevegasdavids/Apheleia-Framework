@@ -46,7 +46,7 @@
             <AddAddress />
         {/each}
         {#if addresses.length != 0}
-            <button class="btn btn-success rounded-md justify-self-center shadow-lg" on:click={()=>window.location.href = "/addAddressCheckout"}>Add new Address<i class="fa-solid fa-plus pl-2"></i></button>
+            <button class="btn btn-success justify-self-center shadow-lg" on:click={()=>window.location.href = "/addAddressCheckout"}>Add new Address<i class="fa-solid fa-plus pl-2"></i></button>
         {/if}
     </div>
 {:else}

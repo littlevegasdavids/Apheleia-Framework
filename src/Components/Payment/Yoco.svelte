@@ -90,5 +90,5 @@
     }
 </script>
 
-<button id="checkout-button" class="btn btn-success rounded-md shadow-lg" on:click={sendYocoPayment}>Pay With Yoco<i class="fa-solid fa-money-check-dollar fa-lg pl-2"></i></button>
+<button id="checkout-button" class="btn btn-accent shadow-lg" on:click={sendYocoPayment}>Pay With Yoco<i class="fa-solid fa-money-check-dollar fa-lg pl-2"></i></button>
 

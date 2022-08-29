@@ -55,22 +55,23 @@
         <div class="grid justify-items-center">
             <CartItemsTable items={items} />
         </div>
-        
-        <div class="grid divide-y divide-solid">
-            <p></p>
-            <p class="font-bold text-center py-5 tablet:text-xl">Shipping Address: {addressToString(address)}</p>
-            <div class="py-3 text-xl text-center tablet:text-2xl">
-                <p>Shipping fee: R100</p>
-                <p>Subtotal: R{session.total}</p>
-                <p class="font-bold">Total: R{total}</p>
-            </div>
-            <p class="py-5"></p>
+        <div class="grid">
+            <div class="divide-y divide-solid">
+                <p></p>
+                <p class="font-bold text-center py-5 tablet:text-xl">Shipping Address: {addressToString(address)}</p>
+                <div class="py-3 text-xl text-center tablet:text-2xl">
+                    <p>Shipping fee: R100</p>
+                    <p>Subtotal: R{session.total}</p>
+                    <p class="font-bold">Total: R{total}</p>
+                </div>
+                <p class="py-3"></p>
+            </div> 
             <div class="grid gap-4 tablet:w-8/12 tablet:mx-auto">
                 <Yoco total={total * 100} items={items} subtotal={session.total} shipping_price={100} shipping_address={addressToString(address)}/>
-                <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href = "/checkout"}>Select different address<i class="fa-solid fa-pen-to-square fa-lg pl-2"></i></button>
-                <button class="btn btn-secondary rounded-md shadow-lg" on:click={()=>window.location.href = "/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
+                <button class="btn btn-primary shadow-lg" on:click={()=>window.location.href = "/checkout"}>Select different address<i class="fa-solid fa-pen-to-square fa-lg pl-2"></i></button>
+                <button class="btn btn-secondary shadow-lg" on:click={()=>window.location.href = "/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
             </div>
-            
-        </div>  
+        </div>
+         
     </div>
 {/if}

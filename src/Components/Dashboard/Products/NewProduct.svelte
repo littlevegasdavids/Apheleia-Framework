@@ -137,7 +137,7 @@ import { onMount } from 'svelte';
 <h1 class="text-center font-bold text-3xl underline underline-offset-2">Create New Product</h1>
 
 {#if !loading}
-    <form class="w-4/6 bg-primary-content rounded-md outline outline-1 outline-black mx-auto mt-5 p-5" id="createProductForm" on:submit|preventDefault method='post' action="/api/product" enctype="multipart/form-data">
+    <form class="w-4/6 bg-base-200 rounded-md outline outline-1 outline-black mx-auto mt-5 p-5" id="createProductForm" on:submit|preventDefault method='post' action="/api/product" enctype="multipart/form-data">
         <div class="grid grid-cols-2">
             <div class="grid grid-cols-1 gap-4">
                 <div>
@@ -169,14 +169,14 @@ import { onMount } from 'svelte';
                                 <option value={c.id}>{c.name}</option>
                             {/each}
                         </select>
-                        <button class="btn rounded-md btn-seondary justify-self-start" on:click={()=>{new_category = !new_category}}>+</button>
+                        <button class="btn btn-seondary justify-self-start" on:click={()=>{new_category = !new_category}}>+</button>
                         <input class="hidden" name="new_category_bool" value={false}/>
                     </div>
                     {:else}
                         {#if list_categories.length != 0}
                             <div div class="grid grid-cols-2 gap-2">
                                 <input name="new_category_name" class="input outline outline-black outline-1" />
-                                <button class="btn rounded-md btn-seondary justify-self-start" on:click={()=>{new_category = !new_category}}>Select</button>
+                                <button class="btn btn-seondary justify-self-start" on:click={()=>{new_category = !new_category}}>Select</button>
                             </div>
                         {:else}
                             <input name="new_category_name" class="input outline outline-black outline-1" />
@@ -233,7 +233,7 @@ import { onMount } from 'svelte';
             </div>
         </div>
         <button class="btn btn-success mt-3" on:click={createProduct}>Create product<i class="fa-solid fa-check fa-xl pl-3"></i></button>
-        <button class="btn btn-warning rounded-md mt-3" on:click={()=>window.location.href="/dashboard/products"}>Back</button>
+        <button class="btn btn-warning mt-3" on:click={()=>window.location.href="/dashboard/products"}>Back</button>
         {#if showError}
             <p class="text-red-600 text-center font-bold text-xl">{errorMessage}</p>
         {/if}

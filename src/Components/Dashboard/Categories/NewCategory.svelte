@@ -38,7 +38,7 @@
         <p class="pb-1 text-xl">Name</p>
         <div>
             <input type="text" bind:value={name} class="input outline outline-1"/>
-            <button class="btn btn-success rounded-md ml-3" on:click={createCategory}>Create</button>
+            <button class="btn btn-success ml-3" on:click={createCategory}>Create</button>
         </div>
         {#if showError}
             <p class="text-red-600 mt-5 font-bold text-center text-lg">{errorMessage}</p>
