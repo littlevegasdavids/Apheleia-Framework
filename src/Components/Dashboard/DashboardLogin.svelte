@@ -51,7 +51,7 @@
             <p class="font-bold text-red-600 text-center">Invalid Login</p>
         {/if}
         <div class="grid grid-cols-1 gap-4">
-            <button class="btn btn-primary rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={login}>Login</button>
+            <button class="btn btn-primary justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={login}>Login</button>
         </div>
         
     </div>

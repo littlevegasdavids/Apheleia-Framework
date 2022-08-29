@@ -80,7 +80,7 @@
                         {:else if order_details.status === 2}
                             <div class="badge badge-secondary">Shipped to address</div>
                         {:else if order_details.status === 3}
-                            <div class="badge badge-accent outline outline-black outline-1">Collected</div>
+                            <div class="badge badge-accent">Collected</div>
                         {/if}
                     </span>
                 </p>
@@ -96,7 +96,7 @@
         </div>
     </div>
     
-    <button class="btn btn-warning rounded-md col-span-2 w-4/12 justify-self-center shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
+    <button class="btn btn-warning col-span-2 w-4/12 justify-self-center shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
 </div>
     
 {:else}

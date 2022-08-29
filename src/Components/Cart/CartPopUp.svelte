@@ -28,7 +28,7 @@
 
             <span class="font-bold text-lg tablet:text-xl">Subtotal: R{total}</span>
             <div class="card-actions">
-                <button class="btn btn-primary btn-sm rounded-md shadow-lg" on:click={()=>window.location.href="/cart"}>View cart</button>
+                <button class="btn btn-primary shadow-lg" on:click={()=>window.location.href="/cart"}>View cart</button>
             </div>
         </div>
     </div>

@@ -56,12 +56,12 @@
     {/if}
     <div class="grid grid-cols-1 gap-4 p-3 min-w-full justify-items-center">
         <div class="">
-            <p class="pb-1 tablet:text-xl">Email</p>
+            <p class="pb-1 pl-3 tablet:text-xl">Email</p>
             <input type="Email" class="input outline outline-black outline-1 " bind:value={email}/>
         </div>
 
         <div class="">
-            <p class="pb-1 tablet:text-xl">Password</p>
+            <p class="pb-1 pl-3 tablet:text-xl">Password</p>
             <input type="Password" class="input outline outline-black outline-1 " bind:value={password}/>
         </div>
         
@@ -69,9 +69,9 @@
             <p class="font-bold text-red-600 text-center">Invalid Email/Password</p>
         {/if}
         <div class="grid grid-cols-1 gap-4">
-            <button class="btn btn-primary rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={loginCustomer}>Login</button>
-            <button class="btn btn-secondary rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={()=>window.location.href="/forgot-password"}>Forgot Password ?</button>
-            <button class="btn btn-accent rounded-md justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={regiterCustomer}>Register New Account</button>
+            <button class="btn btn-accent justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={loginCustomer}>Login</button>
+            <button class="btn btn-secondary justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={()=>window.location.href="/forgot-password"}>Forgot Password ?</button>
+            <button class="btn btn-primary justify-self-center min-w-full shadow-lg tablet:w-6/12" on:click={regiterCustomer}>Register New Account</button>
         </div>
         
     </div>

@@ -38,7 +38,7 @@
 
 {#if !url.includes('/dashboard')}
 <Router>
-<div class = "bg-base-200">
+<div class = "bg-base-300">
     <div class="max-w-7xl bg-base-100 shadow-2xl mx-auto min-h-screen flex flex-col">
         <div class="pt-3 sticky top-0 z-50">
             <NavBar />
@@ -181,7 +181,7 @@
 </Router>
 {:else}
 <Router>
-    <div class="bg-base-200">
+    <div class="bg-neutral-content">
         <div class="max-w-7xl bg-base-100 mx-auto min-h-screen flex flex-col ">
             <div class="pt-3 sticky top-0 z-50">
                 <DashboardNavBar />

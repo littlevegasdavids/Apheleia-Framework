@@ -2,7 +2,6 @@ require('dotenv').config()
 const prisma = require('../prisma/client')
 const {Router} = require('express')
 const router = new Router()
-const asyncHandler = require('express-async-handler')
 const path = require('path')
 const secrete = process.env.TOKEN_SECRETE
 const jwt = require('jsonwebtoken')

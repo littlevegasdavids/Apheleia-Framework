@@ -100,8 +100,8 @@
             <p class="font-bold text-red-600 text-center">{errorMessage}</p>
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
-            <button class="btn btn-success rounded-md shadow-lg" on:click={changePassword} disabled={disbaleBtn}>Save</button>
-            <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
+            <button class="btn btn-success shadow-lg" on:click={changePassword} disabled={disbaleBtn}>Save</button>
+            <button class="btn btn-primary shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
         </div>
         
     

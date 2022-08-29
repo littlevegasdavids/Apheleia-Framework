@@ -70,8 +70,8 @@
         <p class="text-red-600 font-bold">{errorMessage}</p>
     {/if}
     <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
-        <button class="btn btn-primary rounded-md shadow-lg" on:click={resetPassword}>Reset Password</button>
-        <button class="btn btn-warning rounded-md shadow-lg" on:click={()=>window.location.href = "/login"}>Cancel</button>
+        <button class="btn btn-primary shadow-lg" on:click={resetPassword}>Reset Password</button>
+        <button class="btn btn-warning shadow-lg" on:click={()=>window.location.href = "/login"}>Cancel</button>
     </div>
     
     

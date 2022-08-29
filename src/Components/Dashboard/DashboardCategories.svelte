@@ -35,7 +35,7 @@ import { identity } from "svelte/internal";
     function cardColor(){
         if(i % 2 === 0){ 
             i++
-            return 'bg-primary-content'
+            return 'bg-base-200'
         }
         else{
             i++
@@ -72,7 +72,7 @@ import { identity } from "svelte/internal";
 <div class=" w-4/6 mx-auto mb-10">
     <div class="grid grid-cols-3">
         <h1 class="col-start-2 text-center font-bold text-4xl underline underline-offset-2 mb-5">Categories</h1>
-        <button class="btn btn-success rounded-md justify-self-end" on:click={()=>window.location.href="/dashboard/newCategory"}>Create new Category<i class="fa-solid fa-plus fa-xl pl-3"></i></button>
+        <button class="btn btn-success justify-self-end" on:click={()=>window.location.href="/dashboard/newCategory"}>Create new Category<i class="fa-solid fa-plus fa-xl pl-3"></i></button>
     </div>
     
     <div class="grid gap-4">
@@ -80,10 +80,10 @@ import { identity } from "svelte/internal";
         <div class="grid grid-cols-3 p-3 {cardColor()} rounded-md outline outline-1">
             <p class="font-bold text-center col-start-2 text-3xl">{category.name}</p>
             <div class="justify-self-end grid grid-cols-2 gap-4">
-                <div class="tooltip tooltip-bottom" data-tip="Edit">
+                <div class="tooltip tooltip-bottom tooltip-primary" data-tip="Edit">
                     <button class="btn btn-circle btn-primary" on:click={()=>window.location.href=`/dashboard/editCategory/${category.id}`}><i class="fa-solid fa-pen-to-square"></i></button>
                 </div>
-                <div class="tooltip tooltip-bottom" data-tip="Delete">
+                <div class="tooltip tooltip-bottom tooltip-error" data-tip="Delete">
                     <button class="btn btn-circle btn-error" on:click={deleteCategory(category.id, category.name)}><i class="fa-solid fa-trash"></i></button>
                 </div>
 
@@ -104,7 +104,7 @@ import { identity } from "svelte/internal";
         {#if null_category.length > 0}
             <div class="grid grid-cols-3 p-3 {cardColor()} rounded-md outline outline-1">
                 <p class="font-bold text-center col-start-2 text-3xl">Products with no category assigned</p>
-                <button class="btn btn-success rounded-md justify-self-end" on:click={()=>window.location.href="/dashboard/assignCategory"}>Assign</button>
+                <button class="btn btn-success justify-self-end" on:click={()=>window.location.href="/dashboard/assignCategory"}>Assign</button>
                 {#each null_category as product}
                     <div class="grid grid-cols-2 mt-5">
                         <img src="/product_images/{product.id}/1.jpg" alt="{product.name} - image" height="120" width="90"/>

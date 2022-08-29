@@ -64,7 +64,7 @@
                     {/if}
                 {/each}
                 </div>
-                <button class="btn btn-primary rounded-md w-4/12" on:click={()=>changeOrderToShipped(order.id)}>Confirm Collection of Order</button>
+                <button class="btn btn-primary w-4/12" on:click={()=>changeOrderToShipped(order.id)}>Confirm Collection of Order</button>
             </div>
         {/each}
     </div>

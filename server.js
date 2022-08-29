@@ -6,7 +6,6 @@ const port = process.env.PORT
 const prisma = require('./prisma/client')
 const jwt = require('jsonwebtoken')
 const compression = require('compression')
-const asyncHandler = require('express-async-handler')
 
 app.use(compression())
 app.use(express.json())
@@ -40,7 +39,7 @@ app.get('/', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/product/:id', asyncHandler(async (req, res)=>{
+app.get('/product/:id', async (req, res)=>{
     const id = parseInt(req.params['id'])
     if(isNaN(id)){
         return res.status(400).send('Invalid ID')
@@ -59,7 +58,7 @@ app.get('/product/:id', asyncHandler(async (req, res)=>{
         return res.status(200).send('Cannot show product at this moment')
     }
     return res.sendFile(__dirname + "/public/index.html")
-}))
+})
 
 app.get('/products', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
@@ -126,7 +125,7 @@ app.get('/customer/changePassword/:id', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/editAddress/:id', asyncHandler(async (req, res)=>{
+app.get('/editAddress/:id', async (req, res)=>{
     const address_id = parseInt(req.params['id'])
     if(isNaN(address_id)){
         return res.status(400).send('Invalid ID')
@@ -152,7 +151,7 @@ app.get('/editAddress/:id', asyncHandler(async (req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html") 
-}))
+})
 
 app.get('/addNewAddress', (req, res)=>{
     if(!req.registered){
@@ -162,7 +161,7 @@ app.get('/addNewAddress', (req, res)=>{
 
 })
 
-app.get('/order/:id', asyncHandler( async(req, res)=>{
+app.get('/order/:id', async(req, res)=>{
     const order_id = parseInt(req.params['id'])
     if(isNaN(order_id)){
         return res.status(400).send('Invalid ID')
@@ -178,7 +177,7 @@ app.get('/order/:id', asyncHandler( async(req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html")
-}))
+})
 
 app.get('/checkout', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
@@ -192,7 +191,7 @@ app.get('/addAddressCheckout', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html")
 })
 
-app.get('/editAddressCheckout/:id', asyncHandler(async(req, res)=>{
+app.get('/editAddressCheckout/:id', async(req, res)=>{
     const address_id = parseInt(req.params['id'])
     if(isNaN(address_id)){
         return res.status(400).send('Invalid ID')
@@ -218,9 +217,9 @@ app.get('/editAddressCheckout/:id', asyncHandler(async(req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html") 
-}))
+})
 
-app.get('/checkoutSummary/:address_id', asyncHandler (async(req, res)=>{
+app.get('/checkoutSummary/:address_id', async(req, res)=>{
     const address_id = parseInt(req.params['address_id'])
     if(isNaN(address_id)){
         return res.status(400).send('Invalid ID')
@@ -246,7 +245,7 @@ app.get('/checkoutSummary/:address_id', asyncHandler (async(req, res)=>{
     }
 
     return res.sendFile(__dirname + "/public/index.html") 
-}))
+})
 
 app.get('/forgot-password', (req, res)=>{
     if(req.registered){
@@ -255,7 +254,7 @@ app.get('/forgot-password', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html") 
 })
 
-app.get('/reset-password/:id/:token', asyncHandler (async (req, res)=>{
+app.get('/reset-password/:id/:token', async (req, res)=>{
     const id = parseInt(req.params['id'])
     const token = req.params['token']
     
@@ -281,7 +280,7 @@ app.get('/reset-password/:id/:token', asyncHandler (async (req, res)=>{
         }
         return res.sendFile(__dirname + "/public/index.html")  
     })
-}))
+})
 
 app.get('/deleteAccount', (req, res)=>{
     if(!req.registered){
@@ -305,4 +304,3 @@ setInterval(async()=>{
         }
     })
 }, 3000)
-

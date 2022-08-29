@@ -7,7 +7,11 @@
         if(result.success){
             window.location.reload()
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong trying to remove item from cart')
+        }
     }
 </script>
 
-<button class="btn rounded-md shadow-lg {extraCss}" on:click={removeItemFromCart}>X</button>
+<button class="btn shadow-lg {extraCss}" on:click={removeItemFromCart}>X</button>

@@ -15,28 +15,35 @@ import CollectedOrderCollapse from "./Orders/CollectedOrderCollapse.svelte";
     onMount(async ()=>{
         const orders_res = await fetch(window.location.origin + "/api/order/all")
         const order_result = await orders_res.json()
+        console.log(order_result)
         orders = order_result.message.orders
-        orders.forEach(order => {
-            switch(order.status){
-                case 0:
-                    new_orders.push(order)
-                break;
+        if(order_result.success){
+            orders.forEach(order => {
+                switch(order.status){
+                    case 0:
+                        new_orders.push(order)
+                    break;
 
-                case 1:
-                    confirmed_orders.push(order)
-                break;
+                    case 1:
+                        confirmed_orders.push(order)
+                    break;
 
-                case 2:
-                    shipped_orders.push(order)
-                break;
+                    case 2:
+                        shipped_orders.push(order)
+                    break;
 
-                case 3:
-                    collect_orders.push(order)
-                break;
-            }
-        });
+                    case 3:
+                        collect_orders.push(order)
+                    break;
+                }
+            });
 
-        loading = false
+            loading = false
+        }
+        else{
+            console.error(order_result.message)
+            alert('Something went wrong trying to get list of orders')
+        }
     })
 
 </script>

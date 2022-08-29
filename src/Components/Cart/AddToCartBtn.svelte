@@ -30,6 +30,10 @@
             $cart_items = result.message.cart_items
             $num_items = $num_items - 1
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong trying to remove item to cart')
+        }
     }
 
     onMount(async ()=>{
@@ -38,16 +42,20 @@
         if(result.success){
             addedToCart = result.message
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong getting item in cart information')
+        }
     })
 </script>
 
 {#if addedToCart === null}
-    <button class="btn btn-disabled rounded-md shadow-lg {extraCss}" id="btn">
+    <button class="btn btn-disabled selection:shadow-lg {extraCss}" id="btn">
         Loading ... <i class="fas fa-spinner fa-spin"></i>
     </button>
 {:else if addedToCart === false}
-    <button class="btn btn-primary rounded-md shadow-lg {extraCss}" on:click={addItemToCart} id="btn">Add To Cart<i class="fa-solid fa-cart-shopping pl-2"></i></button>
+    <button class="btn btn-accent shadow-lg {extraCss}" on:click={addItemToCart} id="btn">Add To Cart<i class="fa-solid fa-cart-shopping pl-2"></i></button>
 {:else}
-    <button class="btn btn-error rounded-md shadow-lg {extraCss}" on:click={removeItemFromCart} id="btn">Remove from Cart</button>
+    <button class="btn btn-error shadow-lg {extraCss}" on:click={removeItemFromCart} id="btn">Remove from Cart</button>
 {/if}
 

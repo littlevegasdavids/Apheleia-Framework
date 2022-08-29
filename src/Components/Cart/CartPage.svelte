@@ -13,6 +13,10 @@
                 total += item.Product.price
             });
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong getting cart information')
+        }
     })
 
 </script>
@@ -28,14 +32,14 @@
             
             <div class="grid justify-center gap-5 p-5 w-full">
                 <p class="font-extrabold text-2xl text-center">Subtotal: R{total}</p>
-                <button class="btn btn-success rounded-md shadow-lg" on:click={()=>window.location.href="/checkout"}>Check out<i class="fa-solid fa-basket-shopping fa-lg pl-2"></i></button>
-                <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href="/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
+                <button class="btn btn-success shadow-lg" on:click={()=>window.location.href="/checkout"}>Check out<i class="fa-solid fa-basket-shopping fa-lg pl-2"></i></button>
+                <button class="btn btn-primary shadow-lg" on:click={()=>window.location.href="/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
             </div>
         </div>
     {:else}
         <p class="text-center text-2xl py-5">Your Cart Is Empty</p>
         <div class="grid justify-items-center pt-3">
-            <button class="btn btn-primary rounded-md shadow-lg" on:click={()=>window.location.href="/products"}>Cotinue Shopping</button>
+            <button class="btn btn-primary shadow-lg" on:click={()=>window.location.href="/products"}>Cotinue Shopping</button>
         </div>
     {/if}
 {:else}

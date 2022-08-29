@@ -7,7 +7,7 @@
     }
 </script>
 
-<table class="table w-full tablet:text-lg">
+<table class="table w-full bg-base-200 shadow-md rounded-md tablet:text-lg">
     <thead>
         <tr>
             <th></th>
@@ -23,7 +23,7 @@
                 <td>
                     <a href="/product/{item.Product.id}" target="_blank">
                         <div class="grid tablet:hidden">
-                            <img src="/product_images/{item.Product.id}/1.jpg" height="30" width="23" alt="{item.Product.name} - image" class="rounded-md shadow-lg"/>
+                            <img src="/product_images/{item.Product.id}/1.jpg" height="60" width="45" alt="{item.Product.name} - image" class="rounded-md shadow-lg"/>
                         </div>
                         <div class="hidden tablet:grid">
                             <img src="/product_images/{item.Product.id}/1.jpg" height="120" width="90" alt="{item.Product.name} - image" class="rounded-md shadow-lg"/>
@@ -37,7 +37,7 @@
                     R{item.Product.price}
                 </td>
                 <td>
-                    <RemoveItemFromCart product_id={item.Product.id} extraCss={"btn-sm btn-error"} />
+                    <RemoveItemFromCart product_id={item.Product.id} extraCss={"btn-sm btn-error tablet:btn-md"} />
                 </td>
             </tr>
         {/each}

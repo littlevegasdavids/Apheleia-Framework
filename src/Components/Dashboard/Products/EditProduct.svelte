@@ -18,6 +18,7 @@
             product = prod_result.message.product
         }
         else{
+            console.error(prod_result.message)
             alert('Cannot find information on product')
         }
 
@@ -28,6 +29,7 @@
             loading = false
         }
         else{
+            console.error(cat_result.message)
             alert('Cannot find list of categories')
         }
     })
@@ -109,7 +111,7 @@
 <h1 class="text-center font-bold text-4xl underline underline-offset-2">Edit Product</h1>
 
 {#if !loading}
-    <form class="w-4/6 bg-primary-content rounded-md outline outline-1 outline-black mx-auto mt-5 p-5" id="editProductForm" on:submit|preventDefault method='post' action="/api/product/{product_id}" enctype="multipart/form-data">
+    <form class="w-4/6 bg-base-200 rounded-md outline outline-1 outline-black mx-auto mt-5 p-5" id="editProductForm" on:submit|preventDefault method='post' action="/api/product/{product_id}" enctype="multipart/form-data">
         <div class="grid grid-cols-2">
             <div class="grid grid-cols-1 gap-4">
                 <div>
@@ -210,7 +212,7 @@
             </div>
         </div>
         <button class="btn btn-success mt-3" on:click={editProduct}>Save Changes<i class="fa-solid fa-floppy-disk fa-xl pl-3"></i></button>
-        <button class="btn btn-warning rounded-md mt-3" on:click={()=>window.location.href="/dashboard/products"}>Back</button>
+        <button class="btn btn-warning mt-3" on:click={()=>window.location.href="/dashboard/products"}>Back</button>
         {#if showError}
             <p class="text-red-600 text-center font-bold text-xl">{errorMessage}</p>
         {/if}

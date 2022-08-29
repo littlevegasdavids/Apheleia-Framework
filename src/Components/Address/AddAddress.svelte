@@ -69,7 +69,6 @@
             else{
                 console.error(result.message)
                 alert('Something went wrong trying to add new address')
-                
             }
         }
 
@@ -84,28 +83,28 @@
     
     <div class="p-6 grid grid-cols-1 gap-4 min-w-full justify-items-center">
         <div>
-            <p class="pb-1 tablet:text-xl">Street Address</p>
+            <p class="pb-1 pl-3 tablet:text-xl">Street Address</p>
             <input id="street_address" type="text" class="input outline outline-1 outline-black " bind:value={street_address}/>
         </div>
         
         <div>
-            <p class="pb-1 tablet:text-xl">Suburb</p>
+            <p class="pb-1 pl-3 tablet:text-xl">Suburb</p>
             <input id="suburb" type="text" class="input outline outline-1 outline-black " bind:value={suburb}/>
         </div>
 
         <div>
-            <p class="pb-1 tablet:text-xl">City/Town</p>
+            <p class="pb-1 pl-3 tablet:text-xl">City/Town</p>
             <input id="city" type="text" class="input outline outline-1 outline-black " bind:value={city}/>
         </div>
 
         <div>
-            <p class="pb-1 tablet:text-xl">Postal Code</p>
+            <p class="pb-1 pl-3 tablet:text-xl">Postal Code</p>
             <input id="postal_code" type="number" class="input outline outline-1 outline-black " bind:value={postal_code}/>
         </div>
 
         <div>
-            <p class="pb-1 tablet:text-xl">Country</p>
-            <select id="country" class="select select-bordered " bind:value={country}>
+            <p class="pb-1 pl-3 tablet:text-xl">Country</p>
+            <select id="country" class="select outline outline-1 outline-black" bind:value={country}>
                 <option selected disabled>Select Country</option>
                 {#each $countries as country}
                     <option value={country}>{country}</option>
@@ -116,8 +115,8 @@
             <p class="text-center text-red-600">{errorMessage}</p>
         {/if}
         <div class="grid grid-cols-1 gap-4 tablet:grid-cols-2">
-            <button class="btn btn-success rounded-md shadow-lg" on:click={addAddress}>Save</button>
-            <button class="btn btn-warning rounded-md shadow-lg" on:click={()=>window.location.href="/customer"}>Cancel</button>
+            <button class="btn btn-success shadow-lg" on:click={addAddress}>Save</button>
+            <button class="btn btn-warning shadow-lg" on:click={()=>window.location.href="/customer"}>Cancel</button>
         </div>
         
 

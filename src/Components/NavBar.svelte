@@ -17,6 +17,10 @@
             $num_items = result.message.cart_items.length
             loading = false
         }
+        else{
+            console.error(result.message)
+            alert('Something went wrong getting cart info for navbar')
+        }
     })
     
 </script>
@@ -29,26 +33,26 @@
         </Link>
     </div>
     <div class="flex-none">
-        <div class="tooltip tooltip-bottom" data-tip="Products Page">
+        <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Products Page">
             <Link to="/products">
-                <button class="btn btn-ghost rounded-md"><i class="fa-solid fa-shop fa-xl"></i></button>
+                <button class="btn btn-ghost"><i class="fa-solid fa-shop fa-xl"></i></button>
             </Link>
         </div>
 
-        <div class="tooltip tooltip-bottom" data-tip="Search">
-            <button class="btn btn-ghost rounded-md " on:click={()=>$IsSearchOverlayOpen=true}><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
+        <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Search">
+            <button class="btn btn-ghost" on:click={()=>$IsSearchOverlayOpen=true}><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
         </div>
 
-        <div class="tooltip tooltip-bottom" data-tip="User Page">
+        <div class="tooltip tooltip-accent tooltip-bottom" data-tip="User Page">
             <Link to="/customer">
-                <button class="btn btn-ghost rounded-md"><i class="fa-solid fa-xl fa-user"></i></button>
+                <button class="btn btn-ghost"><i class="fa-solid fa-xl fa-user"></i></button>
             </Link>
         </div>
         
         <div class="indicator dropdown dropdown-end dropdown-hover">
             <span class="indicator-item badge badge-primary rounded-full mr-3">{$num_items}</span> 
             <Link to="/cart">
-                <button class="btn btn-ghost btn-sm rounded-md">
+                <button class="btn btn-ghost btn-sm">
                 <i class="fa-solid fa-xl fa-cart-shopping"></i>
             </button>
             </Link>
