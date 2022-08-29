@@ -8,7 +8,6 @@ const logger = require('../helpers/logger')
 const {createRegisteredToken} = require('../middleware/session')
 const router = new Router()
 const jwt = require('jsonwebtoken')
-const {sendForgotPassword} = require('../helpers/nodeMailer')
 
 const {changed_password_email, forgot_password_email, new_account_email} = require('../helpers/nodeMailer')
 
