@@ -33,9 +33,15 @@
         </Link>
     </div>
     <div class="flex-none">
+        <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Home Page">
+            <Link to="/">
+                <button class="btn btn-ghost"><i class="fa-solid fa-house fa-xl"></i></button>
+            </Link>
+        </div>
+
         <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Products Page">
             <Link to="/products">
-                <button class="btn btn-ghost"><i class="fa-solid fa-shop fa-xl"></i></button>
+                <button class="btn btn-ghost"><i class="fa-solid fa-bag-shopping fa-xl"></i></button>
             </Link>
         </div>
 
