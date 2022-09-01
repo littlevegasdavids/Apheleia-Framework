@@ -169,11 +169,18 @@ app.get('/order/:id', async(req, res)=>{
     const temp = await prisma.order_Details.findUnique({
         where:{
             id: order_id
+        }, 
+        include:{
+            Customer: true
         }
     })
 
     if(temp === null){
         return res.status(404).send('Cannot find order')
+    }
+
+    if(temp.Customer.id != req.customer_id){
+        return res.status(401).send('Not allowed')
     }
 
     return res.sendFile(__dirname + "/public/index.html")
