@@ -4,12 +4,14 @@
     let name = ""
     let email = ""
     let password = ""
+    let confirm_password = ""
     let windowLocation = window.location.pathname
 
     async function createCustomer(){
         name = document.getElementById('name').value
         email = document.getElementById('email').value
         password = document.getElementById('password').value
+        confirm_password = document.getElementById('confirm_password').value
 
         if(name === "" || name.match(/^ *$/)){
             erorrMessage = "Name cannot be empty"
@@ -23,6 +25,18 @@
         }
         if(password === "" || password.match(/^ *$/)){
             erorrMessage = "Password cannot be empty"
+            showError = true
+            return
+        }
+
+        if(confirm_password === "" || confirm_password.match(/^ *$/)){
+            erorrMessage = "Confirm Password cannot be empty"
+            showError = true
+            return
+        }
+
+        if(confirm_password != password){
+            erorrMessage = "Passwords do not match"
             showError = true
             return
         }
@@ -79,6 +93,11 @@
         <div>
             <p class="pb-1 pl-3 tablet:text-xl">Password</p>
             <input class="input  outline outline-1 outline-black" type="password" id="password"/>
+        </div>
+
+        <div>
+            <p class="pb-1 pl-3 tablet:text-xl">Confirm Password</p>
+            <input class="input  outline outline-1 outline-black" type="password" id="confirm_password"/>
         </div>
         {#if showError}
             <p class="text-center font-bold text-red-600">{erorrMessage}</p>
