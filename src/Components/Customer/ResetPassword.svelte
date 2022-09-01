@@ -56,12 +56,12 @@
     </div>
     
     <div>
-        <p class="pb-1 tablet:text-xl">New Password</p>
+        <p class="pb-1 pl-3 tablet:text-xl">New Password</p>
         <input class="input outline outline-1 outline-black " type="password" bind:value={password}/>
     </div>
 
     <div>
-        <p class="pb-1 tablet:text-xl">Confirm Password</p>
+        <p class="pb-1 pl-3 tablet:text-xl">Confirm Password</p>
         <input class="input outline outline-1 outline-black " type="password" bind:value={confirmPassword}/>
     </div>
     
