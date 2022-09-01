@@ -159,7 +159,10 @@ async function create_and_send_invoice(order_number, customer_name, shipping_add
         }
         const html = template(replace)
         
-        const browser = await puppeteer.launch()
+        const browser = await puppeteer.launch({
+            headless: true, 
+            args: ['--no-sandbox']
+        })
         const page = await browser.newPage()
     
         await page.setContent(html)
