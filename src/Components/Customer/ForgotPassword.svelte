@@ -36,7 +36,7 @@
     
     <div class="grid justify-items-center gap-4">
         <div>
-            <p class="pb-1 tablet:text-xl">Email</p>
+            <p class="pb-1 pl-3 tablet:text-xl">Email</p>
             <input type="email" class="input outline outline-1 outline-black " bind:value={email}/>
         </div>
         {#if showError}
