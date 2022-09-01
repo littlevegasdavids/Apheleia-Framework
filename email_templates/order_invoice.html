@@ -47,10 +47,11 @@
         table, td, th{
             border: 1px solid;
         }
-        .payment_summary{
-            width: 50%;
-            margin-left: auto;
-            margin-right: auto;
+        .blank_row{
+            height: 25px !important; /* overwrites any other rules */
+            background-color: #FFFFFF;
+        }
+        .shipping_address{
             text-align: center;
         }
     </style>
@@ -61,8 +62,9 @@
             Emporium Of Curiosity
         </h1>
         <h2 class="heading">Order #{{order_number}} Invoice</h2>
-            <p>To: {{customer_name}}</p>
-            <p>Shipping address: {{shipping_address}}</p>
+            <span><p style="text-align: center;">{{shipping_address}}</p></span>
+            <p>To: <span>{{customer_name}}</span></p>
+            <p>Payment service: <span>{{payment_service}}</span></p>
         <table>
             <tr>
                 <th>ID</th>
@@ -82,13 +84,26 @@
                     </td>
                 </tr>
             {{/each}}
+            <tr class="blank_row">
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-left:10px">Subtotal</td>
+                <td style="padding-left:10px">R{{subtotal_amount}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-left:10px">Shipping Fee</td>
+                <td style="padding-left:10px">R{{shipping_amount}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-left:10px">Total</td>
+                <td style="padding-left:10px"><span>R{{total_amount}}</span></td>
+            </tr>
         </table>
-        <div class="payment_summary">
-            <p>Payment service: {{payment_service}}</p>
-            <p>Subtotal: R{{subtotal_amount}}</p>
-            <p>Shipping Fee: R{{shipping_amount}}</p>
-            <p style="font-weight: bold;">Total: R{{total_amount}}</p>
-        </div>
+        <p style="font-size: 14px; text-align: center; padding-top: 20px ;">If you would like to contact us please send an email to <span>support@shopemporium.co.za</span></p>
     </div>
 </body>
 
