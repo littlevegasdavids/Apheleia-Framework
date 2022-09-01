@@ -205,7 +205,7 @@ async function forgot_password_email(customer_email, customer_name, link){
             subject: `Reset Password`, 
             html: htmlSend
         }).then(info=>{
-            logger.info(`Nodemailer -- Sent reset password link mail: ${nodemailer.getTestMessageUrl(info)}`)
+            logger.info(`Nodemailer -- Sent reset password link mail: ${customer_email}`)
         })
     }
     catch(err){

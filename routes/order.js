@@ -112,7 +112,7 @@ router.post('/', async(req, res)=>{
             }
         })
     
-        //create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, subtotal, shipping_price, total)
+        create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, subtotal, shipping_price, total)
     
         logger.info(`Order API -- Created id: ${order.id}`)
         return res.status(201).json({success: true, message: {order}})
@@ -168,7 +168,7 @@ async function create_and_send_invoice(order_number, customer_name, shipping_add
 
         filesystem.mkdirSync(invoice_dir)
 
-        const invoice_path = path.join(invoice_dir, String(order_number) + " - invoice.pdf")
+        const invoice_path = path.join(invoice_dir, `Order #${order_number} - invoice.pdf`)
         
         await page.pdf({path: invoice_path, format: 'A4'})
         await browser.close()
@@ -176,8 +176,6 @@ async function create_and_send_invoice(order_number, customer_name, shipping_add
         send_order_invoice(order.Customer.email, invoice_path, order_number, order.Customer.name)
     
         logger.info(`Successfully created Order Invoice #${order_number}`)
-
-
     }
     catch(err){
         logger.error(`Order Create Invoice function -- Error creating pdf: ${err.message}`)
@@ -216,6 +214,45 @@ router.get('/get/:id', async(req, res)=>{
         return res.status(500).send('Something went wrong')
     }
     
+})
+
+router.get('/get/download/:id', async(req, res)=>{
+    try{
+        const order_id = parseInt(req.params['id'])
+        
+        if(isNaN(order_id)){
+            return res.status(400).send(`Invalid order id`)
+        }
+
+        const order = await prisma.order_Details.findUnique({
+            where:{
+                id: order_id
+            }, 
+            include:{
+                Customer: true
+            }
+        })
+
+        if(order === null){
+            return res.status(404).send(`Order not found`)
+        }
+
+        if(req.customer_id != order.Customer.id){
+            return res.status(401).send('Not allowed')
+        }
+
+        const pathFile = path.join(__dirname, ".." , 'public', 'order_invoices', `${order_id}`, `Order #${order_id} - invoice.pdf`)
+
+        return res.download(pathFile, function(err){
+            if(err){
+                throw err
+            }
+        })
+    }
+    catch(err){
+        logger.error(`Order API -- Something went wrong downloading invoice: ${err.message}`)
+        return res.status(500).send('Something went wrong')
+    }
 })
 
 // Get Order By Customer_Id 

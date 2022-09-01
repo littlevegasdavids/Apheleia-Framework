@@ -24,6 +24,10 @@
         const dateString = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
         return dateString
     }
+
+    async function downloadInvoice(){
+        
+    }
 </script>
 
 {#if !loading}
@@ -95,8 +99,10 @@
             </div>
         </div>
     </div>
-    
+
+    <button class="btn btn-success col-span-2 w-4/12 justify-self-center shadow-lg" on:click={()=>window.location.href = `/api/order/get/download/${order_id}`}>Download Invoice<i class="fa-solid fa-download pl-2"></i></button>
     <button class="btn btn-warning col-span-2 w-4/12 justify-self-center shadow-lg" on:click={()=>window.location.href = "/customer"}>Back</button>
+
 </div>
     
 {:else}
