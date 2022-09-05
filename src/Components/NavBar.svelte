@@ -1,8 +1,6 @@
 <script>
     import {Link} from "svelte-routing"
     import {onMount} from "svelte"
-    import {IsSearchOverlayOpen} from '../Stores/IsSearchOverlayOpen'
-    import SearchBar from './SearchBar.svelte'
     import CartPopUp from "./Cart/CartPopUp.svelte"
     import {num_items, cart_items} from '../Stores/cart'
     import Loading from '../Components/Loading.svelte'
@@ -46,7 +44,7 @@
         </div>
 
         <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Search">
-            <button class="btn btn-ghost" on:click={()=>$IsSearchOverlayOpen=true}><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
+            <button class="btn btn-ghost" on:click={()=>window.location.href = "/search"}><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
         </div>
 
         <div class="tooltip tooltip-accent tooltip-bottom" data-tip="User Page">
@@ -67,12 +65,6 @@
     </div>
     
 </div>
-
-    {#if $IsSearchOverlayOpen}
-        <SearchBar />
-    {/if}
-
-    
 
 {:else}
     <Loading />

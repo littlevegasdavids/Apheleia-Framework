@@ -1,7 +1,6 @@
 <script>
     import { onMount } from 'svelte';
     import {fade} from 'svelte/transition'
-    import {IsSearchOverlayOpen} from '../Stores/IsSearchOverlayOpen'
     let products = []
     let searchValue = ""
 
@@ -36,11 +35,10 @@
 </script>
 
 <div in:fade={{duration: 100 }} out:fade={{duration: 100 }} class="grid justify-items-center">
-    <div class="w-screen h-screen fixed bg-white z-50 browser:max-w-7xl">
+    <div class="w-full bg-white">
         <div class="grid grid-rows-1 place-items-center gap-4">
-            <div class="mt-10">
+            <div class="">
                 <input type="text" placeholder="Search" class="input outline outline-1 outline-black bg-base-200" bind:value={searchValue} on:input={searchProducts}/>
-                <button class="btn btn-ghost btn-outline text-xl ml-10 shadow-lg" on:click={()=>IsSearchOverlayOpen.update(n=>n=false)}>X</button>
             </div>
             <div class="divide-y divide-black divide-solid w-full px-3">
                 <p></p>

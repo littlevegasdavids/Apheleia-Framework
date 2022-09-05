@@ -34,6 +34,7 @@
     import DeleteCustomer from "./Components/Customer/DeleteCustomer.svelte";
     import {show_notification} from './Stores/notification'
     import Notification from "./Components/Notification.svelte";
+    import SearchPage from "./Components/SearchPage.svelte";
 </script>
 
 {#if !url.includes('/dashboard')}
@@ -55,6 +56,13 @@
                     <HomePage />
                 </Transition>
             </Route>
+
+            <Route path="/search">
+                <Transition url={'/search'}>
+                    <SearchPage />
+                </Transition>
+            </Route>
+
             <Route path="/product/:id" let:params>
                 <Transition url={`/product/${params.id}`}>
                     <ProductPage product_id={params.id} />
