@@ -30,7 +30,47 @@
             <img src="/favicon.png" alt="App Logo" width="60" heigh="60"/>
         </Link>
     </div>
-    <div class="flex-none">
+
+    <div class="flex-none tablet:hidden">
+        
+
+        <div class="dropdown dropdown-left font-bold">
+            <p tabindex="0" class="btn btn-ghost m-1"><i class="fa-solid fa-bars fa-xl"></i></p>
+            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                <li>
+                    <a href="/">
+                        <i class="fa-solid fa-house pr-2 fa-xl"></i><p class="pt-1">Home</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/products">
+                        <i class="fa-solid fa-bag-shopping pr-2 fa-xl"></i><p class="pt-1">Products</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/search">
+                        <i class="fa-solid fa-magnifying-glass pr-2 fa-xl"></i><p class="pt-1">Search</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/customer">
+                        <i class="fa-solid fa-user pr-2 fa-xl"></i><p class="pt-1">User</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="indicator dropdown dropdown-end dropdown-hover">
+            <span class="indicator-item badge badge-primary rounded-full mr-3">{$num_items}</span> 
+            <Link to="/cart">
+                <button class="btn btn-ghost btn-sm">
+                <i class="fa-solid fa-xl fa-cart-shopping"></i>
+            </button>
+            </Link>
+            <CartPopUp />
+        </div>
+    </div>
+    <div class="hidden tablet:flex tablet:flex-none">
         <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Home Page">
             <Link to="/">
                 <button class="btn btn-ghost"><i class="fa-solid fa-house fa-xl"></i></button>
