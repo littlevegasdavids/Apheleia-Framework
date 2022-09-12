@@ -65,7 +65,7 @@ async function send_order_invoice(customer_email, invoice_path, order_number, cu
             subject: 'New Order', 
             html: htmlSend, 
             attachments:{
-                filename: 'Invoice.pdf', 
+                filename: 'Shop Emporium Invoice.pdf', 
                 path: invoice_path
             }
         }).then(info=>{
