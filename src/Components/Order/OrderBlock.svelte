@@ -13,13 +13,13 @@
     <div class="grid grid-cols-2">
         <p class="font-bold">Order #{order.id} | {convertDate(order.created_at)}</p>
         {#if order.status === 0}
-            <div class="badge justify-self-end">Waiting for confirmation</div>
+            <div class="badge bg-white text-black justify-self-end">Waiting for confirmation</div>
         {:else if order.status === 1}
             <div class="badge badge-primary justify-self-end">Confirmed</div>
         {:else if order.status === 2}
             <div class="badge badge-secondary justify-self-end">Shipped to address</div>
         {:else if order.status === 3}
-            <div class="badge badge-accent justify-self-end">Collected</div>
+            <div class="badge bg-success text-black justify-self-end">Collected</div>
         {/if}
     </div>
     

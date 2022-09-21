@@ -1,4 +1,4 @@
-<footer class="footer footer-center gap-2 justify-items-center p-4 bg-neutral text-neutral-content text-lg">
+<footer class="footer footer-center gap-2 justify-items-center p-4 bg-gray-200 text-lg text-black">
     <div class="grid grid-cols-2">
         <a href="/about" target="_blank">
             <span>
@@ -22,7 +22,7 @@
 
     <a href="https://www.linkedin.com/in/littlevegasdavids/" target="_blank">
         <span>
-            <i class="fa-solid fa-hammer pr-3"></i>Build by Reno Davids
+            <i class="fa-solid fa-hammer pr-3"></i>Built by Reno Davids
         </span>
     </a>
 

@@ -27,7 +27,7 @@
         </div>
     {:else}
         <div class="grid grid-cols-2 gap-4 mt-2">
-            <button class="btn btn-secondary-content btn-sm shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href=`/editAddress/${address.id}`}>Edit<i class="fa-solid fa-pen-to-square pl-2"></i></button>
+            <button class="btn btn-secondary btn-sm shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={()=>window.location.href=`/editAddress/${address.id}`}>Edit<i class="fa-solid fa-pen-to-square pl-2"></i></button>
             <button class="btn btn-error btn-sm shadow-lg tablet:w-8/12 tablet:mx-auto browser:w-6/12" on:click={deleteAddress(address.id)}>Delete<i class="fa-solid fa-trash pl-2"></i></button>
         </div>
     {/if}

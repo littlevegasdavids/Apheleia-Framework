@@ -32,7 +32,6 @@
     </div>
 
     <div class="flex-none tablet:hidden">
-        
 
         <div class="dropdown dropdown-left font-bold">
             <p tabindex="0" class="btn btn-ghost m-1"><i class="fa-solid fa-bars fa-xl"></i></p>
@@ -71,23 +70,23 @@
         </div>
     </div>
     <div class="hidden tablet:flex tablet:flex-none">
-        <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Home Page">
+        <div class="tooltip tooltip-primary tooltip-bottom" data-tip="Home Page">
             <Link to="/">
                 <button class="btn btn-ghost"><i class="fa-solid fa-house fa-xl"></i></button>
             </Link>
         </div>
 
-        <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Products Page">
+        <div class="tooltip tooltip-primary tooltip-bottom" data-tip="Products Page">
             <Link to="/products">
                 <button class="btn btn-ghost"><i class="fa-solid fa-bag-shopping fa-xl"></i></button>
             </Link>
         </div>
 
-        <div class="tooltip tooltip-accent tooltip-bottom" data-tip="Search">
+        <div class="tooltip tooltip-primary tooltip-bottom" data-tip="Search">
             <button class="btn btn-ghost" on:click={()=>window.location.href = "/search"}><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
         </div>
 
-        <div class="tooltip tooltip-accent tooltip-bottom" data-tip="User Page">
+        <div class="tooltip tooltip-primary tooltip-bottom" data-tip="User Page">
             <Link to="/customer">
                 <button class="btn btn-ghost"><i class="fa-solid fa-xl fa-user"></i></button>
             </Link>

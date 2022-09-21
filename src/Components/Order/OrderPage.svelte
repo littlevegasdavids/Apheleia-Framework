@@ -78,13 +78,13 @@
                 <p>Status: 
                     <span>
                         {#if order_details.status === 0}
-                            <div class="badge">Waiting for confirmation</div>
+                            <div class="badge bg-white text-black">Waiting for confirmation</div>
                         {:else if order_details.status === 1}
                             <div class="badge badge-primary">Confirmed</div>
                         {:else if order_details.status === 2}
                             <div class="badge badge-secondary">Shipped to address</div>
                         {:else if order_details.status === 3}
-                            <div class="badge badge-accent">Collected</div>
+                            <div class="badge bg-success text-black">Collected</div>
                         {/if}
                     </span>
                 </p>

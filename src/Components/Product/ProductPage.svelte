@@ -70,7 +70,7 @@
 {#if loading}
     <Loading />
 {:else}
-    <div class="grid bg-base-200 p-4 rounded-3xl shadow-xl gap-4 text-center outline outline-1 outline-black browser:grid-cols-2">
+    <div class="grid bg-gray-100 p-4 rounded-3xl shadow-xl gap-4 text-center outline outline-1 outline-black browser:grid-cols-2">
         <div class="grid justify-items-center">
             <a href="/product_images/{product_id}/{mainImageSrc}.jpg" target="__blank" class="">
                 <img src="/product_images/{product_id}/{mainImageSrc}.jpg" alt="{product.name} - image" class="rounded-xl shadow-lg" height="600" width="450" id="displayImage"/>
@@ -119,7 +119,7 @@
             <p class="font-bold text-3xl pb-3">You may also like</p>
             <div class="grid grid-cols-3 gap-3 text-center browser:grid-cols-4">
                 {#each other_products as other}
-                    <div class="grid grid-cols-1 bg-base-300 p-3 rounded-2xl shadow-lg browser:hover:bg-secondary">
+                    <div class="grid grid-cols-1 bg-base-300 p-3 rounded-2xl shadow-lg browser:hover:bg-primary">
                         <Link to="/product/{other.id}">
                             <img src="/product_images/{other.id}/1.jpg" alt={other.name + " - image"} class="rounded-lg" height="400" width="300"/>
                         </Link>

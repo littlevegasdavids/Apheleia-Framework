@@ -10,6 +10,15 @@ module.exports = {
   },
   plugins: [require('daisyui')],
   daisyui:{
-    themes:['pastel']
+    themes:[
+      {
+        mytheme: {
+          primary: "#ca9138", 
+          secondary: "#2c5569", 
+          accent: "#060f16",
+          "base-100": "#ffffff"
+        }
+      }
+    ]
   }
 }
