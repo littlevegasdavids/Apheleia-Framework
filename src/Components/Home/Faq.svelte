@@ -10,6 +10,6 @@
     </div>
     <div>   
         <p class="font-bold">Who do I contact about my order ?</p>
-        <p class="">Please email us at shop@email.com with your name, email and order number.</p>
+        <p class="">Please email us at support@shopemporium.co.za with your name, email and order number.</p>
     </div>
 </div>

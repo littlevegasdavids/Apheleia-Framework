@@ -6,7 +6,11 @@ module.exports = {
       "tablet": "700px",
       "browser": "1024px"
     },
-    extend: {},
+    extend: {
+      fontFamily:{
+        'sans': ['New_Cicle']
+      }
+    },
   },
   plugins: [require('daisyui')],
   daisyui:{

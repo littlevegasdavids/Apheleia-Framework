@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base{
-    html{
-        font-family: Helvetica;
+    body{
+        font-family: 'Poppins', sans-serif;
     }
 }
