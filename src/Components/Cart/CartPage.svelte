@@ -31,7 +31,7 @@
             </div>
             
             <div class="grid justify-center gap-5 p-5 w-full">
-                <p class="font-extrabold text-2xl text-center">Subtotal: R{total}</p>
+                <p class="font-extrabold text-2xl text-center">Total: R{total}</p>
                 <button class="btn btn-success shadow-lg" on:click={()=>window.location.href="/checkout"}>Check out<i class="fa-solid fa-basket-shopping fa-lg pl-2"></i></button>
                 <button class="btn btn-primary shadow-lg" on:click={()=>window.location.href="/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
             </div>
