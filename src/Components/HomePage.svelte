@@ -7,8 +7,8 @@
 
 <div class="grid divide-y divide-solid max-w-6xl mx-auto text-black">
     <h1 class="font-bold text-3xl pb-5 text-center underline underline-offset-4 tablet:text-4xl browser:text-6xl">Welcome to Emporium Of Curiosity</h1>
-    <div class="py-5">
-        <About />
+    <div class="py-5" id="about">
+        <About/>
         <div class="grid justify-items-center py-5">
             <Link to="/products">
                 <button class="btn btn-primary shadow-lg">See Latest Products</button>
@@ -16,8 +16,8 @@
         </div>
     </div>
     
-    <div class="py-5">
-        <FAQ />
+    <div class="py-5" id="faq">
+        <FAQ/>
     </div>
 
 </div>

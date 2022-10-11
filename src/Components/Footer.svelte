@@ -1,12 +1,12 @@
 <footer class="footer footer-center gap-2 justify-items-center p-4 bg-gray-200 text-lg text-black">
     <div class="grid grid-cols-2">
-        <a href="/about" target="_blank">
+        <a href="/#about" target="_blank">
             <span>
                 <i class="fa-solid fa-circle-info pr-3"></i>About
             </span>
         </a>
     
-        <a href="/faq" target="_blank">
+        <a href="/#faq" target="_blank">
             <span>
                 <i class="fa-solid fa-circle-question pr-3"></i>FAQ
             </span>
