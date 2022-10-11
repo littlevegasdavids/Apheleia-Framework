@@ -27,7 +27,7 @@
                     {:else}
                         <p class="text-center">[Deleted Customer]</p>
                     {/if}
-                    <p class="text-end">R{order.subtotal}</p>
+                    <p class="text-end">R{order.total}</p>
                 </div>
             <p>{order.shipping_address}</p>
             <div class="grid grid-cols-2 gap-4">

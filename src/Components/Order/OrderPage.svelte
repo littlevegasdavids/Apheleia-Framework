@@ -92,8 +92,6 @@
                 <p>Shipped to: {order_details.shipping_address}</p>
 
                 <div class="grid pt-3">
-                    <p class="text-lg">Subtotal: R{order_details.subtotal}</p>
-                    <p class="text-lg">Shipping: R{order_details.shipping_price}</p>
                     <p class="font-bold text-lg">Total: R{order_details.total}</p> 
                 </div>
             </div>

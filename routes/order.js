@@ -17,8 +17,6 @@ router.post('/', async(req, res)=>{
         const total = parseInt(req.body.total)
         const customer_id = parseInt(req.customer_id)
         const shipping_address = req.body.shipping_address
-        const shipping_price = parseInt(req.body.shipping_price)
-        const subtotal = parseInt(req.body.subtotal)
     
         if(isNaN(total)){
             return res.status(400).json({success: false, message: "Total invalid format"})
@@ -26,15 +24,6 @@ router.post('/', async(req, res)=>{
     
         if(isNaN(customer_id)){
             return res.status(400).json({success: false, message: "Customer ID invalid format"})
-        }
-    
-    
-        if(isNaN(shipping_price)){
-            return res.status(400).json({success: false, message: "Shipping Price invalid format"})
-        }
-    
-        if(isNaN(subtotal)){
-            return res.status(400).json({success: false, message: "Subtotal invalid format"})
         }
     
         if(payment_provider === undefined){
@@ -52,12 +41,6 @@ router.post('/', async(req, res)=>{
         if(shipping_address === undefined){
             return res.status(400).json({success: false, message:"Shipping Address missing in req body"})
         }
-        if(shipping_price === undefined){
-            return res.status(400).json({success: false, message:"Shipping Price missing in req body"})
-        }
-        if(subtotal === undefined){
-            return res.status(400).json({success: false, message:"Subtotal missing in req body"})
-        }
     
         const order_details = await prisma.order_Details.create({
             data:{
@@ -65,8 +48,6 @@ router.post('/', async(req, res)=>{
                 total: total,
                 status: 0, 
                 shipping_address: shipping_address,
-                shipping_price: shipping_price,
-                subtotal: subtotal
             }
         })
     
@@ -112,7 +93,7 @@ router.post('/', async(req, res)=>{
             }
         })
     
-        create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, subtotal, shipping_price, total)
+        create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, total)
     
         logger.info(`Order API -- Created id: ${order.id}`)
         return res.status(201).json({success: true, message: {order}})
@@ -123,7 +104,7 @@ router.post('/', async(req, res)=>{
     }
 })
 
-async function create_and_send_invoice(order_number, customer_name, shipping_address, payment_service, subtotal, shipping_price, total){
+async function create_and_send_invoice(order_number, customer_name, shipping_address, payment_service, total){
     try{
         const order = await prisma.order_Details.findUnique({
             where:{
@@ -152,9 +133,7 @@ async function create_and_send_invoice(order_number, customer_name, shipping_add
             customer_name: customer_name, 
             shipping_address: shipping_address, 
             items: items, 
-            payment_service: payment_service, 
-            subtotal_amount: String(subtotal), 
-            shipping_amount: String(shipping_price), 
+            payment_service: payment_service,  
             total_amount: String(total)
         }
         const html = template(replace)

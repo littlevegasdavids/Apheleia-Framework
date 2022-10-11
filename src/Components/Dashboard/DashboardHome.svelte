@@ -57,7 +57,7 @@
             orders = list_orders
             orders.forEach(order => {
                 numItemsSold += order.Order_Items.length
-                revenue += order.subtotal
+                revenue += order.total
             });
         }
         else{
@@ -69,7 +69,7 @@
             })
             orders.forEach(order =>{
                 numItemsSold += order.Order_Items.length
-                revenue += order.subtotal
+                revenue += order.total
             })
         }
     }

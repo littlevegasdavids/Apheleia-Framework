@@ -2,8 +2,6 @@
     export let total
     export let items
     export let shipping_address
-    export let shipping_price
-    export let subtotal
 
     let item_ids = []
     items.forEach(element => {
@@ -63,8 +61,6 @@
                                 product_ids: item_ids,
                                 total: (total/100),
                                 shipping_address: shipping_address,
-                                subtotal: subtotal, 
-                                shipping_price: shipping_price
                             })
                         })
 
