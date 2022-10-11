@@ -24,7 +24,7 @@
 </script>
 
 {#if !loading}
-<div class="navbar bg-white shadow-xl rounded-xl z-40 w-11/12 mx-auto tablet:w-10/12 browser:w-8/12">
+<div class="navbar bg-white shadow-xl rounded-xl w-11/12 mx-auto tablet:w-10/12 browser:w-8/12">
     <div class="flex-1">
         <Link to="/">
             <img src="/logo.jpg" alt="App Logo" width="90" heigh="90"/>
