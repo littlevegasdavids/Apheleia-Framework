@@ -35,7 +35,7 @@
 
         <div class="dropdown dropdown-left font-bold">
             <p tabindex="0" class="btn btn-ghost m-1"><i class="fa-solid fa-bars fa-xl"></i></p>
-            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-gray-200 rounded-box w-52">
                 <li>
                     <a href="/">
                         <i class="fa-solid fa-house pr-2 fa-xl"></i><p class="pt-1">Home</p>

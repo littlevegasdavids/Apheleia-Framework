@@ -6,7 +6,7 @@
     </div>
     <div>   
         <p class="font-bold">Which countries do you ship to ?</p>
-        <p class="">As of now we only ship locally in South Africa, however we are planning to ship to other countries in the near future</p>
+        <p class="">As of now we only ship locally in South Africa, however we are planning to ship to other countries in the near future.</p>
     </div>
     <div>   
         <p class="font-bold">Who do I contact about my order ?</p>
