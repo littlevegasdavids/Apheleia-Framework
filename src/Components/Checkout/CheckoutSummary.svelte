@@ -1,7 +1,6 @@
 <script>
     import { onMount } from "svelte";
     import Yoco from '../Payment/Yoco.svelte'
-    import CartItems from '../Cart/CartItems.svelte'
     import Loading from '../Loading.svelte'
     import CartItemsTable from "../Cart/CartItemsTable.svelte";
     export let address_id
@@ -29,8 +28,6 @@
             if(items.length === 0){
                 window.location.href = "/cart"
             }
-
-            total = session.total + 100
         }
         else{
             console.error(session_result.message)
@@ -60,14 +57,12 @@
                 <p></p>
                 <p class="font-bold text-center py-5 tablet:text-xl">Shipping Address: {addressToString(address)}</p>
                 <div class="py-3 text-xl text-center tablet:text-2xl">
-                    <p>Shipping fee: R100</p>
-                    <p>Subtotal: R{session.total}</p>
-                    <p class="font-bold">Total: R{total}</p>
+                    <p class="font-bold">Total: R{session.total}</p>
                 </div>
                 <p class="py-3"></p>
             </div> 
             <div class="grid gap-4 tablet:w-8/12 tablet:mx-auto">
-                <Yoco total={total * 100} items={items} subtotal={session.total} shipping_price={100} shipping_address={addressToString(address)}/>
+                <Yoco total={session.total * 100} items={items} subtotal={session.total} shipping_address={addressToString(address)}/>
                 <button class="btn btn-secondary shadow-lg" on:click={()=>window.location.href = "/checkout"}>Select different address<i class="fa-solid fa-pen-to-square fa-lg pl-2"></i></button>
                 <button class="btn btn-primary shadow-lg" on:click={()=>window.location.href = "/products"}>Continue Shopping<i class="fa-solid fa-bag-shopping fa-lg pl-2"></i></button>
             </div>
