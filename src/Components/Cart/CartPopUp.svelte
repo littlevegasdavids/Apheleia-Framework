@@ -21,7 +21,7 @@
                 {#each $cart_items as item}
                     <div class="grid py-2">
                         <p>{item.Product.name}</p>
-                        <p>R{item.Product.price}</p>
+                        <p class="font-bold">R{item.Product.price}</p>
                     </div>
                 {/each}
             </div>
