@@ -116,7 +116,7 @@
                 <div class='grid gap-4 justify-items-center'>
                     {#each orders as order}
                         <div class="{getOrderColour()} rounded-md shadow-xl outline outline-black outline-1 p-3 w-full grid">
-                            <p class="text-center font-bold text-xl">#{order.id}</p>
+                            <p class="text-start font-bold text-xl pb-3">#{order.id}</p>
                             <div class="grid grid-cols-2 gap-4">
                                 {#each order.Order_Items as item}
                                     {#if item.product_id != null}

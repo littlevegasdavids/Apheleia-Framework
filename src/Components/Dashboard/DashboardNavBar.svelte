@@ -3,13 +3,17 @@
     const pathname = window.location.pathname
 </script>
 
-<div class="navbar bg-base-300 shadow-xl rounded-xl z-40 mx-auto browser:w-8/12">
+<div class="navbar bg-white shadow-xl rounded-xl z-40 mx-auto browser:w-8/12">
     <div class="flex-1">
         <Link to="/dashboard">
-            <img src="/favicon.png" alt="App Logo" width="60" heigh="60"/>
+            <img src="/logo.jpg" alt="App Logo" width="60" heigh="60"/>
         </Link>
     </div>
     <div class="flex-none gap-2">
+        <Link to="/dashboard">
+            <button class="btn btn-ghost">Home</button>
+        </Link>
+
         <Link to="/dashboard/orders">
             <button class="btn btn-ghost">Orders</button>
         </Link>

@@ -33,7 +33,7 @@
     }
 </script>
 
-<div class="collapse collapse-arrow outline outline-1 outline-black bg-accent rounded-md collapse-open" id="new_orders_collapse">
+<div class="collapse collapse-arrow outline outline-1 outline-black bg-gray-200 rounded-md collapse-open" id="new_orders_collapse">
     <div class="collapse-title text-3xl text-center font-bold pb-5" on:click={()=>collapseCard("new_orders_collapse")}>
         New Orders
     </div>
