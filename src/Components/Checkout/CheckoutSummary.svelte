@@ -56,6 +56,7 @@
             <div class="divide-y divide-solid">
                 <p></p>
                 <p class="font-bold text-center py-5 tablet:text-xl">Shipping Address: {addressToString(address)}</p>
+                <p class="font-bold text-center py-5 text-green-500 underline underline-offset-2 tablet:text-xl">Free shipping including</p>
                 <div class="py-3 text-xl text-center tablet:text-2xl">
                     <p class="font-bold">Total: R{session.total}</p>
                 </div>
