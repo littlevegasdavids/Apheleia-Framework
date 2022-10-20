@@ -56,6 +56,6 @@
 {:else if addedToCart === false}
     <button class="btn btn-primary shadow-lg {extraCss}" on:click={addItemToCart} id="btn">Add To Cart<i class="fa-solid fa-cart-shopping pl-2"></i></button>
 {:else}
-    <button class="btn btn-error shadow-lg {extraCss}" on:click={removeItemFromCart} id="btn">Remove from Cart</button>
+    <button class="btn bg-teal-600 hover:bg-teal-600 shadow-lg {extraCss}" on:click={removeItemFromCart} id="btn">Remove from Cart</button>
 {/if}
 
