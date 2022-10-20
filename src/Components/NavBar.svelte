@@ -82,7 +82,7 @@
         </div>
     </div>
     <div class="hidden tablet:flex tablet:flex-none">
-        <div class="dropdown dropdown-end font-bold">
+        <div class="dropdown dropdown-end dropdown-hover font-bold">
             <p tabindex="0" class="btn btn-ghost m-1"><i class="fa-solid fa-house fa-xl"></i></p>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-gray-200 rounded-box w-52">
                 <li>
