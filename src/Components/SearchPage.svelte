@@ -47,9 +47,9 @@
             </div>
             
             {#each products as product}
-                <div class="grid grid-cols-4 justify-items-start w-10/12 rounded-xl shadow-xl outline outline-solid outline-1 bg-gray-100 text-black browser:text-xl cursor-pointer" on:click={()=>window.location.href=`/product/${product.id}`}>
+                <div class="grid grid-cols-2 tablet:grid-cols-4 justify-items-start w-10/12 rounded-xl shadow-xl outline outline-solid outline-1 bg-gray-100 text-black browser:text-xl cursor-pointer tablet:w-8/12" on:click={()=>window.location.href=`/product/${product.id}`}>
                     <img src="/product_images/{product.id}/1.jpg" alt="{product.name} - image" width="150" class="p-2 rounded-lg shadow-lg"/>
-                    <p class="text-lg font-bold col-span-2 col-start-2 place-self-center justify-start">{product.name}</p>
+                    <p class="text-base browser:text-xl font-bold tablet:col-span-2 tablet:col-start-2 place-self-center justify-start">{product.name}</p>
                 </div>
             {:else}
                 <p class="browser:text-xl">Empty</p>
