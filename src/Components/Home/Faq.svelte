@@ -1,5 +1,5 @@
 <div class="grid gap-3">
-    <p class="text-3xl font-bold text-center underline underline-offset-4">FAQ</p>
+    <p class="text-3xl font-bold text-center underline underline-offset-4 tablet:text-5xl">FAQ</p>
     <div>   
         <p class="font-bold">How long until I get my order ?</p>
         <p class="">1-3 weeks.</p>

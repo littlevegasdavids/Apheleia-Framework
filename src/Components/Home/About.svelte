@@ -11,7 +11,7 @@
 </script>
 
 <div class="text-center grid gap-3">
-    <h1 class="text-3xl font-bold underline underline-offset-4 pb-3">About</h1>
+    <h1 class="text-3xl font-bold underline underline-offset-4 pb-3 tablet:text-5xl">About</h1>
     <div class="grid grid-cols-1 tablet:grid-cols-2 gap-6">
         <p class="tablet:self-center browser:text-xl">
             Colin Davids has been an active collector in the industry of collecting vintage pieces for over 40 years. Ramona Davids met Colin in the early 90's and was instantly deeply passionate of the idea of these beautiful pieces that have been maintained for years and are incredibly well-looked-after.

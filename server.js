@@ -300,6 +300,14 @@ app.get('/search', (req, res)=>{
     return res.sendFile(__dirname + "/public/index.html") 
 })
 
+app.get('/about', (req, res)=>{
+    return res.sendFile(__dirname + "/public/index.html") 
+})
+
+app.get('/faq', (req, res)=>{
+    return res.sendFile(__dirname + "/public/index.html") 
+})
+
 setInterval(async()=>{
     // numHours is the number of hours where a cart will be deleted if not used in that amount of hours
     const numHours = 3

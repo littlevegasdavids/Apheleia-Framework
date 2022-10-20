@@ -35,6 +35,8 @@
     import {show_notification} from './Stores/notification'
     import Notification from "./Components/Notification.svelte";
     import SearchPage from "./Components/SearchPage.svelte";
+    import Faq from "./Components/Home/Faq.svelte";
+    import About from "./Components/Home/About.svelte";
 </script>
 
 {#if !url.includes('/dashboard')}
@@ -174,6 +176,18 @@
             <Route path="/deleteAccount">
                 <Transition url={"/deleteAccount"}>
                     <DeleteCustomer />
+                </Transition>
+            </Route>
+
+            <Route path="/about">
+                <Transition url={"/about"}>
+                    <About />
+                </Transition>
+            </Route>
+
+            <Route path="/faq">
+                <Transition url={"/faq"}>
+                    <Faq />
                 </Transition>
             </Route>
         
