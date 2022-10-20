@@ -1,4 +1,6 @@
 <script>
+    import {waiting_for_payment} from '../../Stores/waitingPayment'
+
     export let total
     export let items
     export let shipping_address
@@ -19,6 +21,7 @@
             name: 'App Heading',
             description: '',
             callback: async function(result){
+                $waiting_for_payment = true
                 if(result.error){
                     const errorMessage = result.error.message 
                     alert('Unable to make payment: ' + errorMessage)
@@ -67,6 +70,7 @@
                         const order_result = await order_res.json()
                         
                         if(order_result.success){
+                            $waiting_for_payment = false
                             window.location.href = `/order/${order_result.message.order.id}`
                         }
                         
@@ -74,9 +78,11 @@
                     else{
                         // Show error message on checkout page
                         if(result.message === "Card declined"){
+                            $waiting_for_payment = false
                             alert('Card declined. Please contact your bank or try again with another card')
                         }
                         else{
+                            $waiting_for_payment = false
                             alert('Internal server error. You have not been charged. Please try again.')
                         }
                     }
@@ -87,4 +93,3 @@
 </script>
 
 <button id="checkout-button" class="btn btn-success shadow-lg" on:click={sendYocoPayment}>Pay With Yoco<i class="fa-solid fa-money-check-dollar fa-lg pl-2"></i></button>
-

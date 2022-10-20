@@ -93,7 +93,7 @@ router.post('/', async(req, res)=>{
             }
         })
     
-        create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, total)
+        await create_and_send_invoice(order.id, order.Customer.name, shipping_address, payment_provider, total)
     
         logger.info(`Order API -- Created id: ${order.id}`)
         return res.status(201).json({success: true, message: {order}})
@@ -155,7 +155,7 @@ async function create_and_send_invoice(order_number, customer_name, shipping_add
         await page.pdf({path: invoice_path, format: 'A4'})
         await browser.close()
 
-        send_order_invoice(order.Customer.email, invoice_path, order_number, order.Customer.name)
+        await send_order_invoice(order.Customer.email, invoice_path, order_number, order.Customer.name)
     
         logger.info(`Successfully created Order Invoice #${order_number}`)
     }

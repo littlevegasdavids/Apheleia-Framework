@@ -3,11 +3,12 @@
     import Yoco from '../Payment/Yoco.svelte'
     import Loading from '../Loading.svelte'
     import CartItemsTable from "../Cart/CartItemsTable.svelte";
+    import {waiting_for_payment} from '../../Stores/waitingPayment'
+
     export let address_id
     let address = null
     let session = null
     let items = null
-    let total
 
     onMount(async ()=>{
         const address_res = await fetch(`/api/customer/address/get/${address_id}`)
@@ -42,11 +43,12 @@
 
 {#if address === null || items === null || session === null}
     <Loading /> 
-{:else}
+{:else if !$waiting_for_payment}
 <div class="divide-y divide-solid">
     <h1 class="font-bold text-2xl text-center underline underline-offset-8 tablet:text-4xl">Checkout Summary</h1>
     <p class="my-5"></p>
 </div>
+
 
     <div class="grid gap-4 tablet:w-9/12 tablet:mx-auto">
         <div class="grid justify-items-center">
@@ -70,4 +72,10 @@
         </div>
          
     </div>
+{:else if waiting_for_payment}
+<div class="font-bold text-center text-4xl pt-5">
+    <p>Waiting for payment confirmation ... <i class="fas fa-spinner fa-spin"></i></p>
+</div>  
 {/if}
+
+
