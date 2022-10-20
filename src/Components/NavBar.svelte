@@ -24,7 +24,7 @@
 </script>
 
 {#if !loading}
-<div class="navbar bg-white shadow-xl rounded-xl w-11/12 mx-auto tablet:w-10/12 browser:w-8/12">
+<div class="navbar bg-white shadow-xl rounded-xl w-11/12 mx-auto outline outline-1 outline-black p-3 tablet:w-10/12 browser:w-8/12">
     <div class="flex-1">
         <Link to="/">
             <img src="/logo.jpg" alt="App Logo" width="90" heigh="90"/>
@@ -56,6 +56,18 @@
                         <i class="fa-solid fa-user pr-2 fa-xl"></i><p class="pt-1">User</p>
                     </a>
                 </li>
+
+                <li>
+                    <a href="/about">
+                        <i class="fa-solid fa-circle-info pr-2 fa-xl"></i><p class="pt-1">About</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/faq">
+                        <i class="fa-solid fa-circle-question pr-2 fa-xl"></i><p class="pt-1">Faq</p>
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -70,10 +82,27 @@
         </div>
     </div>
     <div class="hidden tablet:flex tablet:flex-none">
-        <div class="tooltip tooltip-primary tooltip-bottom" data-tip="Home Page">
-            <Link to="/">
-                <button class="btn btn-ghost"><i class="fa-solid fa-house fa-xl"></i></button>
-            </Link>
+        <div class="dropdown dropdown-end font-bold">
+            <p tabindex="0" class="btn btn-ghost m-1"><i class="fa-solid fa-house fa-xl"></i></p>
+            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-gray-200 rounded-box w-52">
+                <li>
+                    <a href="/">
+                        <i class="fa-solid fa-house pr-2 fa-xl"></i><p class="pt-1">Home</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/about">
+                        <i class="fa-solid fa-circle-info pr-2 fa-xl"></i><p class="pt-1">About</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/faq">
+                        <i class="fa-solid fa-circle-question pr-2 fa-xl"></i><p class="pt-1">Faq</p>
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <div class="tooltip tooltip-primary tooltip-bottom" data-tip="Products Page">

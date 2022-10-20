@@ -33,7 +33,7 @@
         </div>
     </div>
 {:else}
-<div tabindex="0" class="mt-10 card card-compact dropdown-content w-52 bg-base-100 shadow">
+<div tabindex="0" class="mt-10 card card-compact dropdown-content w-52 shadow bg-gray-200">
     <div class="card-body">
         <p>Cart is empty</p>
     </div>
