@@ -9,6 +9,9 @@ const puppeteer = require('puppeteer')
 
 const {send_order_invoice, order_confirmed_email, order_shipped_email} = require('../helpers/nodeMailer')
 
+//Demo purposes
+const axios = require('axios')
+
 // *** Create ***
 router.post('/', async(req, res)=>{
     try{
@@ -66,7 +69,9 @@ router.post('/', async(req, res)=>{
                     order_id: order_details.id
                 }
             })
-    
+            /*
+            Demo purposes: Do not set item to sold
+            Live purposes: Set item to sold
             await prisma.product.update({
                 where:{
                     id: product_id
@@ -76,6 +81,17 @@ router.post('/', async(req, res)=>{
                 }
             })
             logger.info(`Order API -- Product Sold id: ${product_id}`)
+            */
+
+            //Demo purposes: Remove items sold from the customer cart
+
+            await prisma.cart_Item.deleteMany({
+                where:{
+                    session_id: req.session_id
+                }
+            })
+
+            logger.info(`Order API -- Removed cart item ${product_id} from cart session ${req.session_id}`)
         })
     
         const order = await prisma.order_Details.findUnique({

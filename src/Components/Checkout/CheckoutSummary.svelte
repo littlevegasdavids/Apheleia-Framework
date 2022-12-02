@@ -46,6 +46,16 @@
 {:else if !$waiting_for_payment}
 <div class="divide-y divide-solid">
     <h1 class="font-bold text-2xl text-center underline underline-offset-8 tablet:text-4xl">Checkout Summary</h1>
+    <!--Demo Purposes-->
+    <h1 class="font-bold text-center py-5 text-xl text-red-600">This is currently a live demo of the website.
+    <br>
+    <br>
+    The items you are about to "purchase" are only to demonstrate the functionality of the website.
+    <br>
+    <br>
+    To successfully simulate a Yoco transaction please use the current card details
+    </h1>
+    <img alt="yoco-test-card" src="/yoco-test-card.png" class="mx-auto" width="350"> 
     <p class="my-5"></p>
 </div>
 
