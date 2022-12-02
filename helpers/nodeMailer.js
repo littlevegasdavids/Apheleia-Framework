@@ -1,3 +1,5 @@
+// Testing Nodemailer
+
 require('dotenv').config()
 const nodemailer = require('nodemailer')
 let logger = require('./logger')
