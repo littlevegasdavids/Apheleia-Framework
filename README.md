@@ -11,7 +11,7 @@ Over all the costs are padded up and will end up with the business owner paying 
 ## ✅ Solution ✅
 I created my own ecommerce platform named "Apheleia" (The goddess of simplicity) from scratch with the basic functionality to run a quick and efficient ecommerce website. These functions include and are not limited to cart functionality and management of products and orders through a dashboard interface.
 
-The final product of what you see today is something I am very proud of. The website loads content and responds more quickly than a platform like Shopify and WooCommerce which creates an amazing end user experience.
+The final product of what you see today is something I am very proud of. The website loads content and responds quickly which creates an amazing end user experience compared to deploying a website to Shopify or Woocommerce which only gives you more traffic bandwith if your website generates more traffic.
 
 ## 📚 What I learnt 📚
 The platform took me 3 months to create. It taught me a lot about creating a full-stack web app with the creative frontend and the modular approach to the backend structure, both aspects of coding that I love to implement. 
