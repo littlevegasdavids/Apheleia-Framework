@@ -63,6 +63,7 @@
         <div class="">
             <p class="pb-1 tablet:text-xl">Password</p>
             <input type="Password" class="input outline outline-black outline-1 " bind:value={password}/>
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
             <p class="text-center pt-3 cursor-pointer underline underline-offset-2" on:click={()=>window.location.href="/forgot-password"}>Forgot Password ?</p>
         </div>
         

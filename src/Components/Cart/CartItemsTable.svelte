@@ -21,7 +21,7 @@
             <tr class="hover">
                 
                 <td>
-                    <a href="/product/{item.Product.id}" target="_blank">
+                    <a href="/product/{item.Product.id}" target="_blank" rel="noreferrer">
                         <div class="grid tablet:hidden">
                             <img src="/product_images/{item.Product.id}/1.jpg" height="60" width="45" alt="{item.Product.name} - image" class="rounded-md shadow-lg"/>
                         </div>

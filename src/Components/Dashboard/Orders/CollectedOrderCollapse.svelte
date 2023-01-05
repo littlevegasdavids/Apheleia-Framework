@@ -14,6 +14,7 @@
 </script>
 
 <div class="collapse collapse-arrow outline outline-1 outline-black bg-gray-400 rounded-md collapse-open" id="collected_orders_collapse">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="collapse-title text-3xl text-center font-bold pb-5" on:click={()=>collapseCard("collected_orders_collapse")}>
         Collected Orders
     </div>
