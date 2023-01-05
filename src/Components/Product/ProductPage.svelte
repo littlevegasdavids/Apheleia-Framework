@@ -72,12 +72,15 @@
 {:else}
     <div class="grid bg-gray-100 p-4 rounded-3xl shadow-xl gap-4 text-center outline outline-1 outline-black browser:grid-cols-2">
         <div class="grid justify-items-center">
-            <a href="/product_images/{product_id}/{mainImageSrc}.jpg" target="__blank" class="">
+            <a href="/product_images/{product_id}/{mainImageSrc}.jpg" target="_blank" class="" rel="noreferrer">
                 <img src="/product_images/{product_id}/{mainImageSrc}.jpg" alt="{product.name} - image" class="rounded-xl shadow-lg" height="600" width="450" id="displayImage"/>
             </a>
             <div class="grid grid-cols-3 gap-3 pt-5">
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <img src ="/product_images/{product_id}/1.jpg" alt="{product.name} - image 1" height="60" width="45" class={image1Css} on:click={()=>changeMainImage(1)} id="image1"/>
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <img src ="/product_images/{product_id}/2.jpg" alt="{product.name} - image 1" height="60" width="45" class={image2Css} on:click={()=>changeMainImage(2)} id="image2"/>
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <img src ="/product_images/{product_id}/3.jpg" alt="{product.name} - image 1" height= "60" width="45" class={image3Css} on:click={()=>changeMainImage(3)} id="image3"/>
             </div>
         </div>

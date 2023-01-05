@@ -76,7 +76,7 @@
                             <button class="btn btn-secondary btn-circle" on:click={()=>window.location.href=`/dashboard/editProduct/${product.id}`}><i class="fa-solid fa-pen-to-square"></i></button>
                         </div>
                         <div class="tooltip tooltip-primary" data-tip="View">
-                            <a href="/product/{product.id}" target="_blank">
+                            <a href="/product/{product.id}" target="_blank" rel="noreferrer">
                                 <button class="btn btn-primary btn-circle"><i class="fa-solid fa-eye"></i></button>
                             </a> 
                         </div>
